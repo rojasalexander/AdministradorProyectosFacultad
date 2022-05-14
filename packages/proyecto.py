@@ -1,5 +1,5 @@
-from packages.actividad import *
-from packages.relacion import *
+from actividad import *
+from relacion import *
 
 class Proyecto:
     def __init__(self, nombre: str, descripcion: str, fechaInicio, identificador = 0) -> None:

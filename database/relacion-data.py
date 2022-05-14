@@ -74,10 +74,10 @@ def modify_relacion(id, rel: Relacion, proyecto_id):
         WHERE :identificador = identificador AND :proyecto_id = proyecto_id""",
             {
                 "identificador": id,
-                "nombre": act.nombre,
-                "duracion": act.duracion,
+                "nombre": rel.nombre,
+                "duracion": rel.duracion,
                 "proyecto_id": proyecto_id,
-                "fechaInicioTemprano": (act.fechaInicioTemprano, '')[act.fechaInicioTemprano != None],
-                "fechaInicioTardio": (act.fechaInicioTardio, '')[act.fechaInicioTardio != None]
+                "fechaInicioTemprano": (rel.fechaInicioTemprano, '')[rel.fechaInicioTemprano != None],
+                "fechaInicioTardio": (rel.fechaInicioTardio, '')[rel.fechaInicioTardio != None]
             }
         )

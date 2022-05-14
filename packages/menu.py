@@ -1,6 +1,8 @@
 from packages.proyecto import *
 #from proyecto import crear_proyecto
 
+
+
 def menu_principal():
     print("Planificador de proyectos (alpha)")
     x = ""
@@ -40,7 +42,13 @@ def menu_proyecto(proy: Proyecto):
         print()
         print("-" * 100)
         print(f"Proyecto = {proy.nombre}")
-        print(f"Actividades = {[x.nombre for x in proy.actividades]}")
-        print(f"Relaciones = {[x.identificador for x in proy.relaciones]}")
+        print("Index".ljust(15), "Activity Description".ljust(50), "Required Predecessor".ljust(50), "Duration (Days)".ljust(50))
+        for actividad in proy.actividades:
+            print(
+                f"{actividad.identificador}".ljust(15),
+                f"{actividad.nombre}".ljust(50),
+                f"{[y.identificador for y in proy.actividades if y.identificador in [x.actividadPrecedente for x in proy.relaciones if x.actividadSiguiente == actividad.identificador]]}".ljust(50),
+                f"{actividad.duracion}"
+                )
         print("-" * 100)
         print()

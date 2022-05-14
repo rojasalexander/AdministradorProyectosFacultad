@@ -1,7 +1,7 @@
 import sqlite3
 import sys
 sys.path.append('packages')
-from proyecto import *
+from proyecto import Proyecto
 
 
 

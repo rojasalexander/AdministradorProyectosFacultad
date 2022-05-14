@@ -1,7 +1,7 @@
 import sqlite3
 import sys
 sys.path.append('packages')
-from actividad import *
+from actividad import Actividad
 
 
 #Establecemos la conexion con la base de datos de proyectos

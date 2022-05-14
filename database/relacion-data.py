@@ -1,7 +1,7 @@
 import sqlite3
 import sys
 sys.path.append('packages')
-from relacion import *
+from relacion import Relacion
 
 #Establecemos la conexion con la base de datos de proyectos
 connection = sqlite3.connect("database.db")

@@ -1,5 +1,5 @@
-from database.proyectodata import create_proyecto, create_table
-from packages.proyecto import *
+# from database.proyectodata import create_proyecto, create_table
+from proyecto import *
 import sys
 sys.path.append('database')
 from actividaddata import *
@@ -51,3 +51,5 @@ def menu_proyecto(proy: Proyecto):
         print(f"Relaciones = {[x.identificador for x in proy.relaciones]}")
         print("-" * 100)
         print()
+
+menu_principal()

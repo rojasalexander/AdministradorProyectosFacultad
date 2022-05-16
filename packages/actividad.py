@@ -1,8 +1,8 @@
 import datetime as date
 
 class Actividad:
-    def __init__(self, nombre: str, duracion: int, identificador = 0) -> None:
-        self.identificador = identificador
+    def __init__(self, nombre: str, duracion: int) -> None:
+        self.identificador = 0
         self.nombre = nombre
         self.duracion = duracion
 

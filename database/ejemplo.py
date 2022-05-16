@@ -2,21 +2,13 @@ import sqlite3
 
 #-----------------------------------Creamos una clase de prueba-----------------------------------------------
 class Empleado:
-    def __init__(self, nombre, apellido, sueldo) -> None:
+    def __init__(self, nombre, sueldo) -> None:
         self.nombre = nombre
-        self.apellido = apellido
         self.sueldo = sueldo
-        self.activo = 1
-
-    def email(self):
-        return "{}.{}@gmail.com".format(self.nombre[:2], self.apellido)
-    
-    def nombre_completo(self):
-        return "{} {}".format(self.nombre, self.apellido)
     
     def imprimir_empleado(self):
         print("Empleado: ")
-        print(f"Nombre: {self.nombre}\nApellido: {self.apellido}\nSueldo: {self.sueldo}")
+        print(f"Nombre: {self.nombre}\nSueldo: {self.sueldo}")
 
 def crear_empleados():
     print("BIENVENIDO A BASE DE DATOS DE PRUEBA")
@@ -26,17 +18,14 @@ def crear_empleados():
             break
         
         nombre = input("Ingrese el nombre del empleado: ")
-        apellido = input("Ingrese el apellido del empleado: ")
         sueldo = int(input("Ingrese el sueldo del empleado: "))
-        empleado = Empleado(nombre, apellido, sueldo)
+        empleado = Empleado(nombre, sueldo)
         crear_empleado(empleado)
 
 def obtener_empleados():
     empleados = get_empleados()
     print(empleados)
         
-
-
 #----------------------------Todo lo relacionado a la base de datos-----------------------------------------------
 
 #Para conectarnos a una base de datos
@@ -51,30 +40,20 @@ cur = conn.cursor()
 #solo hay que crear una vez
 try:
     cur.execute("""CREATE TABLE empleados(
+        id integer primary key  autoincrement,
         nombre text,
-        apellido text,
-        sueldo integer,
-        activo integer
+        sueldo integer
         )""")
 except:
     pass
 
 def crear_empleado(emp: Empleado):
+    empleado = (emp.nombre, emp.sueldo)
     with conn:
-        cur.execute("INSERT INTO empleados VALUES (:nombre, :apellido, :sueldo, :activo)", 
-            {
-            "nombre": emp.nombre, 
-            "apellido": emp.apellido, 
-            "sueldo": emp.sueldo,
-            "activo": 1
-            }
-        )
+        cur.execute("INSERT INTO empleados (nombre, sueldo) VALUES (?, ?)", empleado)
 
 def get_empleados():
-    cur.execute("SELECT * FROM empleados WHERE activo = :activo", 
-        {
-            "activo": 1
-        }
+    cur.execute("SELECT * FROM empleados"
     )
     return cur.fetchall()
 

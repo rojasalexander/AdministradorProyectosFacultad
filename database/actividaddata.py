@@ -10,19 +10,17 @@ connection = sqlite3.connect("database.db")
 #Creamos un cursor para poder añadir, eliminar, actualizar datos de la base de datos
 cur = connection.cursor()
 
-try:
-    cur.execute("""
-        CREATE TABLE actividades(
-        identificador integer,
-        nombre text,
-        duracion integer,
-        proyecto_id integer,
-        fechaInicioTemprano text,
-        fechaInicioTardio text
-        )
-    """)
-except:
-    pass
+cur.execute("""
+    CREATE TABLE IF NOT EXISTS actividades(
+    identificador integer primary key autoincrement,
+    nombre text,
+    duracion integer,
+    proyecto_id integer,
+    fechaInicioTemprano text,
+    fechaInicioTardio text
+    )
+""")
+
 
 def get_actividades(proyecto_id):
     """Devuelve un array de tuplas con todas las actividades de un cierto proyecto"""
@@ -31,24 +29,20 @@ def get_actividades(proyecto_id):
     return cur.fetchall()
 
 def create_actividad(act: Actividad, proyecto_id):
-    id = len(get_actividades()) + 1
+    """Pasar el objeto de actividad y el proyecto_id relacionado con la actividad"""
     with connection:
-        cur.execute("""INSERT INTO actividades VALUES 
-        (:identificador, 
-        :nombre, 
-        :duracion, 
-        :proyecto_id,
-        :fechaInicioTemprano,
-        :fechaInicioTardio)""",
-            {
-                "identificador": id,
-                "nombre": act.nombre,
-                "duracion": act.duracion,
-                "proyecto_id": proyecto_id,
-                "fechaInicioTemprano": (act.fechaInicioTemprano, '')[act.fechaInicioTemprano != None],
-                "fechaInicioTardio": (act.fechaInicioTardio, '')[act.fechaInicioTardio != None]
-            }
-        )
+        actividad = (act.nombre, act.duracion, proyecto_id, 
+        (act.fechaInicioTemprano, '')[act.fechaInicioTemprano != None], 
+        (act.fechaInicioTardio, '')[act.fechaInicioTardio != None])
+        with connection:
+            cur.execute("""INSERT INTO actividades(
+                nombre, 
+                duracion, 
+                proyecto_id, 
+                fechaInicioTemprano, 
+                fechaInicioTardio)
+            VALUES (?, ?, ?, ?, ?)""", actividad)
+
 
 def get_actividad_by_id(id, proyecto_id):
     """Pasar el id del proyecto. Retorna la actividad"""
@@ -61,7 +55,7 @@ def get_actividad_by_id(id, proyecto_id):
     return cur.fetchall()
 
 def delete_actividad(id, proyecto_id):
-    """Pasar el id del proyecto a ser eliminado"""
+    """Pasar el id de la actividad a ser eliminada y el id del proyecto relacionado con esa actividad"""
     with connection:
         cur.execute("DELETE from actividades WHERE identificador = :identificador AND proyecto_id = :proyecto_id", 
             {
@@ -71,6 +65,8 @@ def delete_actividad(id, proyecto_id):
         )
 
 def modify_actividad(id, act: Actividad, proyecto_id):
+    """Pasar el id de la actividad que se va a modificar, 
+    el objeto de la actividad modificada y el proyecto_id"""
     with connection:
         cur.execute("""UPDATE actividades SET 
         nombre = :nombre, 
@@ -87,3 +83,6 @@ def modify_actividad(id, act: Actividad, proyecto_id):
                 "fechaInicioTardio": (act.fechaInicioTardio, '')[act.fechaInicioTardio != None]
             }
         )
+
+connection.commit()
+connection.close()

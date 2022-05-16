@@ -16,9 +16,10 @@ class Proyecto:
         identificador = len(self.actividades) + 1
         nombre = input("Ingrese nombre:\t")
         duracion = int(input("Ingrese duración en días:\t"))
+        actividad = Actividad(nombre, duracion)
+        self.actividades.append(actividad)
 
-        self.actividades.append(Actividad(identificador, nombre, duracion))
-
+        return actividad
         ### Crear algún tipo de control para que ! self.actividades > 99
 
     def crear_relacion(self):

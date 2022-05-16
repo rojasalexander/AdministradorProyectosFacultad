@@ -9,17 +9,15 @@ connection = sqlite3.connect("database.db")
 #Creamos un cursor para poder añadir, eliminar, actualizar datos de la base de datos
 cur = connection.cursor()
 
-try:
-    cur.execute("""
-        CREATE TABLE relaciones(
-        identificador integer,
-        actividadPrecedente integer,
-        actividadSiguiente integer,
-        proyecto_id integer
-        )
-    """)
-except:
-    pass
+
+cur.execute("""
+    CREATE TABLE IF NOT EXISTS relaciones(
+    identificador integer primary key autoincrement,
+    actividadPrecedente integer,
+    actividadSiguiente integer,
+    proyecto_id integer
+    )
+""")
 
 def get_relaciones(proyecto_id):
     """Devuelve un array de tuplas con todas las relaciones de un proyecto"""
@@ -28,21 +26,12 @@ def get_relaciones(proyecto_id):
     return cur.fetchall()
 
 def create_relacion(rel: Relacion, proyecto_id):
-    id = len(get_relaciones()) + 1
+    relacion = (rel.actividadPrecedente, rel.actividadSiguiente, proyecto_id)
     with connection:
-        cur.execute("""INSERT INTO relaciones VALUES 
-        (:identificador, 
-        :actividadPrecedente, 
-        :actividadSiguiente, 
-        :proyecto_id
-        )""",
-            {
-                "identificador": rel.identificador,
-                "actividadPrecedente": rel.actividadPrecedente,
-                "actividadSiguiente": rel.actividadSiguiente,
-                "proyecto_id": proyecto_id
-            }
-        )
+        cur.execute("""INSERT INTO relaciones(
+            actividadPrecedente, 
+            actividadSiguiente, 
+            proyecto_id) VALUES (?, ?, ?)""", relacion)
 
 def get_relacion_by_id(id, proyecto_id):
     """Pasar el id del proyecto. Retorna el proyecto"""
@@ -81,3 +70,6 @@ def modify_relacion(id, rel: Relacion, proyecto_id):
                 "fechaInicioTardio": (rel.fechaInicioTardio, '')[rel.fechaInicioTardio != None]
             }
         )
+
+connection.commit()
+connection.close()

@@ -1,5 +1,10 @@
+from database.proyectodata import create_proyecto, create_table
 from packages.proyecto import *
-#from proyecto import crear_proyecto
+import sys
+sys.path.append('database')
+from actividaddata import *
+from relaciondata import *
+from proyectodata import *
 
 def menu_principal():
     print("Planificador de proyectos (alpha)")
@@ -13,6 +18,7 @@ def menu_principal():
 
         if(x == "1"):
             proy = crear_proyecto()
+            create_proyecto(proy)
             menu_proyecto(proy)
             
 
@@ -33,7 +39,8 @@ def menu_proyecto(proy: Proyecto):
         x = input("Ingrese una opción:\t")
 
         if(x == "1"):
-            proy.crear_actividad()
+            act = proy.crear_actividad()
+            create_actividad(act, proy.identificador)
         elif(x == "2"):
             proy.crear_relacion()
         

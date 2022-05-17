@@ -1,5 +1,8 @@
 import sqlite3
-from packages.proyecto import *
+import sys
+# insert at 1, 0 is the script path (or '' in REPL)
+sys.path.append('packages')
+from proyectos import *
 
 #Establecemos la conexion con la base de datos de proyectos
 connection = sqlite3.connect("proyecto.db")

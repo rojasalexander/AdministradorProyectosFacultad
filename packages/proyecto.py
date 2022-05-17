@@ -1,5 +1,5 @@
-from packages.actividad import *
-from packages.relacion import *
+from actividad import *
+from relacion import *
 
 class Proyecto:
     def __init__(self, nombre: str, descripcion: str, fechaInicio, identificador = 0) -> None:
@@ -16,9 +16,10 @@ class Proyecto:
         identificador = len(self.actividades) + 1
         nombre = input("Ingrese nombre:\t")
         duracion = int(input("Ingrese duración en días:\t"))
+        actividad = Actividad(nombre, duracion)
+        self.actividades.append(actividad)
 
-        self.actividades.append(Actividad(identificador, nombre, duracion))
-
+        return actividad
         ### Crear algún tipo de control para que ! self.actividades > 99
 
     def crear_relacion(self):

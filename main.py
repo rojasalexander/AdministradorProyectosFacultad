@@ -1,5 +1,10 @@
-from packages import modulo1
+### Control para todo practicamente
 
-print("buenas hola soy mai")
-modulo1.saludo()
-modulo1.despedida()
+#from packages import *
+import sys
+sys.path.append('packages')
+from menu import *
+
+
+menu_principal()
+

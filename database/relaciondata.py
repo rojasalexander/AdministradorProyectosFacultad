@@ -72,4 +72,3 @@ def modify_relacion(id, rel: Relacion, proyecto_id):
         )
 
 connection.commit()
-connection.close()

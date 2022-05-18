@@ -85,4 +85,3 @@ def modify_actividad(id, act: Actividad, proyecto_id):
         )
 
 connection.commit()
-connection.close()

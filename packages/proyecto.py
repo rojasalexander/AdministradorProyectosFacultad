@@ -1,9 +1,9 @@
 from actividad import *
 from relacion import *
-from fechas import *
 from database.actividaddata import *
 from database.relaciondata import *
 from database.proyectodata import *
+from datetime import *
 
 
 class Proyecto:
@@ -59,7 +59,7 @@ class Proyecto:
                 actividad.fechaInicioTemprano = self.fechaInicio
                 
                 actividad.fechaInicioTardio = self.fechaInicio
-                actividad.fechaFinTardio = sumardias(actividad.fechaInicioTardio, actividad.duracion)
+                actividad.fechaFinTardio = date.isoformat(date.fromisoformat(actividad.fechaInicioTardio) + timedelta(days = actividad.duracion))
 
                 return actividad
 
@@ -69,15 +69,15 @@ class Proyecto:
         if not siguientes:
             self.final = actividad
             self.final.fechaFinTemprano = self.final.fechaFinTardio
-            self.final.fechaInicioTemprano = restardias(self.final.fechaFinTemprano, self.final.duracion)
+            self.final.fechaInicioTemprano = date.isoformat(date.fromisoformat(self.final.fechaFinTemprano) - timedelta(days = self.final.duracion)) 
             
 
         else:
 
             for siguiente in siguientes:
-                if(compfechas(siguiente.fechaInicioTardio, actividad.fechaFinTardio) == 1):
+                if(date.fromisoformat(siguiente.fechaInicioTardio) < date.fromisoformat(actividad.fechaFinTardio)):
                     siguiente.fechaInicioTardio = actividad.fechaFinTardio
-                    siguiente.fechaFinTardio = sumardias(siguiente.fechaInicioTardio, siguiente.duracion)
+                    siguiente.fechaFinTardio = date.isoformat(date.fromisoformat(siguiente.fechaInicioTardio) + timedelta(days = siguiente.duracion))
                     self.calculo_Tardio(siguiente)
 
             
@@ -88,9 +88,9 @@ class Proyecto:
         else:
             precs = [act for act in self.actividades if act.identificador in actividad.precedentes]
             for precedente in precs:
-                if compfechas(precedente.fechaFinTemprano, actividad.fechaInicioTemprano) == -1:
+                if date.fromisoformat(precedente.fechaFinTemprano) > date.fromisoformat(actividad.fechaInicioTemprano) == -1:
                     precedente.fechaFinTemprano = actividad.fechaInicioTemprano
-                    precedente.fechaInicioTemprano = restardias(precedente.fechaFinTemprano, precedente.duracion)
+                    precedente.fechaInicioTemprano = date.isoformat(date.fromisoformat(precedente.fechaFinTemprano), timedelta(precedente.duracion))
                     self.calculo_Temprano(precedente)
     
         
@@ -104,7 +104,7 @@ def crear_proyecto():
 
     nombre = input("Ingrese un nombre para el nuevo proyecto:\t")
     descripcion = input("Descripcion:\t")
-    fechaInicio = input("Fecha de Inicio? (aaaa/mm/dd):\t")
+    fechaInicio = input("Fecha de Inicio? (aaaa-mm-dd):\t")
 
     return Proyecto(nombre, descripcion, fechaInicio)
 

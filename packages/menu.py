@@ -10,6 +10,8 @@ from database.proyectodata import *
 
 
 def menu_principal():
+    modify_proyecto(3, Proyecto("Prueba", "una prueba", "2022-05-19"))
+
     print("Planificador de proyectos (alpha)")
     x = ""
     while(x != "0"):
@@ -78,7 +80,7 @@ def menu_proyecto(proy: Proyecto):
             proy.calculo_Temprano(proy.final)
             print()
             print("-" * 100)
-            print("Nombre".ljust(20), "Duracion".ljust(15), "Fecha Inicio Temprano".ljust(15), "Fecha Inicio Temprano".ljust(15), "Precedentes".ljust(15))
+            print("Nombre".ljust(20), "Duracion".ljust(15), "Fecha Inicio Temprano".ljust(15), "Fecha Fin Temprano".ljust(15), "Precedentes".ljust(15))
             for actividad in proy.actividades:
                 print(
                     f"{actividad.nombre}".ljust(20),
@@ -88,7 +90,7 @@ def menu_proyecto(proy: Proyecto):
                     f"{actividad.precedentes}".ljust(15)
                     )
             print("-" * 100)
-            print("Nombre".ljust(20), "Duracion".ljust(15), "Fecha Inicio Tardío".ljust(15), "Fecha Inicio Tardío".ljust(15), "Precedentes".ljust(15))
+            print("Nombre".ljust(20), "Duracion".ljust(15), "Fecha Inicio Tardío".ljust(15), "Fecha Fin Tardío".ljust(15), "Precedentes".ljust(15))
             for actividad in proy.actividades:
                 print(
                     f"{actividad.nombre}".ljust(20),

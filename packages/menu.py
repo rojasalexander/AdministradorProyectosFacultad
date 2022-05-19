@@ -5,6 +5,7 @@ sys.path.append('database')
 from actividaddata import *
 from relaciondata import *
 from proyectodata import *
+from datetime import date
 
 def menu_principal():
     print("Planificador de proyectos (alpha)")
@@ -23,7 +24,7 @@ def menu_principal():
             
 
         elif(x == "2"):
-            pass
+            print(get_proyectos())
 
         
 

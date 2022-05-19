@@ -4,6 +4,7 @@ sys.path.append('packages')
 from proyecto import Proyecto
 from relaciondata import get_relaciones
 from actividaddata import get_actividades
+from datetime import date
 
 
 
@@ -53,9 +54,6 @@ def delete_proyecto(id):
             }
         )
 
-#proyecto = Proyecto("hola", "manhana", "no")
-#proyecto = Proyecto("hola", "manhana", "si")
-
 def modify_proyecto(id, proy: Proyecto):
     with connection:
         cur.execute("""UPDATE proyectos SET nombre = :nombre, fecha = :fecha, descripcion = :descripcion
@@ -73,3 +71,4 @@ def get_actividades_relaciones(proyecto_id):
     
     
 connection.commit()
+

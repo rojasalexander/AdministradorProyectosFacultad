@@ -30,18 +30,21 @@ def get_actividades(proyecto_id):
 
 def create_actividad(act: Actividad, proyecto_id):
     """Pasar el objeto de actividad y el proyecto_id relacionado con la actividad"""
-    with connection:
-        actividad = (act.nombre, act.duracion, proyecto_id, 
-        (act.fechaInicioTemprano, '')[act.fechaInicioTemprano != None], 
-        (act.fechaInicioTardio, '')[act.fechaInicioTardio != None])
+    if ( act_max(proyecto_id) ):
         with connection:
-            cur.execute("""INSERT INTO actividades(
-                nombre, 
-                duracion, 
-                proyecto_id, 
-                fechaInicioTemprano, 
-                fechaInicioTardio)
-            VALUES (?, ?, ?, ?, ?)""", actividad)
+            actividad = (act.nombre, act.duracion, proyecto_id, 
+            (act.fechaInicioTemprano, '')[act.fechaInicioTemprano != None], 
+            (act.fechaInicioTardio, '')[act.fechaInicioTardio != None])
+            with connection:
+                cur.execute("""INSERT INTO actividades(
+                    nombre, 
+                    duracion, 
+                    proyecto_id, 
+                    fechaInicioTemprano, 
+                    fechaInicioTardio)
+                VALUES (?, ?, ?, ?, ?)""", actividad)
+    else:
+        print("Se ha alcanzado la cantidad máxima de actividades.")
 
 
 def get_actividad_by_id(id, proyecto_id):
@@ -80,8 +83,14 @@ def modify_actividad(id, act: Actividad, proyecto_id):
                 "duracion": act.duracion,
                 "proyecto_id": proyecto_id,
                 "fechaInicioTemprano": (act.fechaInicioTemprano, '')[act.fechaInicioTemprano != None],
-                "fechaInicioTardio": (act.fechaInicioTardio, '')[act.fechaInicioTardio != None]
+                "fechaInicioTardio": (act.fechaInicioTardio, '')[act.fechaInicioTardio != None] 
             }
         )
+
+def act_max(proyecto_id):
+    if(len(get_actividades(proyecto_id)) == 99):
+        return False
+    else:
+        return True
 
 connection.commit()

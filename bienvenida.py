@@ -1,11 +1,15 @@
 import sys
 from PyQt5.uic import loadUi
-from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QDialog, QWidget, QMainWindow
 #from messagebox import msg_error
 from PyQt5.QtWidgets import QStackedWidget, QPushButton
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+
+#sys.path.append('database')
+from database.proyectodata import *
+from packages.proyecto import *
 
 class WelcomeScreen(QMainWindow):
     def __init__(self):
@@ -14,7 +18,6 @@ class WelcomeScreen(QMainWindow):
         self.ingre.clicked.connect(self.window_access)
     
     def gui_login(self):
-        
         self.window_access()
     
     def window_access(self):
@@ -41,7 +44,7 @@ class Gui_access(QDialog):
         #self.volver.clicked.connect(self.regresar_login)
         botonPrueba = QPushButton(self)
         botonPrueba.setGeometry(1100,700,51,51)
-
+        self.loadData()
         addIcon = QPixmap('add-icon.png')
         botonPrueba.setIcon(QIcon(addIcon))
         botonPrueba.setIconSize(QSize(50,50))
@@ -49,6 +52,21 @@ class Gui_access(QDialog):
             "*{border-radius: 50%;}")
         botonPrueba.clicked.connect(self.agg)
     
+    def loadData(self):
+        proyectos = get_proyectos()
+        self.tableWidget.setRowCount(len(proyectos))
+        for i in range(len(proyectos)):
+            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(proyectos[i][1]))
+            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(proyectos[i][3]))
+            self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(proyectos[i][2]))
+            btn = QPushButton(self.tableWidget)
+            btn.setText('Eliminar')
+            self.tableWidget.setCellWidget(i, 3, btn)
+
+            btn2 = QPushButton(self.tableWidget)
+            btn2.setText('Editar')
+            self.tableWidget.setCellWidget(i, 4, btn2)
+
     def regresar_login(self):
         welcome = WelcomeScreen()
         widget.addWidget(welcome)
@@ -66,7 +84,9 @@ class Gui_access(QDialog):
         self.cancelarbtn.clicked.connect(self.cancelar)
         
     def crear(self):
-        print(self.nom.text(), self.des.text(), self.fech.text())
+        newProyecto = Proyecto(self.nom.text(), self.des.text(), self.fech.text())
+        create_proyecto(newProyecto)
+        self.loadData()
         self.crp.hide()
 
     def cancelar(self):

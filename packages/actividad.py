@@ -9,7 +9,7 @@ class Actividad:
         self.fechaInicioTemprano = fechaInicioTemprano
         self.fechaInicioTardio = fechaInicioTardio
 
-        self.fechaFinTemprano = "3000/01/01"
+        self.fechaFinTemprano = "3000-01-01"
         self.fechaFinTardio = ""
 
         self.precedentes = []

@@ -71,4 +71,12 @@ def modify_relacion(id, rel: Relacion, proyecto_id):
             }
         )
 
+def delete_all_relaciones(proyecto_id):
+    with connection:
+        cur.execute("""DELETE from relaciones 
+        WHERE proyecto_id = :proyecto_id""",
+        {
+            "proyecto_id": proyecto_id
+        })
+
 connection.commit()

@@ -6,11 +6,11 @@ sys.path.append('database')
 from database.actividaddata import *
 from database.relaciondata import *
 from database.proyectodata import *
-
-
+from datetime import *
+import numpy as np
+import pandas as pd
 
 def menu_principal():
-    modify_proyecto(3, Proyecto("Prueba", "una prueba", "2022-05-19"))
 
     print("Planificador de proyectos (alpha)")
     x = ""
@@ -24,7 +24,6 @@ def menu_principal():
         if(x == "1"):
             proy = crear_proyecto()
             create_proyecto(proy)
-            menu_proyecto(proy)
             
 
         elif(x == "2"):
@@ -101,5 +100,11 @@ def menu_proyecto(proy: Proyecto):
                     )
             print("-" * 100)
             print()
+            matrix = []
+            for actividad in proy.actividades:
+                matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTardio])
+            
+            arr = np.asarray(matrix)
+            pd.DataFrame(arr).to_csv(f'{proy.nombre}.csv', index_label = "Index", header  = ['Nombre','Fecha Inicio','Fecha Fin'])  
         
         

@@ -19,7 +19,7 @@ data.reset_index(drop=True, inplace=True) #drop = True el indice actual se elimi
 
 # añade la duracion de la tarea
 data["duracion"] = data["fin"] - data["inicio"] + timedelta(days=1)  
-# añadir columna: la fecha de inicio de cada tarea 
+# añadir columna: la fecha de inicio de cada tarea
 
 
 

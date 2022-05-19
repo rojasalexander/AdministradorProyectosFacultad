@@ -49,7 +49,8 @@ def create_actividad(act: Actividad, proyecto_id):
 
 def get_actividad_by_id(id, proyecto_id):
     """Pasar el id del proyecto. Retorna la actividad"""
-    cur.execute("SELECT * FROM relaciones WHERE identificador = :identificador AND proyecto_id = :proyecto_id",
+    cur.execute("""SELECT * FROM relaciones 
+    WHERE identificador = :identificador AND proyecto_id = :proyecto_id""",
         {
             "identificador": id,
             "proyecto_id": proyecto_id
@@ -60,7 +61,8 @@ def get_actividad_by_id(id, proyecto_id):
 def delete_actividad(id, proyecto_id):
     """Pasar el id de la actividad a ser eliminada y el id del proyecto relacionado con esa actividad"""
     with connection:
-        cur.execute("DELETE from actividades WHERE identificador = :identificador AND proyecto_id = :proyecto_id", 
+        cur.execute("""DELETE from actividades 
+        WHERE identificador = :identificador AND proyecto_id = :proyecto_id""", 
             {
                 "identificador": id,
                 "proyecto_id": proyecto_id
@@ -87,10 +89,19 @@ def modify_actividad(id, act: Actividad, proyecto_id):
             }
         )
 
+def delete_all_actividades(proyecto_id):
+    with connection:
+        cur.execute("""DELETE from actividades 
+        WHERE proyecto_id = :proyecto_id""",
+        {
+            "proyecto_id": proyecto_id
+        })
+
+
 def act_max(proyecto_id):
-    if(len(get_actividades(proyecto_id)) == 99):
-        return False
-    else:
+    if(not(len(get_actividades(proyecto_id)) == 99)):
         return True
+    return False
+
 
 connection.commit()

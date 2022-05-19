@@ -2,8 +2,8 @@ import sqlite3
 import sys
 sys.path.append('packages')
 from proyecto import Proyecto
-from relaciondata import get_relaciones
-from actividaddata import get_actividades
+from relaciondata import *
+from actividaddata import *
 from datetime import date
 
 
@@ -32,9 +32,12 @@ def get_proyectos():
 
 def create_proyecto(proy: Proyecto):
     proyecto = (proy.nombre, proy.descripcion, proy.fechaInicio)
-    with connection:
-        cur.execute("""INSERT INTO proyectos(nombre, descripcion, fecha) 
-        VALUES (?, ?, ?)""", proyecto)
+    if (proy_max()):
+        with connection:
+            cur.execute("""INSERT INTO proyectos(nombre, descripcion, fecha) 
+            VALUES (?, ?, ?)""", proyecto)
+    else:
+        print("Se ha alcanzado el numero maximo de proyectos")
 
 def get_proyecto_by_id(id):
     """Pasar el id del proyecto. Retorna el proyecto"""
@@ -53,6 +56,9 @@ def delete_proyecto(id):
                 "identificador": id
             }
         )
+    delete_all_actividades(id)
+    delete_all_relaciones(id)
+    
 
 def modify_proyecto(id, proy: Proyecto):
     with connection:
@@ -65,6 +71,11 @@ def modify_proyecto(id, proy: Proyecto):
                 "descripcion": proy.descripcion
             }
         )
+
+def proy_max():
+    if (not(len(get_proyectos()) == 999)):
+        return True
+    return False
 
 def get_actividades_relaciones(proyecto_id):
     return [get_actividades(proyecto_id), get_relaciones(proyecto_id)]

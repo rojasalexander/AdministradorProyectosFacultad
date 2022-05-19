@@ -1,9 +1,9 @@
 import sqlite3
 import sys
 sys.path.append('packages')
-from proyecto import Proyecto
-from relaciondata import get_relaciones
-from actividaddata import get_actividades
+from packages.proyecto import Proyecto
+from database.relaciondata import get_relaciones
+from database.actividaddata import get_actividades
 
 
 
@@ -73,4 +73,3 @@ def get_actividades_relaciones(proyecto_id):
     
     
 connection.commit()
-connection.close()

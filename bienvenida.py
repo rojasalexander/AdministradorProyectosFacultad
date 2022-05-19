@@ -10,7 +10,7 @@ from PyQt5.QtCore import *
 class WelcomeScreen(QMainWindow):
     def __init__(self):
         super(WelcomeScreen, self).__init__()
-        loadUi('ingrese.ui', self)
+        loadUi('ingrese2.ui', self)
         self.ingre.clicked.connect(self.window_access)
     
     def gui_login(self):

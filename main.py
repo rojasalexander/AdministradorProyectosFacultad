@@ -1,6 +1,9 @@
-import datetime as date
+### Control para todo practicamente
 
-x = date.datetime(2022, 5, 12)
-print(type(x))
+#from packages import *
+import sys
+sys.path.append('packages')
+from menu import *
 
-print("buenas")
+menu_principal()
+

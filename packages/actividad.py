@@ -1,9 +1,18 @@
 import datetime as date
 
 class Actividad:
-    def __init__(self, identificador: int, nombre: str, duracion: int, fechaInicioTemprano, fechaIniciotardio) -> None:
+    def __init__(self, nombre: str, duracion: int, identificador = 0, fechaInicioTemprano = 0, fechaInicioTardio = 0) -> None:
         self.identificador = identificador
         self.nombre = nombre
         self.duracion = duracion
+
         self.fechaInicioTemprano = fechaInicioTemprano
-        self.fechaInicioTardio = fechaIniciotardio
+        self.fechaInicioTardio = fechaInicioTardio
+
+        self.fechaFinTemprano = "3000-01-01"
+        self.fechaFinTardio = ""
+
+        self.precedentes = []
+        # self.completado = False
+        # self.enCurso = False
+

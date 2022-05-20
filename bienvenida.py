@@ -89,7 +89,7 @@ class Gui_access(QDialog):
 
             btn2 = QPushButton(self.tableWidget)
             btn2.setIcon(QIcon(deleteIcon))
-            btn2.setIconSize(QSize(25,30))
+            btn2.setIconSize(QSize(25,25))
             btn2.setStyleSheet("*{border-radius: 50%;}")
             btn2.clicked.connect(lambda state, x=i: self.deletePopUp(x))
             self.tableWidget.setCellWidget(i, 4, btn2)

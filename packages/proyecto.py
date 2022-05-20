@@ -1,5 +1,6 @@
 from actividad import *
 from relacion import *
+from datetime import date
 
 class Proyecto:
     def __init__(self, nombre: str, descripcion: str, fechaInicio, identificador = 0) -> None:
@@ -36,7 +37,9 @@ def crear_proyecto():
 
     nombre = input("Ingrese un nombre para el nuevo proyecto:\t")
     descripcion = input("Descripcion:\t")
-    fechaInicio = input("Fecha de Inicio? (aaaa/mm/dd):\t")
+    fechaInicio = input("Fecha de Inicio? (aaaa-mm-dd):\t")
+    # anho, mes, dia = map(int, fechaInicio.split("-"))
+    # fechaInicio = date(anho, mes, dia)
 
     return Proyecto(nombre, descripcion, fechaInicio)
 

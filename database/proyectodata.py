@@ -1,9 +1,13 @@
 import sqlite3
 import sys
 sys.path.append('packages')
+<<<<<<< HEAD
 from packages.proyecto import *
 from database.relaciondata import *
 from database.actividaddata import *
+=======
+from proyecto import Proyecto
+>>>>>>> ed7797bbdd8371857cdd19ba2270aad14d7c6ec5
 
 
 

@@ -1,5 +1,9 @@
 # adminitrador-proyectos
 
+REQUISITOS
+- Python v3.6.1 or later is required.
+- pip install PyQt6
+
 
 
 ## Getting started

@@ -92,6 +92,11 @@ class Proyecto:
                     precedente.fechaFinTemprano = actividad.fechaInicioTemprano
                     precedente.fechaInicioTemprano = date.isoformat(date.fromisoformat(precedente.fechaFinTemprano) - timedelta(precedente.duracion))
                     self.calculo_Temprano(precedente)
+
+    def actividades_criticas(self):
+        for actividad in self.actividades:
+            if date.fromisoformat(actividad.fechaInicioTemprano) == date.fromisoformat(actividad.fechaInicioTardio):
+                actividad.critico = True
     
         
 

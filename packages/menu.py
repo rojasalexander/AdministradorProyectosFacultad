@@ -77,6 +77,7 @@ def menu_proyecto(proy: Proyecto):
         elif(x == "3"):
             proy.calculo_Tardio(proy.nodo_inicio())
             proy.calculo_Temprano(proy.final)
+            proy.actividades_criticas()
             print()
             print("-" * 100)
             print("Nombre".ljust(20), "Duracion".ljust(15), "Fecha Inicio Temprano".ljust(15), "Fecha Fin Temprano".ljust(15), "Precedentes".ljust(15))
@@ -102,9 +103,9 @@ def menu_proyecto(proy: Proyecto):
             print()
             matrix = []
             for actividad in proy.actividades:
-                matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTardio])
+                matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
             
             arr = np.asarray(matrix)
-            pd.DataFrame(arr).to_csv(f'{proy.nombre}.csv', index_label = "Index", header  = ['Nombre','Fecha Inicio','Fecha Fin'])  
+            pd.DataFrame(arr).to_csv(f'{proy.nombre}.csv', index_label = "Index", header  = ['Nombre', 'Fecha Inicio', 'Fecha Fin', 'Duracion estimada', 'Critico'])  
         
         

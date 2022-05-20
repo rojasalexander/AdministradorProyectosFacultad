@@ -13,6 +13,8 @@ class Actividad:
         self.fechaFinTardio = ""
 
         self.precedentes = []
+
+        self.critico = False
         # self.completado = False
         # self.enCurso = False
 

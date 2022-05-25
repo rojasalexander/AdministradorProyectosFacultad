@@ -24,7 +24,7 @@
     <rect>
      <x>-10</x>
      <y>0</y>
-     <width>1280</width>
+     <width>1281</width>
      <height>700</height>
     </rect>
    </property>
@@ -40,9 +40,9 @@
    <widget class="QLabel" name="pro">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>60</x>
       <y>30</y>
-      <width>241</width>
+      <width>431</width>
       <height>81</height>
      </rect>
     </property>
@@ -50,12 +50,13 @@
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 36pt &quot;Rockwell&quot;; color:rgb(255, 255, 255);
+     <string notr="true"> color:rgb(255, 255, 255);
+font: 36pt &quot;Verdana&quot;;
 background-color: rgba(0,0,0,0);
 border-radius:20;</string>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Proyecto:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Actividades de:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -64,9 +65,9 @@ border-radius:20;</string>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>60</x>
       <y>120</y>
-      <width>1091</width>
+      <width>1181</width>
       <height>511</height>
      </rect>
     </property>
@@ -84,7 +85,7 @@ font: 12pt &quot;Verdana&quot;;</string>
      <bool>true</bool>
     </attribute>
     <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>216</number>
+     <number>195</number>
     </attribute>
     <attribute name="horizontalHeaderHighlightSections">
      <bool>true</bool>
@@ -136,7 +137,33 @@ font: 12pt &quot;Verdana&quot;;</string>
     </column>
     <column>
      <property name="text">
-      <string>Fecha de inicio </string>
+      <string>Fecha fin</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Verdana</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Critico</string>
+     </property>
+     <property name="font">
+      <font>
+       <family>Verdana</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Editar</string>
      </property>
      <property name="font">
       <font>
@@ -164,43 +191,20 @@ font: 12pt &quot;Verdana&quot;;</string>
    <widget class="QLabel" name="name">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>460</x>
       <y>50</y>
-      <width>221</width>
+      <width>461</width>
       <height>39</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 26pt &quot;Rockwell&quot;; color:rgb(255, 255, 255);
+     <string notr="true">color:rgb(255, 255, 255);
+font: 26pt &quot;Verdana&quot;;
 background-color: rgba(0,0,0,0);
 border-radius:20;</string>
     </property>
     <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>30</y>
-      <width>281</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 26pt &quot;Rockwell&quot;; color:rgb(255, 255, 255);
-background-color: rgba(0,0,0,0);
-border-radius:20;</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Bienvenide&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     <string>hhhhhhhhhh</string>
     </property>
    </widget>
    <widget class="QWidget" name="editar_act" native="true">
@@ -772,14 +776,40 @@ border-radius:10px;</string>
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>630</y>
+      <width>91</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(0,0,0,0);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>add-icon.png</normaloff>add-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
    <zorder>tableWidget</zorder>
    <zorder>pro</zorder>
    <zorder>name</zorder>
-   <zorder>label_2</zorder>
    <zorder>editar_act</zorder>
    <zorder>crear_act</zorder>
    <zorder>relacionar_w</zorder>
    <zorder>eliminar</zorder>
+   <zorder>pushButton</zorder>
   </widget>
  </widget>
  <resources/>

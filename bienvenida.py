@@ -41,8 +41,8 @@ class Gui_access(QDialog):
         self.crp_2.hide()
         self.eliminar.hide()
         widget.move(100, 50) 
-        widget.setFixedHeight(800)    #se le asigna un tamaño fijo al widget
-        widget.setFixedWidth(1230)    #se le asigna un tamaño fijo al widget
+        widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
+        widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
         self.name.setText(nombre)
         
         botonPrueba = QPushButton(self)

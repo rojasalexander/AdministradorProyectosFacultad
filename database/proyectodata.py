@@ -1,10 +1,16 @@
 import sqlite3
 import sys
 sys.path.append('packages')
+<<<<<<< HEAD
 sys.path.append('database')
 from proyecto import Proyecto
 from actividaddata import *
 from relaciondata import *
+=======
+from packages.proyecto import *
+from database.relaciondata import *
+from database.actividaddata import *
+>>>>>>> a074e7ed32d4373e7632d9a2efdb3c7be2acd105
 
 
 
@@ -88,4 +94,3 @@ def get_actividades_relaciones(proyecto_id):
     
     
 connection.commit()
-

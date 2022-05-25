@@ -114,8 +114,3 @@ def crear_proyecto():
     return Proyecto(nombre, descripcion, fechaInicio)
 
    
-
-
-
-
-

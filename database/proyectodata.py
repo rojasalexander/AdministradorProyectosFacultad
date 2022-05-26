@@ -1,9 +1,10 @@
 import sqlite3
 import sys
 sys.path.append('packages')
-from packages.proyecto import *
-from database.relaciondata import *
-from database.actividaddata import *
+sys.path.append('database')
+from proyecto import Proyecto
+from actividaddata import *
+from relaciondata import *
 
 
 
@@ -70,6 +71,12 @@ def modify_proyecto(id, proy: Proyecto):
                 "descripcion": proy.descripcion
             }
         )
+
+def map_to_proyecto(proyectos):
+    proys = []
+    for proyecto in proyectos:
+        proys.append(Proyecto(proyecto[1], proyecto[3], proyecto[2], identificador = proyecto[0]))
+    return proys
 
 def proy_max():
     if (not(len(get_proyectos()) == 999)):

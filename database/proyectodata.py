@@ -30,10 +30,25 @@ with connection:
 def get_proyectos():
     """Devuelve un array de tuplas con todos los proyectos"""
     cur.execute("SELECT * FROM proyectos")
-    return cur.fetchall()
+    return map(
+        lambda proyecto: 
+        Proyecto(proyecto[1], 
+        proyecto[3], 
+        proyecto[2], 
+        "proyecto[4]",
+        identificador=proyecto[0]), 
+        cur.fetchall()
+        )
 
 def create_proyecto(proy: Proyecto):
-    proyecto = (proy.nombre, proy.descripcion, proy.fechaInicio, proy.fechaInicio + timedelta(days=365))
+    """Recibe el objeto proyecto"""
+    proyecto = (
+        proy.nombre, 
+        proy.descripcion, 
+        proy.fechaInicio, 
+        proy.fechaInicio + timedelta(days=365)
+        )
+
     if (proy_max()):
         with connection:
             cur.execute("""INSERT INTO proyectos(nombre, descripcion, fecha, fechaFin) 
@@ -48,7 +63,16 @@ def get_proyecto_by_id(id):
             "identificador": id
         }
     )
-    return cur.fetchall()
+    aux = cur.fetchone()
+    if (aux == None):
+        return "404"
+    else:
+        return Proyecto(
+            aux[1], 
+            aux[3], 
+            aux[2], 
+            "aux[4]",
+            identificador=aux[0])
 
 def delete_proyecto(id):
     """Pasar el id del proyecto a ser eliminado"""
@@ -64,21 +88,16 @@ def delete_proyecto(id):
 
 def modify_proyecto(id, proy: Proyecto):
     with connection:
-        cur.execute("""UPDATE proyectos SET nombre = :nombre, fecha = :fecha, descripcion = :descripcion
+        cur.execute("""UPDATE proyectos SET nombre = :nombre, fecha = :fecha, descripcion = :descripcion, fechaFin = :fechaFin 
         WHERE :identificador = identificador""",
             {
                 "identificador": id,
                 "nombre": proy.nombre, 
                 "fecha": proy.fechaInicio,
-                "descripcion": proy.descripcion
+                "descripcion": proy.descripcion,
+                "fechaFin": proy.fechaFin
             }
         )
-
-def map_to_proyecto(proyectos):
-    proys = []
-    for proyecto in proyectos:
-        proys.append(Proyecto(proyecto[1], proyecto[3], proyecto[2], identificador = proyecto[0]))
-    return proys
 
 def proy_max():
     if (not(len(get_proyectos()) == 999)):
@@ -90,3 +109,4 @@ def get_actividades_relaciones(proyecto_id):
     
     
 connection.commit()
+

@@ -7,17 +7,25 @@ from datetime import *
 
 
 class Proyecto:
-    def __init__(self, nombre: str, descripcion: str, fechaInicio, identificador = 0) -> None:
+    def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin, identificador = 0) -> None:
         self.identificador = identificador
         self.nombre = nombre
         self.descripcion = descripcion
         self.fechaInicio = fechaInicio
+        self.fechaFin = fechaFin
         
         self.actividades = []
         self.relaciones = []
 
         self.final = 0
 
+    def imprimir_proyecto(self):
+        print(f"""Nombre: {self.nombre}
+        Descripcion: {self.descripcion}
+        Fecha de inicio: {self.fechaInicio}
+        Fecha fin: {self.fechaFin}
+        Id: {self.identificador}
+            """)
 
     def crear_actividad(self):
         #identificador = len(self.actividades) + 1

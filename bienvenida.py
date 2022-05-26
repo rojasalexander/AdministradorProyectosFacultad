@@ -226,8 +226,8 @@ class ventanaActividades(QDialog):
         self.actividades = get_actividades(self.id_proyecto)
         self.tableWidget.setRowCount(len(self.actividades))
         for i in range(len(self.actividades)):
-            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.actividades[i][1]))
-            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(str(self.actividades[i][2])))
+            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.actividades[i].nombre))
+            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(str(self.actividades[i].duracion)))
 
             btn = QPushButton(self.tableWidget)
             btn.setIcon(QIcon(editIcon))
@@ -264,22 +264,22 @@ class ventanaActividades(QDialog):
     def editarPopup(self, indice):
         self.currentActividad = self.actividades[indice]
         self.editar_act.show()
-        self.nom_1.setText(self.currentActividad[1])
-        self.dur.setText(str(self.currentActividad[2]))
+        self.nom_1.setText(self.currentActividad.nombre)
+        self.dur.setText(str(self.currentActividad.duracion))
 
     def editar(self):
         newActividad = Actividad(self.nom_1.text(), self.dur.text())
-        modify_actividad(self.currentActividad[0], newActividad, self.id_proyecto)
+        modify_actividad(self.currentActividad.identificador, newActividad, self.id_proyecto)
         self.loadData()
         self.editar_act.hide()
 
     def deletePopup(self, indice):
         self.currentActividad = self.actividades[indice]
-        self.nom_acti.setText(self.currentActividad[1])
+        self.nom_acti.setText(self.currentActividad.nombre)
         self.eliminar.show()
 
     def delete(self):
-        id = self.currentActividad[0]
+        id = self.currentActividad.identificador
         delete_actividad(id, self.id_proyecto)
         self.eliminar.hide()
         self.loadData()
@@ -291,8 +291,8 @@ class ventanaActividades(QDialog):
         self.anterior_box.clear()
         self.siguiente_box.clear()
         for actividad in self.actividades:
-            self.anterior_box.addItem(actividad[1])
-            self.siguiente_box.addItem(actividad[1])
+            self.anterior_box.addItem(actividad.nombre)
+            self.siguiente_box.addItem(actividad.nombre)
         
         #self.siguiente_box.setCurrentIndex(1)
 
@@ -303,8 +303,8 @@ class ventanaActividades(QDialog):
         anteriorIndex = self.anterior_box.currentIndex()
         siguienteIndex = self.siguiente_box.currentIndex()
 
-        anteriorId = self.actividades[anteriorIndex][0]
-        siguienteId = self.actividades[siguienteIndex][0]
+        anteriorId = self.actividades[anteriorIndex].identificador
+        siguienteId = self.actividades[siguienteIndex].identificador
 
         newRelacion = Relacion(anteriorId, siguienteId)
         create_relacion(newRelacion, self.id_proyecto)
@@ -316,10 +316,6 @@ class ventanaActividades(QDialog):
         self.relacion_box.clear()
         relaciones = get_relaciones(self.id_proyecto)
 
-        prueba = get_actividad_by_id(12, self.id_proyecto)
-        # prueba = get_proyecto_by_id(39)
-
-        print("a", prueba)
         for relacion in relaciones:
             anterior = get_actividad_by_id(relacion[1], self.id_proyecto)
             siguiente = get_actividad_by_id(relacion[2], self.id_proyecto)

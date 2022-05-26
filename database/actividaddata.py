@@ -42,7 +42,7 @@ def get_actividades(proyecto_id):
     aux = cur.fetchall()
 
     if (len(aux) != 0):
-        return map(
+        return list(map(
             lambda actividad:
             Actividad(actividad[1], 
             actividad[2], 
@@ -53,7 +53,7 @@ def get_actividades(proyecto_id):
             fechaFinTardio=actividad[6],
             critico= True if actividad[7] == 1 else False 
             ),
-            aux
+            aux)
         )
 
     return []

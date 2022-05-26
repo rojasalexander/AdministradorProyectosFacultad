@@ -5,6 +5,7 @@ sys.path.append('database')
 from proyecto import Proyecto
 from actividaddata import *
 from relaciondata import *
+from datetime import *
 
 
 
@@ -21,7 +22,8 @@ with connection:
         identificador integer primary key autoincrement,
         nombre text,
         fecha text,
-        descripcion text
+        descripcion text,
+        fechaFin text
         )
     """)
 
@@ -31,13 +33,13 @@ def get_proyectos():
     return cur.fetchall()
 
 def create_proyecto(proy: Proyecto):
-    proyecto = (proy.nombre, proy.descripcion, proy.fechaInicio)
+    proyecto = (proy.nombre, proy.descripcion, proy.fechaInicio, proy.fechaInicio + timedelta(days=365))
     if (proy_max()):
         with connection:
-            cur.execute("""INSERT INTO proyectos(nombre, descripcion, fecha) 
-            VALUES (?, ?, ?)""", proyecto)
+            cur.execute("""INSERT INTO proyectos(nombre, descripcion, fecha, fechaFin) 
+            VALUES (?, ?, ?, ?)""", proyecto)
     else:
-        print("Se ha alcanzado el numero maximo de proyectos")
+        return "404"
 
 def get_proyecto_by_id(id):
     """Pasar el id del proyecto. Retorna el proyecto"""

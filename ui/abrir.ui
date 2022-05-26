@@ -793,7 +793,7 @@ border-radius:10px;</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>add-icon.png</normaloff>add-icon.png</iconset>
+      <normaloff>../icons/add-icon.png</normaloff>../icons/add-icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -831,7 +831,7 @@ border-radius:10px;</string>
    <widget class="QPushButton" name="relacionarbtn">
     <property name="geometry">
      <rect>
-      <x>890</x>
+      <x>880</x>
       <y>650</y>
       <width>93</width>
       <height>28</height>
@@ -973,6 +973,32 @@ border-radius:10px;</string>
      <string>Desrelacionar</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="verGrafoBtn">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>650</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ver Grafo</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="calcularBtn">
+    <property name="geometry">
+     <rect>
+      <x>582</x>
+      <y>650</y>
+      <width>111</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Calcular camino</string>
+    </property>
+   </widget>
    <zorder>tableWidget</zorder>
    <zorder>pro</zorder>
    <zorder>proy_name</zorder>
@@ -985,6 +1011,8 @@ border-radius:10px;</string>
    <zorder>relacionarbtn</zorder>
    <zorder>desrelacionar_w</zorder>
    <zorder>desrelacionarP</zorder>
+   <zorder>verGrafoBtn</zorder>
+   <zorder>calcularBtn</zorder>
   </widget>
  </widget>
  <resources/>

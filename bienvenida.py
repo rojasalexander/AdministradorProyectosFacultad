@@ -218,6 +218,8 @@ class ventanaActividades(QDialog):
         self.volverbtn.clicked.connect(self.volver)
         self.desrelacionarP.clicked.connect(self.desrelacionarPopup)
         self.desrelacionar_btn.clicked.connect(self.desrelacionar)
+        self.verGrafoBtn.clicked.connect(self.verGrafo)
+        self.calcularBtn.clicked.connect(self.calcularCamino)
 
         header = self.tableWidget.horizontalHeader()       
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
@@ -298,19 +300,7 @@ class ventanaActividades(QDialog):
             self.anterior_box.addItem(actividad[1])
             self.siguiente_box.addItem(actividad[1])
         
-        # self.siguiente_box.setCurrentIndex(1)
-
-    # def onChangeSiguiente(self, nombre):
-    #     self.anterior_box.clear()
-    #     for actividad in self.actividades:
-    #         if(nombre != actividad[1]):
-    #             self.anterior_box.addItem(actividad[1])
-
-    # def onChangeAnterior(self, nombre):
-    #     self.siguiente_box.clear()
-    #     for actividad in self.actividades:
-    #         if(nombre != actividad[1]):
-    #             self.siguiente_box.addItem(actividad[1])
+        #self.siguiente_box.setCurrentIndex(1)
 
 
     def relacionar(self):
@@ -351,6 +341,16 @@ class ventanaActividades(QDialog):
         self.loadData()
         self.desrelacionar_w.hide()
     
+    def verGrafo(self):
+        [(a,b,c,d)] = get_proyecto_by_id(self.id_proyecto)
+        proy = Proyecto(b,d,c,a)
+        print(proy)
+        proy.actualizar_bd()
+        proy.mostrar_grafo()
+
+    def calcularCamino(self):
+        print()
+
     def volver(self):
         ventana = Gui_access(self.nombreUser)
         widget.addWidget(ventana)  #para el cambio de ventanas

@@ -88,4 +88,3 @@ def get_actividades_relaciones(proyecto_id):
     
     
 connection.commit()
-

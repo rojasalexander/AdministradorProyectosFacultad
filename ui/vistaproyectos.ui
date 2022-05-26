@@ -9,16 +9,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
+    <width>1266</width>
     <height>700</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1280</width>
+    <height>700</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="fondo" native="true">
-   <property name="enabled">
-    <bool>true</bool>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(47, 49, 54);</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,9">
+   <property name="spacing">
+    <number>0</number>
    </property>
    <property name="geometry">
     <rect>
@@ -28,14 +37,14 @@
      <height>700</height>
     </rect>
    </property>
-   <property name="mouseTracking">
-    <bool>true</bool>
+   <property name="topMargin">
+    <number>0</number>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
+   <property name="rightMargin">
+    <number>0</number>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-color:qlineargradient(spread:pad, x1:0.147, y1:0.193182, x2:0.975, y2:0.925682, stop:0 rgba(76, 157, 255, 255), stop:0.997468 rgba(255, 85, 255, 255))</string>
+   <property name="bottomMargin">
+    <number>0</number>
    </property>
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -137,7 +146,7 @@ font: 12pt &quot;Verdana&quot;;</string>
     </column>
     <column>
      <property name="text">
-      <string>New Column</string>
+      <string>Fecha estimada</string>
      </property>
      <property name="font">
       <font>
@@ -397,30 +406,6 @@ border-radius:10px;
 font: 12pt &quot;Verdana&quot;;</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="fech">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>390</y>
-       <width>381</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(155, 159, 206);
-border-radius:10px;
-font: 12pt &quot;Verdana&quot;;</string>
-     </property>
-     <property name="inputMask">
-      <string/>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="placeholderText">
-      <string>  AAAA-MM-DD</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="crearbtn">
      <property name="geometry">
       <rect>
@@ -436,6 +421,45 @@ border-radius:13px;</string>
      </property>
      <property name="text">
       <string>Crear</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="calendarbtn_2">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>370</y>
+       <width>71</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../icons/calendar-icon.png</normaloff>../icons/calendar-icon.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>60</width>
+       <height>60</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QLabel" name="fechaIniLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>380</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 12pt &quot;Verdana&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </widget>
@@ -457,21 +481,21 @@ border-bottom-left-radius: 20px;
 border-bottom-right-radius:20px;
 border-top-left-radius: 20px;
 border-top-right-radius: 20px;</string>
-    </property>
-    <widget class="QLabel" name="label_8">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>391</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(0, 0, 0);
+         </property>
+         <widget class="QLabel" name="label_8">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>20</y>
+            <width>391</width>
+            <height>61</height>
+           </rect>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(0, 0, 0);
 font: 28pt &quot;Verdana&quot;;
 background-color: rgba(0,0,0,0);
 border-radius:20;</string>
@@ -512,7 +536,7 @@ font: 75 16pt &quot;Verdana&quot;;</string>
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>480</y>
+       <y>490</y>
        <width>111</width>
        <height>31</height>
       </rect>
@@ -554,7 +578,7 @@ font: 75 16pt &quot;Verdana&quot;;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>320</y>
+       <y>310</y>
        <width>281</width>
        <height>61</height>
       </rect>
@@ -605,35 +629,11 @@ border-radius:10px;
 font: 12pt &quot;Verdana&quot;;</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="fech_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>390</y>
-       <width>381</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(155, 159, 206);
-border-radius:10px;
-font: 12pt &quot;Verdana&quot;;</string>
-     </property>
-     <property name="inputMask">
-      <string/>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="placeholderText">
-      <string>  AAAA-MM-DD</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="editarbtn">
      <property name="geometry">
       <rect>
        <x>210</x>
-       <y>480</y>
+       <y>490</y>
        <width>111</width>
        <height>31</height>
       </rect>
@@ -644,6 +644,45 @@ border-radius:13px;</string>
      </property>
      <property name="text">
       <string>Editar</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="calendarbtn">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>360</y>
+       <width>81</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../icons/calendar-icon.png</normaloff>../icons/calendar-icon.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>60</width>
+       <height>60</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QLabel" name="fechaIniLabel_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>370</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 12pt &quot;Verdana&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </widget>
@@ -759,7 +798,7 @@ border-radius:13px;</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>add-icon.png</normaloff>add-icon.png</iconset>
+      <normaloff>../icons/add-icon.png</normaloff>../icons/add-icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -768,14 +807,113 @@ border-radius:13px;</string>
      </size>
     </property>
    </widget>
+   <widget class="QWidget" name="calendarioW" native="true">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>240</y>
+      <width>421</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+border-bottom-left-radius: 20px;
+border-bottom-right-radius:20px;
+border-top-left-radius: 20px;
+border-top-right-radius: 20px;</string>
+    </property>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>-10</y>
+       <width>301</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);
+font: 18pt &quot;Verdana&quot;;
+background-color: rgba(0,0,0,0);
+border-radius:20;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Seleccione una fecha de inicio&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QCalendarWidget" name="calendario">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>401</width>
+       <height>231</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: black</string>
+     </property>
+     <property name="firstDayOfWeek">
+      <enum>Qt::Monday</enum>
+     </property>
+     <property name="verticalHeaderFormat">
+      <enum>QCalendarWidget::NoVerticalHeader</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="seleccionarbtn">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>310</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:rgb(255, 85, 255);
+border-radius:13px;</string>
+     </property>
+     <property name="text">
+      <string>Seleccionar</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="cancelarbtn_4">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>310</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(153, 51, 153);
+border-radius:13px;</string>
+     </property>
+     <property name="text">
+      <string>Cancelar</string>
+     </property>
+    </widget>
+   </widget>
    <zorder>tableWidget</zorder>
    <zorder>label</zorder>
    <zorder>name</zorder>
    <zorder>label_2</zorder>
-   <zorder>crp</zorder>
-   <zorder>editarp</zorder>
    <zorder>eliminar</zorder>
    <zorder>botoMAS</zorder>
+   <zorder>calendarioW</zorder>
+   <zorder>crp</zorder>
+   <zorder>editarp</zorder>
   </widget>
  </widget>
  <resources/>

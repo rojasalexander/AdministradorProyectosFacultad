@@ -23,7 +23,13 @@ def get_relaciones(proyecto_id):
     """Devuelve un array de tuplas con todas las relaciones de un proyecto"""
     cur.execute("SELECT * FROM relaciones WHERE proyecto_id = :proyecto_id", 
     {"proyecto_id": proyecto_id})
-    return cur.fetchall()
+    relaciones = cur.fetchall()
+
+    return list(map(
+        lambda relacion:
+        Relacion(relacion[1], relacion[2], relacion[0]),
+        relaciones
+    ))
 
 def create_relacion(rel: Relacion, proyecto_id):
     relacion = (rel.actividadPrecedente, rel.actividadSiguiente, proyecto_id)
@@ -41,7 +47,11 @@ def get_relacion_by_id(id, proyecto_id):
             "proyecto_id": proyecto_id
         }
     )
-    return cur.fetchall()
+    aux = cur.fetchone()
+    if (aux != None):
+        return Relacion(aux[1], aux[2], aux[0])
+    
+    return "404"
 
 def delete_relacion(id, proyecto_id):
     """Pasar el id del proyecto a ser eliminado"""
@@ -63,11 +73,9 @@ def modify_relacion(id, rel: Relacion, proyecto_id):
         WHERE :identificador = identificador AND :proyecto_id = proyecto_id""",
             {
                 "identificador": id,
-                "nombre": rel.nombre,
-                "duracion": rel.duracion,
-                "proyecto_id": proyecto_id,
-                "fechaInicioTemprano": (rel.fechaInicioTemprano, '')[rel.fechaInicioTemprano != None],
-                "fechaInicioTardio": (rel.fechaInicioTardio, '')[rel.fechaInicioTardio != None]
+                "actividadPrecedente": rel.actividadPrecedente,
+                "actividadSiguiente": rel.actividadSiguiente,
+                "proyecto_id": proyecto_id
             }
         )
 

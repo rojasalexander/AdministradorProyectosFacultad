@@ -20,6 +20,11 @@ with connection:
         identificador integer primary key autoincrement,
         nombre text,
         duracion integer,
+        fechaInicioTemprano text,
+        fechaInicioTardio text,
+        fechaFinTemprano text,
+        fechaFinTardio text,
+        critico integer,
         proyecto_id integer)
         """)
 
@@ -34,8 +39,24 @@ def get_actividades(proyecto_id):
     """Devuelve un array de tuplas con todas las actividades de un cierto proyecto"""
     cur.execute("SELECT * FROM actividades WHERE proyecto_id = :proyecto_id", 
     {"proyecto_id": proyecto_id})
-    return cur.fetchall() #el fetchall trae todos los valores que cumplan las condiciones dadas
+    aux = cur.fetchall()
 
+    if (len(aux) != 0):
+        return list(map(
+            lambda actividad:
+            Actividad(actividad[1], 
+            actividad[2], 
+            actividad[0], 
+            fechaInicioTemprano=actividad[3],
+            fechaInicioTardio=actividad[4],
+            fechaFinTemprano=actividad[5],
+            fechaFinTardio=actividad[6],
+            critico= True if actividad[7] == 1 else False 
+            ),
+            aux)
+        )
+
+    return []
 
 """
 el insert lq hace es buscar la tabla que damos como nombre
@@ -43,29 +64,48 @@ e insertar los valores que pasamos ahi
 """
 def create_actividad(act: Actividad, proyecto_id):
     """Pasar el objeto de actividad y el proyecto_id relacionado con la actividad"""
-    if ( act_max(proyecto_id) ):
-        actividad = (act.nombre, act.duracion, proyecto_id)
+    if (act_max(proyecto_id)):
+        actividad = (act.nombre, act.duracion, "", "", "", "", 0, proyecto_id)
         with connection:
             cur.execute("""INSERT INTO actividades(
                 nombre, 
-                duracion, 
+                duracion,
+                fechaInicioTemprano,
+                fechaInicioTardio,
+                fechaInicioTemprano,
+                fechaFinTardio,
+                critico,
                 proyecto_id
                 )
-            VALUES (?, ?, ?)""", actividad)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)""", actividad)
     else:
-        print("Se ha alcanzado la cantidad máxima de actividades.")
+        return "404"
 
 
 def get_actividad_by_id(id, proyecto_id):
     """Pasar el id del proyecto. Retorna la actividad"""
-    cur.execute("""SELECT * FROM relaciones 
+    cur.execute("""SELECT * FROM actividades 
     WHERE identificador = :identificador AND proyecto_id = :proyecto_id""",
         {
             "identificador": id,
             "proyecto_id": proyecto_id
         }
     )
-    return cur.fetchall()
+    aux = cur.fetchone()
+    if (aux == None):
+        return "404"
+    
+    return Actividad(
+        aux[1], 
+        aux[2], 
+        aux[0], 
+        fechaInicioTemprano=aux[3],
+        fechaInicioTardio=aux[4],
+        fechaFinTemprano=aux[5],
+        fechaFinTardio=aux[6],
+        critico= True if aux[7] == 1 else False 
+        )
+
 
 
 """
@@ -90,13 +130,21 @@ def modify_actividad(id, act: Actividad, proyecto_id):
     with connection:
         cur.execute("""UPDATE actividades SET 
         nombre = :nombre, 
-        duracion = :duracion
+        duracion = :duracion,
+        fechaInicioTemprano = :fechaInicioTemprano,
+        fechaInicioTardio = :fechaInicioTardio,
+        critico = :critico
         WHERE :identificador = identificador AND :proyecto_id = proyecto_id""",
             {
                 "identificador": id,
                 "nombre": act.nombre,
                 "duracion": act.duracion,
-                "proyecto_id": proyecto_id
+                "fechaInicioTemprano": act.fechaInicioTemprano,
+                "fechaInicioTardio": act.fechaInicioTardio,
+                "fechaFinTemprano": act.fechaFinTemprano,
+                "fechaFinTardio": act.fechaFinTardio,
+                "critico": act.critico,
+                "proyecto_id": proyecto_id,
             }
         )
 

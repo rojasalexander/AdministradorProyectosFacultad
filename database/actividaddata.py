@@ -58,7 +58,7 @@ def create_actividad(act: Actividad, proyecto_id):
 
 def get_actividad_by_id(id, proyecto_id):
     """Pasar el id del proyecto. Retorna la actividad"""
-    cur.execute("""SELECT * FROM relaciones 
+    cur.execute("""SELECT * FROM actividades 
     WHERE identificador = :identificador AND proyecto_id = :proyecto_id""",
         {
             "identificador": id,

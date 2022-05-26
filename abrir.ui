@@ -42,7 +42,7 @@
      <rect>
       <x>60</x>
       <y>30</y>
-      <width>431</width>
+      <width>481</width>
       <height>81</height>
      </rect>
     </property>
@@ -56,7 +56,7 @@ background-color: rgba(0,0,0,0);
 border-radius:20;</string>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Actividades de:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Actividades de:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -188,13 +188,13 @@ font: 12pt &quot;Verdana&quot;;</string>
      </property>
     </column>
    </widget>
-   <widget class="QLabel" name="name">
+   <widget class="QLabel" name="proy_name">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>50</y>
-      <width>461</width>
-      <height>39</height>
+      <x>560</x>
+      <y>40</y>
+      <width>601</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -204,7 +204,7 @@ background-color: rgba(0,0,0,0);
 border-radius:20;</string>
     </property>
     <property name="text">
-     <string>hhhhhhhhhh</string>
+     <string/>
     </property>
    </widget>
    <widget class="QWidget" name="editar_act" native="true">
@@ -410,7 +410,7 @@ border-radius:20;</string>
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="nom_proy">
+    <widget class="QLabel" name="nom_acti">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -776,7 +776,7 @@ border-radius:10px;</string>
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="botonMAS">
     <property name="geometry">
      <rect>
       <x>1140</x>
@@ -804,12 +804,12 @@ border-radius:10px;</string>
    </widget>
    <zorder>tableWidget</zorder>
    <zorder>pro</zorder>
-   <zorder>name</zorder>
+   <zorder>proy_name</zorder>
    <zorder>editar_act</zorder>
    <zorder>crear_act</zorder>
    <zorder>relacionar_w</zorder>
    <zorder>eliminar</zorder>
-   <zorder>pushButton</zorder>
+   <zorder>botonMAS</zorder>
   </widget>
  </widget>
  <resources/>

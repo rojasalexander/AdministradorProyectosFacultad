@@ -53,7 +53,6 @@ def create_proyecto(proy: Proyecto):
         proy.descripcion, 
         proy.fechaInicio, 
         proy.fechaInicio + timedelta(days=365)
-
         )
 
     if (proy_max()):

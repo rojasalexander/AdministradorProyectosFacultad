@@ -1,7 +1,8 @@
+from re import I
 import sys
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QDialog, QWidget, QMainWindow
+from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow
 #from messagebox import msg_error
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -34,26 +35,26 @@ class WelcomeScreen(QMainWindow):
 class Gui_access(QDialog):
     def __init__(self, nombre):
         super(Gui_access, self).__init__()
-        loadUi('chicos.ui', self)
+        loadUi('vistaproyectos.ui', self)
         self.proyectos = []
         self.currentProyecto = {}
         self.crp.hide()
-        self.crp_2.hide()
+        self.editarp.hide()
         self.eliminar.hide()
         widget.move(100, 50) 
         widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
         widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
         self.name.setText(nombre)
         
-        botonPrueba = QPushButton(self)
-        botonPrueba.setGeometry(1100,700,51,51)
+        # botonPrueba = QPushButton(self)
+        # botonPrueba.setGeometry(1200,640,51,51)
         
-        addIcon = QPixmap('add-icon.png')
-        botonPrueba.setIcon(QIcon(addIcon))
-        botonPrueba.setIconSize(QSize(50,50))
-        botonPrueba.setStyleSheet(
-            "*{border-radius: 50%;}")
-        botonPrueba.clicked.connect(self.aggPopUp)
+        # addIcon = QPixmap('add-icon.png')
+        # botonPrueba.setIcon(QIcon(addIcon))
+        # botonPrueba.setIconSize(QSize(50,50))
+        # botonPrueba.setStyleSheet(
+        #     "*{border-radius: 50%;}")
+        self.botoMAS.clicked.connect(self.aggPopUp)
 
         header = self.tableWidget.horizontalHeader()       
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
@@ -61,6 +62,8 @@ class Gui_access(QDialog):
         header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
 
         self.crearbtn.clicked.connect(self.crear)
         self.cancelarbtn.clicked.connect(self.cancelar)
@@ -80,19 +83,26 @@ class Gui_access(QDialog):
             self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(self.proyectos[i][3]))
             self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(self.proyectos[i][2]))
             
+            btnActi = QPushButton(self.tableWidget)
+            btnActi.setIcon(QIcon(actividadIcon))
+            btnActi.setIconSize(QSize(25,25))
+            btnActi.setStyleSheet("*{border-radius: 50%;}")
+            btnActi.clicked.connect(lambda state, x=i: self.ventanaActi(x))
+            self.tableWidget.setCellWidget(i, 4, btnActi)
+
             btn = QPushButton(self.tableWidget)
             btn.setIcon(QIcon(editIcon))
             btn.setIconSize(QSize(25,25))
             btn.setStyleSheet("*{border-radius: 50%;}")
-            btn.clicked.connect(lambda state, x=i: self.editarPopUp(x))
-            self.tableWidget.setCellWidget(i, 3, btn)
+            btn.clicked.connect(lambda state, x=i: self.editarPopup(x))
+            self.tableWidget.setCellWidget(i, 5, btn)
 
             btn2 = QPushButton(self.tableWidget)
             btn2.setIcon(QIcon(deleteIcon))
             btn2.setIconSize(QSize(25,25))
             btn2.setStyleSheet("*{border-radius: 50%;}")
-            btn2.clicked.connect(lambda state, x=i: self.deletePopUp(x))
-            self.tableWidget.setCellWidget(i, 4, btn2)
+            btn2.clicked.connect(lambda state, x=i: self.deletePopup(x))
+            self.tableWidget.setCellWidget(i, 6, btn2)
 
     def regresar_login(self):
         welcome = WelcomeScreen()
@@ -114,25 +124,33 @@ class Gui_access(QDialog):
         self.loadData()
         self.crp.hide()
     
-    def editarPopUp(self, indice):
+    def editarPopup(self, indice):
         self.currentProyecto = self.proyectos[indice]
-        self.crp_2.show()
+        self.editarp.show()
         self.nom_2.setText(self.currentProyecto[1])
         self.des_2.setText(self.currentProyecto[3])
         self.fech_2.setText(self.currentProyecto[2])
+
+    def ventanaActi(self, indice):
+        self.currentProyecto = self.proyectos[indice]
+        ventana3 = ventanaActividades(self.currentProyecto[0], self.currentProyecto[1])
+        #widget = QStackedWidget()
+        
+        widget.addWidget(ventana3)  #para el cambio de ventanas
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def editar(self):
         newProyecto = Proyecto(self.nom_2.text(), self.des_2.text(), self.fech_2.text())
         modify_proyecto(self.currentProyecto[0], newProyecto)
         self.loadData()
-        self.crp_2.hide()
+        self.editarp.hide()
 
     def cancelar(self):
         self.crp.hide()
-        self.crp_2.hide()
+        self.editarp.hide()
         self.eliminar.hide()
 
-    def deletePopUp(self, indice):
+    def deletePopup(self, indice):
         self.eliminar.show()
         self.currentProyecto = self.proyectos[indice]
         self.nom_proy.setText(self.currentProyecto[1])
@@ -140,6 +158,103 @@ class Gui_access(QDialog):
     def delete(self):
         id = self.currentProyecto[0]
         delete_proyecto(id)
+        self.eliminar.hide()
+        self.loadData()
+
+
+class ventanaActividades(QDialog):
+    def __init__(self, id_proyecto, nom_proyecto):
+        super(ventanaActividades, self).__init__()
+        loadUi('abrir.ui', self)
+        
+        self.proy_name.setText(nom_proyecto)
+        self.id_proyecto = id_proyecto
+        self.actividades = []
+        self.currentActividad = {}
+        self.crear_act.hide()
+        self.editar_act.hide()
+        self.eliminar.hide()
+        self.relacionar_w.hide()
+        
+        widget.move(100, 50)
+        widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
+        widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
+
+        self.botonMAS.clicked.connect(self.crearPopup)
+        self.crear_actbtn.clicked.connect(self.crear)
+        self.cancelarbtn_2.clicked.connect(self.cancelar)
+        self.cancelarbtn_3.clicked.connect(self.cancelar)
+        self.cancelarbtn_4.clicked.connect(self.cancelar)
+        self.cancelarbtn_5.clicked.connect(self.cancelar)
+        self.editar_btn.clicked.connect(self.editar)
+        self.eliminarbtn.clicked.connect(self.delete)
+
+        header = self.tableWidget.horizontalHeader()       
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        for i in range(1,7):
+            header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
+
+        self.loadData()
+
+    def loadData(self):
+        self.actividades = get_actividades(self.id_proyecto)
+        self.tableWidget.setRowCount(len(self.actividades))
+        for i in range(len(self.actividades)):
+            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.actividades[i][1]))
+            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(str(self.actividades[i][2])))
+
+            btn = QPushButton(self.tableWidget)
+            btn.setIcon(QIcon(editIcon))
+            btn.setIconSize(QSize(25,25))
+            btn.setStyleSheet("*{border-radius: 50%;}")
+            btn.clicked.connect(lambda state, x=i: self.editarPopup(x))
+            self.tableWidget.setCellWidget(i, 5, btn)
+
+            btn2 = QPushButton(self.tableWidget)
+            btn2.setIcon(QIcon(deleteIcon))
+            btn2.setIconSize(QSize(25,25))
+            btn2.setStyleSheet("*{border-radius: 50%;}")
+            btn2.clicked.connect(lambda state, x=i: self.deletePopup(x))
+            self.tableWidget.setCellWidget(i, 6, btn2)
+    
+    def crearPopup(self):
+        self.crear_act.show()
+        self.nom_2.setText('')
+        self.dur_2.setText('')
+        
+    def crear(self):
+        newActividad = Actividad(self.nom_2.text(), self.dur_2.text())
+        create_actividad(newActividad, self.id_proyecto)
+        self.loadData()
+        self.crear_act.hide()
+
+    def cancelar(self):
+        self.crear_act.hide()
+        self.editar_act.hide()
+        self.eliminar.hide()
+        self.relacionar_w.hide()
+
+    def editarPopup(self, indice):
+        self.currentActividad = self.actividades[indice]
+        self.editar_act.show()
+        self.nom_1.setText(self.currentActividad[1])
+        self.dur.setText(str(self.currentActividad[2]))
+
+    def editar(self):
+        newActividad = Actividad(self.nom_1.text(), self.dur.text())
+        modify_actividad(self.currentActividad[0], newActividad, self.id_proyecto)
+        self.loadData()
+        self.editar_act.hide()
+
+    def deletePopup(self, indice):
+        self.currentActividad = self.actividades[indice]
+        self.nom_acti.setText(self.currentActividad[1])
+        self.eliminar.show()
+
+
+    def delete(self):
+        id = self.currentActividad[0]
+        delete_actividad(id, self.id_proyecto)
         self.eliminar.hide()
         self.loadData()
 
@@ -158,9 +273,10 @@ widget.setFixedWidth(380)    #se le asigna un tamaño fijo al widget
 #widget.setWindowFlags(QtCore.Qt.FramelessWindowHint) #quitar bordes
 #widget.setAttribute(QtCore.Qt.WA_TranslucentBackground) #translucido
 widget.show()
-
+actividadIcon = QPixmap('acti-icon.png')
 editIcon = QPixmap('edit-icon.png')
 deleteIcon = QPixmap('delete-icon.png')
+volverIcon = QPixmap('')
 try:
     sys.exit(app.exec_())
 except:

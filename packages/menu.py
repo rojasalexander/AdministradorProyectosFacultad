@@ -34,8 +34,7 @@ def menu_principal():
                 print(f"{a}".ljust(15), f"{b}".ljust(20), f"{d}".ljust(40), f"{c}".ljust(20))
             print("-" * 100)
             user = int(input("Ingrese el identificador del proyecto a cargar:\t"))
-            [(a,b,c,d)] = get_proyecto_by_id(user)
-            proy = Proyecto(b,d,c,a)
+            proy = get_proyecto_by_id(user)
             
             menu_proyecto(proy)
 

@@ -198,7 +198,7 @@ class ventanaActividades(QDialog):
         widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
         widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
 
-        self.botonMAS.clicked.connect(self.crearPopup)
+        self.agregarActiBtn.clicked.connect(self.crearPopup)
         self.crear_actbtn.clicked.connect(self.crear)
         self.cancelarbtn_2.clicked.connect(self.cancelar)
         self.cancelarbtn_3.clicked.connect(self.cancelar)
@@ -212,8 +212,8 @@ class ventanaActividades(QDialog):
         self.volverbtn.clicked.connect(self.volver)
         self.desrelacionarP.clicked.connect(self.desrelacionarPopup)
         self.desrelacionar_btn.clicked.connect(self.desrelacionar)
-        self.verGrafoBtn.clicked.connect(self.verGrafo)
-        self.calcularBtn.clicked.connect(self.calcularCamino)
+        self.grafobtn.clicked.connect(self.verGrafo)
+        self.actualizarbtn_2.clicked.connect(self.calcularCamino)
 
         header = self.tableWidget.horizontalHeader()       
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
@@ -317,23 +317,22 @@ class ventanaActividades(QDialog):
         relaciones = get_relaciones(self.id_proyecto)
 
         for relacion in relaciones:
-            anterior = get_actividad_by_id(relacion[1], self.id_proyecto)
-            siguiente = get_actividad_by_id(relacion[2], self.id_proyecto)
-            nomAnterior = anterior[0][1]
-            nomSiguiente = siguiente[0][1]
+            anterior = get_actividad_by_id(relacion.actividadPrecedente, self.id_proyecto)
+            siguiente = get_actividad_by_id(relacion.actividadSiguiente, self.id_proyecto)
+            nomAnterior = anterior.nombre
+            nomSiguiente = siguiente.nombre
             self.relacion_box.addItem(f"{nomAnterior} -> {nomSiguiente}")
         
     def desrelacionar(self):
         relaciones = get_relaciones(self.id_proyecto)
         index = self.relacion_box.currentIndex()
-        id = relaciones[index][0]
+        id = relaciones[index].identificador
         delete_relacion(id, self.id_proyecto)
         self.loadData()
         self.desrelacionar_w.hide()
     
     def verGrafo(self):
-        [(a,b,c,d)] = get_proyecto_by_id(self.id_proyecto)
-        proy = Proyecto(b,d,c,a)
+        proy = get_proyecto_by_id(self.id_proyecto)
         print(proy)
         proy.actualizar_bd()
         proy.mostrar_grafo()

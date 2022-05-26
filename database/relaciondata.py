@@ -49,7 +49,9 @@ def get_relacion_by_id(id, proyecto_id):
     )
     aux = cur.fetchone()
     if (aux != None):
-        Relacion(aux[1], aux[2], aux[0])
+        return Relacion(aux[1], aux[2], aux[0])
+    
+    return "404"
 
 def delete_relacion(id, proyecto_id):
     """Pasar el id del proyecto a ser eliminado"""

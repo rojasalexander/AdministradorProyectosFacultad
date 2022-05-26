@@ -30,15 +30,21 @@ with connection:
 def get_proyectos():
     """Devuelve un array de tuplas con todos los proyectos"""
     cur.execute("SELECT * FROM proyectos")
-    return map(
-        lambda proyecto: 
-        Proyecto(proyecto[1], 
-        proyecto[3], 
-        proyecto[2], 
-        "proyecto[4]",
-        identificador=proyecto[0]), 
-        cur.fetchall()
-        )
+    aux = cur.fetchall()
+    print(aux)
+    if (len(aux) != 0):
+        return list(map(
+            lambda proyecto: 
+            Proyecto(proyecto[1], 
+            proyecto[3], 
+            proyecto[2], 
+            proyecto[4],
+            identificador=proyecto[0])
+            , 
+            aux
+            ))
+    
+    return []
 
 def create_proyecto(proy: Proyecto):
     """Recibe el objeto proyecto"""
@@ -71,7 +77,7 @@ def get_proyecto_by_id(id):
             aux[1], 
             aux[3], 
             aux[2], 
-            "aux[4]",
+            aux[4],
             identificador=aux[0])
 
 def delete_proyecto(id):

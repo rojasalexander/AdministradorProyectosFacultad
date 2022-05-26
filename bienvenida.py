@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from datetime import date
+from datetime import *
 
 #sys.path.append('database')
 from database.proyectodata import *
@@ -81,9 +81,10 @@ class Gui_access(QDialog):
         print(self.proyectos)
         self.tableWidget.setRowCount(len(self.proyectos))
         for i in range(len(self.proyectos)):
-            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.proyectos[i][1]))
-            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(self.proyectos[i][3]))
-            self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(self.proyectos[i][2]))
+            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.proyectos[i].nombre))
+            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(self.proyectos[i].descripcion))
+            self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(self.proyectos[i].fechaInicio))
+            self.tableWidget.setItem(i, 3, QtWidgets.QTableWidgetItem(self.proyectos[i].fechaFin))
             
             btnActi = QPushButton(self.tableWidget)
             btnActi.setIcon(QIcon(actividadIcon))
@@ -105,27 +106,18 @@ class Gui_access(QDialog):
             btn2.setStyleSheet("*{border-radius: 50%;}")
             btn2.clicked.connect(lambda state, x=i: self.deletePopup(x))
             self.tableWidget.setCellWidget(i, 6, btn2)
-
-    def regresar_login(self):
-        welcome = WelcomeScreen()
-        widget.addWidget(welcome)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
-        widget.move(400, 80)
-        widget.setFixedHeight(500)    #se le asigna un tamaño fijo al widget
-        widget.setFixedWidth(500)    #se le asigna un tamaño fijo al widget
     
     def aggPopUp(self):
         self.crp.show()
         self.nom.setText('')
         self.des.setText('')
 
-        today = str(date.today())
-        self.fechaInicio = today.replace('-', '/')
+        self.fechaInicio = str(date.today())
         self.fechaIniLabel.setText(self.fechaInicio)
         self.fechaIniLabel_2.setText('')
         
     def crear(self):
-        newProyecto = Proyecto(self.nom.text(), self.des.text(), self.fechaInicio)
+        newProyecto = Proyecto(self.nom.text(), self.des.text(), date.fromisoformat(self.fechaInicio))
         create_proyecto(newProyecto)
         self.loadData()
         self.crp.hide()
@@ -133,21 +125,21 @@ class Gui_access(QDialog):
     def editarPopup(self, indice):
         self.currentProyecto = self.proyectos[indice]
         self.editarp.show()
-        self.nom_2.setText(self.currentProyecto[1])
-        self.des_2.setText(self.currentProyecto[3])
-        self.fechaInicio = self.currentProyecto[2]
+        self.nom_2.setText(self.currentProyecto.nombre)
+        self.des_2.setText(self.currentProyecto.descripcion)
+        self.fechaInicio = self.currentProyecto.fechaInicio
         self.fechaIniLabel_2.setText(self.fechaInicio)
         self.fechaIniLabel.setText('')
 
     def editar(self):
-        newProyecto = Proyecto(self.nom_2.text(), self.des_2.text(), self.fechaInicio)
-        modify_proyecto(self.currentProyecto[0], newProyecto)
+        newProyecto = Proyecto(self.nom_2.text(), self.des_2.text(), date.fromisoformat(self.fechaInicio))
+        modify_proyecto(self.currentProyecto.identificador, newProyecto)
         self.loadData()
         self.editarp.hide()
 
     def ventanaActi(self, indice):
         self.currentProyecto = self.proyectos[indice]
-        ventana3 = ventanaActividades(self.nombreUser, self.currentProyecto[0], self.currentProyecto[1])
+        ventana3 = ventanaActividades(self.nombreUser, self.currentProyecto.identificador, self.currentProyecto.nombre)
         widget.addWidget(ventana3)  #para el cambio de ventanas
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
@@ -159,23 +151,24 @@ class Gui_access(QDialog):
     def deletePopup(self, indice):
         self.eliminar.show()
         self.currentProyecto = self.proyectos[indice]
-        self.nom_proy.setText(self.currentProyecto[1])
+        self.nom_proy.setText(self.currentProyecto.nombre)
 
     def delete(self):
-        id = self.currentProyecto[0]
+        id = self.currentProyecto.identificador
         delete_proyecto(id)
         self.eliminar.hide()
         self.loadData()
 
     def calendarioPopup(self):
         self.calendarioW.show()
-        fecha = self.fechaInicio.split('/')
+        fecha = self.fechaInicio.split('-')
         date = QDate(int(fecha[0]), int(fecha[1]), int(fecha[2]))
         self.calendario.setSelectedDate(date)
 
     def selectFecha(self):
         fecha = self.calendario.selectedDate()
-        self.fechaInicio = f"{fecha.year()}/{fecha.month()}/{fecha.day()}"
+        self.fechaInicio = date.isoformat(fecha.toPyDate())
+        
         if(self.fechaIniLabel.text() != ''):
             self.fechaIniLabel.setText(self.fechaInicio)
         else:

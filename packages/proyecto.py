@@ -8,7 +8,7 @@ import networkx as nx
 import matplotlib as mp
 
 class Proyecto:
-    def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin, identificador = 0) -> None:
+    def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin=0, identificador = 0) -> None:
         self.identificador = identificador
         self.nombre = nombre
         self.descripcion = descripcion

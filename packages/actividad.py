@@ -25,4 +25,7 @@ class Actividad:
         self.critico = critico
         # self.completado = False
         # self.enCurso = False
+    
+    def setId(self, id):
+        self.identificador = id
 

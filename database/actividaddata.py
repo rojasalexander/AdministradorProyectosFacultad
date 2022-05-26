@@ -49,7 +49,8 @@ def get_actividades(proyecto_id):
         fechaFinTemprano=actividad[5],
         fechaFinTardio=actividad[6],
         critico= True if actividad[7] == 1 else False 
-        )
+        ),
+        
     )
 
 """

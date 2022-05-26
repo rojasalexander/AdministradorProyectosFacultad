@@ -78,6 +78,7 @@ class Gui_access(QDialog):
     
     def loadData(self):
         self.proyectos = get_proyectos()
+        print(self.proyectos)
         self.tableWidget.setRowCount(len(self.proyectos))
         for i in range(len(self.proyectos)):
             self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.proyectos[i][1]))

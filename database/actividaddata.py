@@ -25,7 +25,7 @@ with connection:
         fechaFinTemprano text,
         fechaFinTardio text,
         critico integer,
-        proyecto_id integer,)
+        proyecto_id integer)
         """)
 
 

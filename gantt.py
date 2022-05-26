@@ -47,10 +47,16 @@ y_pos = np.arange(cantfilas) #arreglo de posiciones de las tareas
 plt.yticks(y_pos, labels=reversed(data["Tarea"])) #lebel = nombre de las tareas
 
 # xticks = posicion de las fechas
-
+"""
 plt.gca().xaxis.set_minor_locator(mdates.MonthLocator()) #se pone el intervalo de las fechas
 plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(fmt="%b-%y")) #se pone el formato de las fechas
 plt.gca().xaxis.set_minor_locator(mdates.WeekdayLocator(byweekday=0))
+"""
+#plt.gca().xaxis.set_major_locator(mdates.DayLocator()) #se pone el intervalo de las fechas
+#plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(fmt="%d-%m-%y")) #se pone el formato de las fechas
+#plt.gca().xaxis.set_minor_locator(mdates.DayLocator())
+plt.gca().xaxis.set_minor_formatter(mdates.DateFormatter(fmt="%m-%y"))   
+plt.gca().xaxis.set_tick_params(which='major', pad=15) #se pone el intervalo de las 
 
 
 
@@ -62,6 +68,7 @@ plt.grid(axis="x",which="minor",ls= "--", lw=1)
 plt.gcf().autofmt_xdate(rotation=30) #se pone el formato de las fechas
 plt.xlim(data["Inicio"][0])
 plt.xlabel("Fechas", fontsize=12, weight="bold")
+plt.ylabel("Tareas", fontsize=12, weight="bold")
 plt.title("Grafico de Gantt", fontsize=14, weight="bold")
 plt.tight_layout(pad=1.8)
 plt.show()

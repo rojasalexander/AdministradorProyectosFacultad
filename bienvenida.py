@@ -15,6 +15,7 @@ from packages.proyecto import *
 class WelcomeScreen(QMainWindow):
     def __init__(self):
         super(WelcomeScreen, self).__init__()
+        self.showMaximized()
         loadUi('ingrese2.ui', self)
         self.ingre.clicked.connect(self.window_access)
     
@@ -33,27 +34,22 @@ class WelcomeScreen(QMainWindow):
         
 
 class Gui_access(QDialog):
-    def __init__(self, nombre):
+    def __init__(self, nombreUser):
         super(Gui_access, self).__init__()
         loadUi('vistaproyectos.ui', self)
+        widget.showMaximized() #fullscreen al entrar a la vista proyectos
+
+        self.nombreUser = nombreUser
         self.proyectos = []
         self.currentProyecto = {}
         self.crp.hide()
         self.editarp.hide()
         self.eliminar.hide()
-        widget.move(100, 50) 
-        widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
-        widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
-        self.name.setText(nombre)
+        # widget.move(100, 50) 
+        # widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
+        # widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
+        self.name.setText(nombreUser)
         
-        # botonPrueba = QPushButton(self)
-        # botonPrueba.setGeometry(1200,640,51,51)
-        
-        # addIcon = QPixmap('add-icon.png')
-        # botonPrueba.setIcon(QIcon(addIcon))
-        # botonPrueba.setIconSize(QSize(50,50))
-        # botonPrueba.setStyleSheet(
-        #     "*{border-radius: 50%;}")
         self.botoMAS.clicked.connect(self.aggPopUp)
 
         header = self.tableWidget.horizontalHeader()       
@@ -133,9 +129,7 @@ class Gui_access(QDialog):
 
     def ventanaActi(self, indice):
         self.currentProyecto = self.proyectos[indice]
-        ventana3 = ventanaActividades(self.currentProyecto[0], self.currentProyecto[1])
-        #widget = QStackedWidget()
-        
+        ventana3 = ventanaActividades(self.nombreUser, self.currentProyecto[0], self.currentProyecto[1])
         widget.addWidget(ventana3)  #para el cambio de ventanas
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
@@ -163,10 +157,10 @@ class Gui_access(QDialog):
 
 
 class ventanaActividades(QDialog):
-    def __init__(self, id_proyecto, nom_proyecto):
+    def __init__(self, nombreUser, id_proyecto, nom_proyecto):
         super(ventanaActividades, self).__init__()
         loadUi('abrir.ui', self)
-        
+        self.nombreUser = nombreUser
         self.proy_name.setText(nom_proyecto)
         self.id_proyecto = id_proyecto
         self.actividades = []
@@ -175,6 +169,7 @@ class ventanaActividades(QDialog):
         self.editar_act.hide()
         self.eliminar.hide()
         self.relacionar_w.hide()
+        
         
         widget.move(100, 50)
         widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
@@ -188,6 +183,9 @@ class ventanaActividades(QDialog):
         self.cancelarbtn_5.clicked.connect(self.cancelar)
         self.editar_btn.clicked.connect(self.editar)
         self.eliminarbtn.clicked.connect(self.delete)
+        self.relacionarbtn.clicked.connect(self.relacionarPopup)
+        self.relacionar_btn.clicked.connect(self.relacionar)
+        self.volverbtn.clicked.connect(self.volver)
 
         header = self.tableWidget.horizontalHeader()       
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
@@ -251,14 +249,26 @@ class ventanaActividades(QDialog):
         self.nom_acti.setText(self.currentActividad[1])
         self.eliminar.show()
 
-
     def delete(self):
         id = self.currentActividad[0]
         delete_actividad(id, self.id_proyecto)
         self.eliminar.hide()
         self.loadData()
 
+    def relacionarPopup(self):
+        self.relacionar_w.show()
+        for actividad in self.actividades:
+            self.anterior_box.addItem(actividad[1])
+            self.siguiente_box.addItem(actividad[1])
 
+
+    def relacionar(self):
+        self.relacionar_w.hide()
+    
+    def volver(self):
+        ventana = Gui_access(self.nombreUser)
+        widget.addWidget(ventana)  #para el cambio de ventanas
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
 def printear(indice):
     print("Hola mundo", indice)
@@ -267,16 +277,15 @@ app = QApplication(sys.argv) #inicializar la aplicacion
 welcome = WelcomeScreen() #crear un objeto de la clase que creamos
 widget = QtWidgets.QStackedWidget() #se crea un widget que va a contener todos los widgets, nos permite mover entre ellos
 widget.addWidget(welcome) #agregar un widget al widget, se agrega la ventana
-widget.move(400, 80) #ponemos en la parte central de la pantalla
-widget.setFixedHeight(420)    #se le asigna un tamaño fijo al widget
-widget.setFixedWidth(380)    #se le asigna un tamaño fijo al widget
-#widget.setWindowFlags(QtCore.Qt.FramelessWindowHint) #quitar bordes
-#widget.setAttribute(QtCore.Qt.WA_TranslucentBackground) #translucido
+#widget.move(400, 80) #ponemos en la parte central de la pantalla
+#widget.setFixedHeight(420)    #se le asigna un tamaño fijo al widget
+#widget.setFixedWidth(380)    #se le asigna un tamaño fijo al widget
 widget.show()
+
 actividadIcon = QPixmap('acti-icon.png')
 editIcon = QPixmap('edit-icon.png')
 deleteIcon = QPixmap('delete-icon.png')
-volverIcon = QPixmap('')
+
 try:
     sys.exit(app.exec_())
 except:

@@ -802,6 +802,45 @@ border-radius:10px;</string>
      </size>
     </property>
    </widget>
+   <widget class="QPushButton" name="volverbtn">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>0</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(0,0,0,0);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>volver-icon.png</normaloff>volver-icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>40</width>
+      <height>40</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="relacionarbtn">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>650</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Relacionar</string>
+    </property>
+   </widget>
    <zorder>tableWidget</zorder>
    <zorder>pro</zorder>
    <zorder>proy_name</zorder>
@@ -810,6 +849,8 @@ border-radius:10px;</string>
    <zorder>relacionar_w</zorder>
    <zorder>eliminar</zorder>
    <zorder>botonMAS</zorder>
+   <zorder>volverbtn</zorder>
+   <zorder>relacionarbtn</zorder>
   </widget>
  </widget>
  <resources/>

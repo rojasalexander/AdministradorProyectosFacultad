@@ -3,12 +3,20 @@ from database.proyectodata import get_proyectos
 from proyecto import *
 import sys
 sys.path.append('database')
-from database.actividaddata import *
-from database.relaciondata import *
-from database.proyectodata import *
+from actividaddata import *
+from relaciondata import *
+from proyectodata import *
 from datetime import *
 import pandas as pd
 import numpy as np
+
+def prueba():
+    a = get_proyecto_by_id(29)
+    if (a != "404"):
+        a.imprimir_proyecto()
+    else:
+        print("funciona porfis")
+
 
 def menu_principal():
 

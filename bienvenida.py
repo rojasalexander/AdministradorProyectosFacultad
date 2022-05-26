@@ -1,11 +1,12 @@
 import sys
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QDialog, QWidget, QMainWindow
+from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow
 #from messagebox import msg_error
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+from datetime import date
 
 #sys.path.append('database')
 from database.proyectodata import *
@@ -14,7 +15,8 @@ from packages.proyecto import *
 class WelcomeScreen(QMainWindow):
     def __init__(self):
         super(WelcomeScreen, self).__init__()
-        loadUi('ingrese2.ui', self)
+        self.showMaximized()
+        loadUi('ui/ingrese2.ui', self)
         self.ingre.clicked.connect(self.window_access)
     
     def gui_login(self):
@@ -32,28 +34,24 @@ class WelcomeScreen(QMainWindow):
         
 
 class Gui_access(QDialog):
-    def __init__(self, nombre):
+    def __init__(self, nombreUser):
         super(Gui_access, self).__init__()
-        loadUi('chicos.ui', self)
+        loadUi('ui/vistaproyectos.ui', self)
+
+        self.nombreUser = nombreUser
         self.proyectos = []
         self.currentProyecto = {}
+        self.fechaInicio = ''
         self.crp.hide()
-        self.crp_2.hide()
+        self.editarp.hide()
         self.eliminar.hide()
+        self.calendarioW.hide()
         widget.move(100, 50) 
-        widget.setFixedHeight(800)    #se le asigna un tamaño fijo al widget
-        widget.setFixedWidth(1230)    #se le asigna un tamaño fijo al widget
-        self.name.setText(nombre)
+        widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
+        widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
+        self.name.setText(nombreUser)
         
-        botonPrueba = QPushButton(self)
-        botonPrueba.setGeometry(1100,700,51,51)
-        
-        addIcon = QPixmap('add-icon.png')
-        botonPrueba.setIcon(QIcon(addIcon))
-        botonPrueba.setIconSize(QSize(50,50))
-        botonPrueba.setStyleSheet(
-            "*{border-radius: 50%;}")
-        botonPrueba.clicked.connect(self.aggPopUp)
+        self.botoMAS.clicked.connect(self.aggPopUp)
 
         header = self.tableWidget.horizontalHeader()       
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
@@ -61,6 +59,8 @@ class Gui_access(QDialog):
         header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
 
         self.crearbtn.clicked.connect(self.crear)
         self.cancelarbtn.clicked.connect(self.cancelar)
@@ -68,6 +68,10 @@ class Gui_access(QDialog):
         self.cancelarbtn_2.clicked.connect(self.cancelar)
         self.editarbtn.clicked.connect(self.editar)
         self.cancelarbtn_3.clicked.connect(self.cancelar)
+        self.calendarbtn.clicked.connect(self.calendarioPopup)
+        self.calendarbtn_2.clicked.connect(self.calendarioPopup)
+        self.seleccionarbtn.clicked.connect(self.selectFecha)
+        self.cancelarbtn_4.clicked.connect(self.cancelarCalendario)
 
         self.loadData()
         
@@ -80,19 +84,26 @@ class Gui_access(QDialog):
             self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(self.proyectos[i][3]))
             self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(self.proyectos[i][2]))
             
+            btnActi = QPushButton(self.tableWidget)
+            btnActi.setIcon(QIcon(actividadIcon))
+            btnActi.setIconSize(QSize(25,25))
+            btnActi.setStyleSheet("*{border-radius: 50%;}")
+            btnActi.clicked.connect(lambda state, x=i: self.ventanaActi(x))
+            self.tableWidget.setCellWidget(i, 4, btnActi)
+
             btn = QPushButton(self.tableWidget)
             btn.setIcon(QIcon(editIcon))
             btn.setIconSize(QSize(25,25))
             btn.setStyleSheet("*{border-radius: 50%;}")
-            btn.clicked.connect(lambda state, x=i: self.editarPopUp(x))
-            self.tableWidget.setCellWidget(i, 3, btn)
+            btn.clicked.connect(lambda state, x=i: self.editarPopup(x))
+            self.tableWidget.setCellWidget(i, 5, btn)
 
             btn2 = QPushButton(self.tableWidget)
             btn2.setIcon(QIcon(deleteIcon))
             btn2.setIconSize(QSize(25,25))
             btn2.setStyleSheet("*{border-radius: 50%;}")
-            btn2.clicked.connect(lambda state, x=i: self.deletePopUp(x))
-            self.tableWidget.setCellWidget(i, 4, btn2)
+            btn2.clicked.connect(lambda state, x=i: self.deletePopup(x))
+            self.tableWidget.setCellWidget(i, 6, btn2)
 
     def regresar_login(self):
         welcome = WelcomeScreen()
@@ -106,33 +117,45 @@ class Gui_access(QDialog):
         self.crp.show()
         self.nom.setText('')
         self.des.setText('')
-        self.fech.setText('')
+
+        today = str(date.today())
+        self.fechaInicio = today.replace('-', '/')
+        self.fechaIniLabel.setText(self.fechaInicio)
+        self.fechaIniLabel_2.setText('')
         
     def crear(self):
-        newProyecto = Proyecto(self.nom.text(), self.des.text(), self.fech.text())
+        newProyecto = Proyecto(self.nom.text(), self.des.text(), self.fechaInicio)
         create_proyecto(newProyecto)
         self.loadData()
         self.crp.hide()
     
-    def editarPopUp(self, indice):
+    def editarPopup(self, indice):
         self.currentProyecto = self.proyectos[indice]
-        self.crp_2.show()
+        self.editarp.show()
         self.nom_2.setText(self.currentProyecto[1])
         self.des_2.setText(self.currentProyecto[3])
-        self.fech_2.setText(self.currentProyecto[2])
+        self.fechaInicio = self.currentProyecto[2]
+        self.fechaIniLabel_2.setText(self.fechaInicio)
+        self.fechaIniLabel.setText('')
 
     def editar(self):
-        newProyecto = Proyecto(self.nom_2.text(), self.des_2.text(), self.fech_2.text())
+        newProyecto = Proyecto(self.nom_2.text(), self.des_2.text(), self.fechaInicio)
         modify_proyecto(self.currentProyecto[0], newProyecto)
         self.loadData()
-        self.crp_2.hide()
+        self.editarp.hide()
+
+    def ventanaActi(self, indice):
+        self.currentProyecto = self.proyectos[indice]
+        ventana3 = ventanaActividades(self.nombreUser, self.currentProyecto[0], self.currentProyecto[1])
+        widget.addWidget(ventana3)  #para el cambio de ventanas
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def cancelar(self):
         self.crp.hide()
-        self.crp_2.hide()
+        self.editarp.hide()
         self.eliminar.hide()
 
-    def deletePopUp(self, indice):
+    def deletePopup(self, indice):
         self.eliminar.show()
         self.currentProyecto = self.proyectos[indice]
         self.nom_proy.setText(self.currentProyecto[1])
@@ -143,10 +166,195 @@ class Gui_access(QDialog):
         self.eliminar.hide()
         self.loadData()
 
+    def calendarioPopup(self):
+        self.calendarioW.show()
+        fecha = self.fechaInicio.split('/')
+        date = QDate(int(fecha[0]), int(fecha[1]), int(fecha[2]))
+        self.calendario.setSelectedDate(date)
+
+    def selectFecha(self):
+        fecha = self.calendario.selectedDate()
+        self.fechaInicio = f"{fecha.year()}/{fecha.month()}/{fecha.day()}"
+        if(self.fechaIniLabel.text() != ''):
+            self.fechaIniLabel.setText(self.fechaInicio)
+        else:
+            self.fechaIniLabel_2.setText(self.fechaInicio)
+        self.calendarioW.hide()
+
+    def cancelarCalendario(self):
+        self.calendarioW.hide()
+        
+
+class ventanaActividades(QDialog):
+    def __init__(self, nombreUser, id_proyecto, nom_proyecto):
+        super(ventanaActividades, self).__init__()
+        loadUi('ui/abrir.ui', self)
+        self.nombreUser = nombreUser
+        self.proy_name.setText(nom_proyecto)
+        self.id_proyecto = id_proyecto
+        self.actividades = []
+        self.currentActividad = {}
+        self.crear_act.hide()
+        self.editar_act.hide()
+        self.eliminar.hide()
+        self.relacionar_w.hide()
+        self.desrelacionar_w.hide()
+        
+        widget.move(100, 50)
+        widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
+        widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
+
+        self.botonMAS.clicked.connect(self.crearPopup)
+        self.crear_actbtn.clicked.connect(self.crear)
+        self.cancelarbtn_2.clicked.connect(self.cancelar)
+        self.cancelarbtn_3.clicked.connect(self.cancelar)
+        self.cancelarbtn_4.clicked.connect(self.cancelar)
+        self.cancelarbtn_5.clicked.connect(self.cancelar)
+        self.cancelarbtn_6.clicked.connect(self.cancelar)
+        self.editar_btn.clicked.connect(self.editar)
+        self.eliminarbtn.clicked.connect(self.delete)
+        self.relacionarbtn.clicked.connect(self.relacionarPopup)
+        self.relacionar_btn.clicked.connect(self.relacionar)
+        self.volverbtn.clicked.connect(self.volver)
+        self.desrelacionarP.clicked.connect(self.desrelacionarPopup)
+        self.desrelacionar_btn.clicked.connect(self.desrelacionar)
+        self.verGrafoBtn.clicked.connect(self.verGrafo)
+        self.calcularBtn.clicked.connect(self.calcularCamino)
+
+        header = self.tableWidget.horizontalHeader()       
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        for i in range(1,7):
+            header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
+
+        self.loadData()
+
+    def loadData(self):
+        self.actividades = get_actividades(self.id_proyecto)
+        self.tableWidget.setRowCount(len(self.actividades))
+        for i in range(len(self.actividades)):
+            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.actividades[i][1]))
+            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(str(self.actividades[i][2])))
+
+            btn = QPushButton(self.tableWidget)
+            btn.setIcon(QIcon(editIcon))
+            btn.setIconSize(QSize(25,25))
+            btn.setStyleSheet("*{border-radius: 50%;}")
+            btn.clicked.connect(lambda state, x=i: self.editarPopup(x))
+            self.tableWidget.setCellWidget(i, 5, btn)
+
+            btn2 = QPushButton(self.tableWidget)
+            btn2.setIcon(QIcon(deleteIcon))
+            btn2.setIconSize(QSize(25,25))
+            btn2.setStyleSheet("*{border-radius: 50%;}")
+            btn2.clicked.connect(lambda state, x=i: self.deletePopup(x))
+            self.tableWidget.setCellWidget(i, 6, btn2)
+    
+    def crearPopup(self):
+        self.crear_act.show()
+        self.nom_2.setText('')
+        self.dur_2.setText('')
+        
+    def crear(self):
+        newActividad = Actividad(self.nom_2.text(), self.dur_2.text())
+        create_actividad(newActividad, self.id_proyecto)
+        self.loadData()
+        self.crear_act.hide()
+
+    def cancelar(self):
+        self.crear_act.hide()
+        self.editar_act.hide()
+        self.eliminar.hide()
+        self.relacionar_w.hide()
+        self.desrelacionar_w.hide()
+
+    def editarPopup(self, indice):
+        self.currentActividad = self.actividades[indice]
+        self.editar_act.show()
+        self.nom_1.setText(self.currentActividad[1])
+        self.dur.setText(str(self.currentActividad[2]))
+
+    def editar(self):
+        newActividad = Actividad(self.nom_1.text(), self.dur.text())
+        modify_actividad(self.currentActividad[0], newActividad, self.id_proyecto)
+        self.loadData()
+        self.editar_act.hide()
+
+    def deletePopup(self, indice):
+        self.currentActividad = self.actividades[indice]
+        self.nom_acti.setText(self.currentActividad[1])
+        self.eliminar.show()
+
+    def delete(self):
+        id = self.currentActividad[0]
+        delete_actividad(id, self.id_proyecto)
+        self.eliminar.hide()
+        self.loadData()
+
+    def relacionarPopup(self):
+        self.relacionar_w.show()
+        # self.anterior_box.activated[str].connect(self.onChangeAnterior)
+        # self.siguiente_box.activated[str].connect(self.onChangeSiguiente)
+        self.anterior_box.clear()
+        self.siguiente_box.clear()
+        for actividad in self.actividades:
+            self.anterior_box.addItem(actividad[1])
+            self.siguiente_box.addItem(actividad[1])
+        
+        #self.siguiente_box.setCurrentIndex(1)
 
 
-def printear(indice):
-    print("Hola mundo", indice)
+    def relacionar(self):
+        self.relacionar_w.hide()
+
+        anteriorIndex = self.anterior_box.currentIndex()
+        siguienteIndex = self.siguiente_box.currentIndex()
+
+        anteriorId = self.actividades[anteriorIndex][0]
+        siguienteId = self.actividades[siguienteIndex][0]
+
+        newRelacion = Relacion(anteriorId, siguienteId)
+        create_relacion(newRelacion, self.id_proyecto)
+
+        self.loadData()
+
+    def desrelacionarPopup(self):
+        self.desrelacionar_w.show()
+        self.relacion_box.clear()
+        relaciones = get_relaciones(self.id_proyecto)
+
+        prueba = get_actividad_by_id(12, self.id_proyecto)
+        # prueba = get_proyecto_by_id(39)
+
+        print("a", prueba)
+        for relacion in relaciones:
+            anterior = get_actividad_by_id(relacion[1], self.id_proyecto)
+            siguiente = get_actividad_by_id(relacion[2], self.id_proyecto)
+            nomAnterior = anterior[0][1]
+            nomSiguiente = siguiente[0][1]
+            self.relacion_box.addItem(f"{nomAnterior} -> {nomSiguiente}")
+        
+    def desrelacionar(self):
+        relaciones = get_relaciones(self.id_proyecto)
+        index = self.relacion_box.currentIndex()
+        id = relaciones[index][0]
+        delete_relacion(id, self.id_proyecto)
+        self.loadData()
+        self.desrelacionar_w.hide()
+    
+    def verGrafo(self):
+        [(a,b,c,d)] = get_proyecto_by_id(self.id_proyecto)
+        proy = Proyecto(b,d,c,a)
+        print(proy)
+        proy.actualizar_bd()
+        proy.mostrar_grafo()
+
+    def calcularCamino(self):
+        print()
+
+    def volver(self):
+        ventana = Gui_access(self.nombreUser)
+        widget.addWidget(ventana)  #para el cambio de ventanas
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
 app = QApplication(sys.argv) #inicializar la aplicacion
 welcome = WelcomeScreen() #crear un objeto de la clase que creamos
@@ -155,12 +363,12 @@ widget.addWidget(welcome) #agregar un widget al widget, se agrega la ventana
 widget.move(400, 80) #ponemos en la parte central de la pantalla
 widget.setFixedHeight(420)    #se le asigna un tamaño fijo al widget
 widget.setFixedWidth(380)    #se le asigna un tamaño fijo al widget
-#widget.setWindowFlags(QtCore.Qt.FramelessWindowHint) #quitar bordes
-#widget.setAttribute(QtCore.Qt.WA_TranslucentBackground) #translucido
 widget.show()
 
-editIcon = QPixmap('edit-icon.png')
-deleteIcon = QPixmap('delete-icon.png')
+actividadIcon = QPixmap('icons/acti-icon.png')
+editIcon = QPixmap('icons/edit-icon.png')
+deleteIcon = QPixmap('icons/delete-icon.png')
+
 try:
     sys.exit(app.exec_())
 except:

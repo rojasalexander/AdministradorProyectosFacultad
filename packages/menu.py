@@ -7,8 +7,8 @@ from actividaddata import *
 from relaciondata import *
 from proyectodata import *
 from datetime import *
-import numpy as np
 import pandas as pd
+import numpy as np
 
 def prueba():
     a = get_proyecto_by_id(29)
@@ -73,6 +73,7 @@ def menu_proyecto(proy: Proyecto):
         print("\t1: Crear Actividad")
         print("\t2: Crear Relacion")
         print("\t3: Actualizar Cálculos")
+        print("\t4: Ver grafo")
         print("\t0: Salir")
         x = input("Ingrese una opción:\t")
 
@@ -114,6 +115,8 @@ def menu_proyecto(proy: Proyecto):
                 matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
             
             arr = np.asarray(matrix)
-            pd.DataFrame(arr).to_csv(f'{proy.nombre}.csv', index_label = "Index", header  = ['Nombre', 'Fecha Inicio', 'Fecha Fin', 'Duracion estimada', 'Critico'])  
+            pd.DataFrame(arr).to_excel(excel_writer = f'{proy.nombre}.xlsx', index_label = "Index", header  = ['Nombre', 'Fecha Inicio', 'Fecha Fin', 'Duracion estimada', 'Critico'])  
         
-        
+        elif(x == '4'):
+            proy.mostrar_grafo()
+

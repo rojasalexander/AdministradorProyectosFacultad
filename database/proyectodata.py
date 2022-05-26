@@ -30,15 +30,19 @@ with connection:
 def get_proyectos():
     """Devuelve un array de tuplas con todos los proyectos"""
     cur.execute("SELECT * FROM proyectos")
-    return map(
-        lambda proyecto: 
-        Proyecto(proyecto[1], 
-        proyecto[3], 
-        proyecto[2], 
-        "proyecto[4]",
-        identificador=proyecto[0]), 
-        cur.fetchall()
-        )
+    aux = cur.fetchall()
+    if (len(aux) != 0):
+        return map(
+            lambda proyecto: 
+            Proyecto(proyecto[1], 
+            proyecto[3], 
+            proyecto[2], 
+            "proyecto[4]",
+            identificador=proyecto[0]), 
+            aux
+            )
+    
+    return []
 
 def create_proyecto(proy: Proyecto):
     """Recibe el objeto proyecto"""

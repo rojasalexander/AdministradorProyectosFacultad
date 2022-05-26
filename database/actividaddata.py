@@ -25,7 +25,7 @@ with connection:
         fechaFinTemprano text,
         fechaFinTardio text,
         critico integer,
-        proyecto_id integer,)
+        proyecto_id integer)
         """)
 
 
@@ -39,19 +39,24 @@ def get_actividades(proyecto_id):
     """Devuelve un array de tuplas con todas las actividades de un cierto proyecto"""
     cur.execute("SELECT * FROM actividades WHERE proyecto_id = :proyecto_id", 
     {"proyecto_id": proyecto_id})
-    return map(
-        lambda actividad:
-        Actividad(actividad[1], 
-        actividad[2], 
-        actividad[0], 
-        fechaInicioTemprano=actividad[3],
-        fechaInicioTardio=actividad[4],
-        fechaFinTemprano=actividad[5],
-        fechaFinTardio=actividad[6],
-        critico= True if actividad[7] == 1 else False 
-        ),
-        
-    )
+    aux = cur.fetchall()
+
+    if (len(aux) != 0):
+        return map(
+            lambda actividad:
+            Actividad(actividad[1], 
+            actividad[2], 
+            actividad[0], 
+            fechaInicioTemprano=actividad[3],
+            fechaInicioTardio=actividad[4],
+            fechaFinTemprano=actividad[5],
+            fechaFinTardio=actividad[6],
+            critico= True if actividad[7] == 1 else False 
+            ),
+            aux
+        )
+
+    return []
 
 """
 el insert lq hace es buscar la tabla que damos como nombre
@@ -74,7 +79,7 @@ def create_actividad(act: Actividad, proyecto_id):
                 )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)""", actividad)
     else:
-        print("Se ha alcanzado la cantidad máxima de actividades.")
+        return "404"
 
 
 def get_actividad_by_id(id, proyecto_id):
@@ -86,7 +91,21 @@ def get_actividad_by_id(id, proyecto_id):
             "proyecto_id": proyecto_id
         }
     )
-    return cur.fetchall()
+    aux = cur.fetchone()
+    if (aux == None):
+        return "404"
+    
+    return Actividad(
+        aux[1], 
+        aux[2], 
+        aux[0], 
+        fechaInicioTemprano=aux[3],
+        fechaInicioTardio=aux[4],
+        fechaFinTemprano=aux[5],
+        fechaFinTardio=aux[6],
+        critico= True if aux[7] == 1 else False 
+        )
+
 
 
 """

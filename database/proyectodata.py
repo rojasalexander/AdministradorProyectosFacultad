@@ -50,7 +50,7 @@ def create_proyecto(proy: Proyecto):
         proy.nombre, 
         proy.descripcion, 
         proy.fechaInicio, 
-        proy.fechaInicio + timedelta(years=1)
+        proy.fechaInicio + timedelta(days=365)
         )
 
     if (proy_max()):
@@ -91,7 +91,7 @@ def delete_proyecto(id):
     
 
 def modify_proyecto(id, proy: Proyecto):
-    fechaFin = proy.fechaInicio + timedelta(years=1)
+    fechaFin = proy.fechaInicio + timedelta(days=365)
     with connection:
         cur.execute("""UPDATE proyectos SET nombre = :nombre, fecha = :fecha, descripcion = :descripcion, fechaFin = :fechaFin 
         WHERE :identificador = identificador""",

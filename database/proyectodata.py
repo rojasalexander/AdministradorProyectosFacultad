@@ -105,6 +105,14 @@ def modify_proyecto(id, proy: Proyecto):
             }
         )
 
+def update_fecha_fin(id, fechaFin):
+    with connection:
+        cur.execute("""UPDATE proyectos SET fechaFin = :fechaFin
+        WHERE :identificador = identificador""", {
+            "identificador": id,
+            "fechaFin": fechaFin
+        })
+
 def proy_max():
     if (not(len(get_proyectos()) == 999)):
         return True

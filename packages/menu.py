@@ -3,12 +3,20 @@ from database.proyectodata import get_proyectos
 from proyecto import *
 import sys
 sys.path.append('database')
-from database.actividaddata import *
-from database.relaciondata import *
-from database.proyectodata import *
+from actividaddata import *
+from relaciondata import *
+from proyectodata import *
 from datetime import *
-import numpy as np
 import pandas as pd
+import numpy as np
+
+def prueba():
+    a = get_proyecto_by_id(29)
+    if (a != "404"):
+        a.imprimir_proyecto()
+    else:
+        print("funciona porfis")
+
 
 def menu_principal():
 
@@ -65,6 +73,7 @@ def menu_proyecto(proy: Proyecto):
         print("\t1: Crear Actividad")
         print("\t2: Crear Relacion")
         print("\t3: Actualizar Cálculos")
+        print("\t4: Ver grafo")
         print("\t0: Salir")
         x = input("Ingrese una opción:\t")
 
@@ -77,6 +86,7 @@ def menu_proyecto(proy: Proyecto):
         elif(x == "3"):
             proy.calculo_Tardio(proy.nodo_inicio())
             proy.calculo_Temprano(proy.final)
+            proy.actividades_criticas()
             print()
             print("-" * 100)
             print("Nombre".ljust(20), "Duracion".ljust(15), "Fecha Inicio Temprano".ljust(15), "Fecha Fin Temprano".ljust(15), "Precedentes".ljust(15))
@@ -102,9 +112,11 @@ def menu_proyecto(proy: Proyecto):
             print()
             matrix = []
             for actividad in proy.actividades:
-                matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTardio])
+                matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
             
             arr = np.asarray(matrix)
-            pd.DataFrame(arr).to_csv(f'{proy.nombre}.csv', index_label = "Index", header  = ['Nombre','Fecha Inicio','Fecha Fin'])  
+            pd.DataFrame(arr).to_excel(excel_writer = f'{proy.nombre}.xlsx', index_label = "Index", header  = ['Nombre', 'Fecha Inicio', 'Fecha Fin', 'Duracion estimada', 'Critico'])  
         
-        
+        elif(x == '4'):
+            proy.mostrar_grafo()
+

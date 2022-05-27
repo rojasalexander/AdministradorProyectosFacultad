@@ -4,20 +4,29 @@ from database.actividaddata import *
 from database.relaciondata import *
 from database.proyectodata import *
 from datetime import *
-
+import networkx as nx
+import matplotlib as mp
 
 class Proyecto:
-    def __init__(self, nombre: str, descripcion: str, fechaInicio, identificador = 0) -> None:
+    def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin=0, identificador = 0) -> None:
         self.identificador = identificador
         self.nombre = nombre
         self.descripcion = descripcion
         self.fechaInicio = fechaInicio
+        self.fechaFin = fechaFin
         
         self.actividades = []
         self.relaciones = []
 
         self.final = 0
 
+    def imprimir_proyecto(self):
+        print(f"""Nombre: {self.nombre}
+        Descripcion: {self.descripcion}
+        Fecha de inicio: {self.fechaInicio}
+        Fecha fin: {self.fechaFin}
+        Id: {self.identificador}
+            """)
 
     def crear_actividad(self):
         #identificador = len(self.actividades) + 1
@@ -92,7 +101,35 @@ class Proyecto:
                     precedente.fechaFinTemprano = actividad.fechaInicioTemprano
                     precedente.fechaInicioTemprano = date.isoformat(date.fromisoformat(precedente.fechaFinTemprano) - timedelta(precedente.duracion))
                     self.calculo_Temprano(precedente)
-    
+
+    def actividades_criticas(self):
+        for actividad in self.actividades:
+            if date.fromisoformat(actividad.fechaInicioTemprano) == date.fromisoformat(actividad.fechaInicioTardio):
+                actividad.critico = True
+
+    def mostrar_grafo(self):
+        
+        rels = [[a.actividadPrecedente,a.actividadSiguiente] for a in self.relaciones]
+        relsnombres = []
+        for a in range(len(rels)):
+            c = [e.nombre for e in self.actividades if e.identificador == rels[a][0]]
+            d = [f.nombre for f in self.actividades if f.identificador == rels[a][1]]
+            relsnombres.append((c[0], d[0]))
+
+        print(rels)
+        print(relsnombres)
+        
+        
+        G = nx.DiGraph()
+        G.add_edges_from(relsnombres)
+
+        pos = nx.spring_layout(G)
+
+        nx.draw_networkx_nodes(G,pos, node_size = 500)
+        nx.draw_networkx_edges(G,pos, edgelist = G.edges(), edge_color= "black", arrowsize=15)
+        nx.draw_networkx_labels(G,pos)
+
+        mp.pyplot.show()
         
 
 
@@ -109,8 +146,3 @@ def crear_proyecto():
     return Proyecto(nombre, descripcion, fechaInicio)
 
    
-
-
-
-
-

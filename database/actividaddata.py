@@ -65,7 +65,7 @@ e insertar los valores que pasamos ahi
 def create_actividad(act: Actividad, proyecto_id):
     """Pasar el objeto de actividad y el proyecto_id relacionado con la actividad"""
     if (act_max(proyecto_id)):
-        actividad = (act.nombre, act.duracion, "", "", "", "", 0, proyecto_id)
+        actividad = (act.nombre, act.duracion, "", "", "", "", proyecto_id)
         with connection:
             cur.execute("""INSERT INTO actividades(
                 nombre, 
@@ -74,10 +74,9 @@ def create_actividad(act: Actividad, proyecto_id):
                 fechaInicioTardio,
                 fechaInicioTemprano,
                 fechaFinTardio,
-                critico,
                 proyecto_id
                 )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)""", actividad)
+            VALUES (?, ?, ?, ?, ?, ?, ?)""", actividad)
     else:
         return "404"
 

@@ -92,21 +92,21 @@ class Gui_access(QDialog):
             
             btnActi = QPushButton(self.tableWidget)
             btnActi.setIcon(QIcon(actividadIcon))
-            btnActi.setIconSize(QSize(35,35))
+            btnActi.setIconSize(QSize(25,25))
             btnActi.setStyleSheet("*{border-radius: 50%;}")
             btnActi.clicked.connect(lambda state, x=i: self.ventanaActi(x))
             self.tableWidget.setCellWidget(i, 4, btnActi)
 
             btn = QPushButton(self.tableWidget)
             btn.setIcon(QIcon(editIcon))
-            btn.setIconSize(QSize(35,35))
+            btn.setIconSize(QSize(25,25))
             btn.setStyleSheet("*{border-radius: 50%;}")
             btn.clicked.connect(lambda state, x=i: self.editarPopup(x))
             self.tableWidget.setCellWidget(i, 5, btn)
 
             btn2 = QPushButton(self.tableWidget)
             btn2.setIcon(QIcon(deleteIcon))
-            btn2.setIconSize(QSize(35,35))
+            btn2.setIconSize(QSize(25,25))
             btn2.setStyleSheet("*{border-radius: 50%;}")
             btn2.clicked.connect(lambda state, x=i: self.deletePopup(x))
             self.tableWidget.setCellWidget(i, 6, btn2)
@@ -245,14 +245,14 @@ class ventanaActividades(QDialog):
 
             btn = QPushButton(self.tableWidget)
             btn.setIcon(QIcon(editIcon))
-            btn.setIconSize(QSize(35,35))
+            btn.setIconSize(QSize(25,25))
             btn.setStyleSheet("*{border-radius: 50%;}")
             btn.clicked.connect(lambda state, x=i: self.editarPopup(x))
             self.tableWidget.setCellWidget(i, 5, btn)
 
             btn2 = QPushButton(self.tableWidget)
             btn2.setIcon(QIcon(deleteIcon))
-            btn2.setIconSize(QSize(35,35))
+            btn2.setIconSize(QSize(25,25))
             btn2.setStyleSheet("*{border-radius: 50%;}")
             btn2.clicked.connect(lambda state, x=i: self.deletePopup(x))
             self.tableWidget.setCellWidget(i, 6, btn2)
@@ -379,9 +379,9 @@ widget.move(400, 80) #ponemos en la parte central de la pantalla
 #widget.setFixedWidth(380)    #se le asigna un tamaño fijo al widget
 widget.show()
 
-actividadIcon = QPixmap('icons/acti-icon.png')
-editIcon = QPixmap('icons/edit-icon.png')
-deleteIcon = QPixmap('icons/delete-icon.png')
+actividadIcon = QPixmap('icons/checklist.png')
+editIcon = QPixmap('icons/edit.png')
+deleteIcon = QPixmap('icons/trash.png')
 
 try:
     sys.exit(app.exec_())

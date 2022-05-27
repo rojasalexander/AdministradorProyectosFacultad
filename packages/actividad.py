@@ -5,10 +5,10 @@ class Actividad:
     nombre: str, 
     duracion: int, 
     identificador = 0, 
-    fechaInicioTemprano = 0, 
-    fechaInicioTardio = 0,
-    fechaFinTemprano = 0,
-    fechaFinTardio = 0,
+    fechaInicioTemprano = '', 
+    fechaInicioTardio = '',
+    fechaFinTemprano = '',
+    fechaFinTardio = '',
     critico = False) -> None:
         self.identificador = identificador
         self.nombre = nombre

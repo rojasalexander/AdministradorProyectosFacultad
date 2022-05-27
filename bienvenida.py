@@ -11,6 +11,7 @@ from datetime import *
 #sys.path.append('database')
 from database.proyectodata import *
 from packages.proyecto import *
+from gantt2 import *
 
 class WelcomeScreen(QMainWindow):
     def __init__(self):
@@ -182,7 +183,7 @@ class Gui_access(QDialog):
 class ventanaActividades(QDialog):
     def __init__(self, nombreUser, id_proyecto, nom_proyecto):
         super(ventanaActividades, self).__init__()
-        loadUi('ui/abrir.ui', self)
+        loadUi('ui/abrirAlex.ui', self)
         self.nombreUser = nombreUser
         self.proy_name.setText(nom_proyecto)
         self.id_proyecto = id_proyecto
@@ -227,7 +228,9 @@ class ventanaActividades(QDialog):
         self.tableWidget.setRowCount(len(self.actividades))
         for i in range(len(self.actividades)):
             self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.actividades[i].nombre))
+            self.tableWidget.item(i, 0).setForeground(QBrush(QColor(255, 255, 255)))
             self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(str(self.actividades[i].duracion)))
+            self.tableWidget.item(i, 0).setForeground(QBrush(QColor(255, 255, 255)))
 
             btn = QPushButton(self.tableWidget)
             btn.setIcon(QIcon(editIcon))
@@ -338,7 +341,11 @@ class ventanaActividades(QDialog):
         proy.mostrar_grafo()
 
     def calcularCamino(self):
-        print()
+        proy = get_proyecto_by_id(self.id_proyecto)
+        print(proy)
+        # proy.actualizar_bd()
+        # proy.actualizarCsv()
+        mostrar_gantt()
 
     def volver(self):
         ventana = Gui_access(self.nombreUser)

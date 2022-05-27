@@ -6,6 +6,8 @@ from database.proyectodata import *
 from datetime import *
 import networkx as nx
 import matplotlib as mp
+import pandas as pd
+import numpy as np
 
 class Proyecto:
     def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin=0, identificador = 0) -> None:
@@ -80,7 +82,6 @@ class Proyecto:
             
 
         else:
-
             for siguiente in siguientes:
                 if siguiente.fechaInicioTardio == "" or date.fromisoformat(siguiente.fechaInicioTardio) < date.fromisoformat(actividad.fechaFinTardio):
                     siguiente.fechaInicioTardio = actividad.fechaFinTardio
@@ -129,8 +130,19 @@ class Proyecto:
 
         mp.pyplot.show()
 
+    def actualizarCsv(self):
+        print("BOENAS")
+        self.calculo_Tardio(self.nodo_inicio())
+        self.calculo_Temprano(self.final)
+        self.actividades_criticas()
 
-
+        matrix = []
+        for actividad in self.actividades:
+            matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
+        
+        arr = np.asarray(matrix)
+        pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Nombre', 'Fecha Inicio', 'Fecha Fin', 'Duracion estimada', 'Critico'])  
+        
 
 ###################     Funciones externas referidas a proyecto
 

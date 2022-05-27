@@ -44,7 +44,9 @@ def mostrar_gantt():
 
     for i in range(data.shape[0]):
         color = diccionario_color[data.Critico[i]]
+        print(data.Tarea[i],data.Desde_Inicio[i],data.Duracion[i])
         plt.barh(y=data.Tarea[i],left=data.Desde_Inicio[i], width= data.Duracion[i], color = color, label= data.Critico[i])
+        plt.barh(y=data.Tarea[i],left=0, width=data.Desde_Inicio[i], color = '#f0f0f0')
     plt.gca().invert_yaxis() #invertir eje y
     plt.xticks(ticks=x_etiqueta[::3], labels=x_labels[::3]) #etiquetas para el eje x
     plt.grid(axis='x')
@@ -52,10 +54,15 @@ def mostrar_gantt():
 
     #agregar referencia 
     handles, labels = plt.gca().get_legend_handles_labels()
+    exist_list = []
     handle_lista, label_lista = [], []
     for handle,label in zip(handles,labels):
-        handle_lista.append(handle)
-        label_lista.append(label) #agregar color y etiqueta a una lista
+        if label not in exist_list:
+            exist_list.append(label)
+            handle_lista.append(handle)
+            label_lista.append(label)
+            
+    plt.gcf().autofmt_xdate(rotation=30)
     plt.legend(handle_lista, label_lista, fontsize ='medium', title='Critico', title_fontsize='large')
 
     plt.show()

@@ -80,7 +80,6 @@ class Proyecto:
             self.final.fechaFinTemprano = self.final.fechaFinTardio
             self.final.fechaInicioTemprano = date.isoformat(date.fromisoformat(self.final.fechaFinTemprano) - timedelta(days = self.final.duracion)) 
             self.fechaFin = self.final.fechaFinTemprano
-            self.calcularFechaFin()
 
         else:
 
@@ -93,6 +92,7 @@ class Proyecto:
             
         
     def calculo_Temprano(self, actividad):
+        print("ACTIVIDAD:", actividad)
         if not actividad.precedentes:
             pass
         else:
@@ -149,6 +149,7 @@ class Proyecto:
         matrix = []
         for actividad in self.actividades:
             matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
+            print(actividad.fechaFinTemprano, actividad.fechaFinTardio)
             modify_actividad(actividad.identificador, actividad, self.identificador)
         
         arr = np.asarray(matrix)

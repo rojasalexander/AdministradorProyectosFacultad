@@ -77,7 +77,7 @@ class Proyecto:
             self.final = actividad
             self.final.fechaFinTemprano = self.final.fechaFinTardio
             self.final.fechaInicioTemprano = date.isoformat(date.fromisoformat(self.final.fechaFinTemprano) - timedelta(days = self.final.duracion)) 
-            
+            self.fechaFin = self.final.fichaFinTemprano
 
         else:
 

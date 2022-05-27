@@ -7,6 +7,8 @@ from actividaddata import *
 from relaciondata import *
 from datetime import *
 
+
+
 #Establecemos la conexion con la base de datos de proyectos
 connection = sqlite3.connect("database.db")
 

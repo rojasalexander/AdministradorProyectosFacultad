@@ -190,6 +190,45 @@ border-radius: 15px;
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="grafobtn">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: left;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(10, 10, 10, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Ver grafo</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>data.png</normaloff>data.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="actualizarbtn_2">
         <property name="styleSheet">
          <string notr="true">
@@ -252,45 +291,6 @@ border-radius: 15px;
           <width>30</width>
           <height>30</height>
          </size>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="grafobtn">
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">
-QPushButton{
-color: rgb(213, 213, 213);
-font: 75 12pt &quot;Verdana&quot;;
-text-align: left;
-background-color: rgba(0, 0, 0, 0);
-}
-
-QPushButton:hover{
-background-color: rgba(10, 10, 10, 120);
-color: rgb(213, 213, 213);
-font: 75 12pt &quot;Verdana&quot;;
-border-radius: 15px;
-}</string>
-        </property>
-        <property name="text">
-         <string>Ver grafo</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>data.png</normaloff>data.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>false</bool>
         </property>
        </widget>
       </item>

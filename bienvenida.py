@@ -348,8 +348,8 @@ class ventanaActividades(QDialog):
     def verDiagrama(self):
         proy = get_proyecto_by_id(self.id_proyecto)
         print(proy)
-        # proy.actualizar_bd()
-        # proy.actualizarCsv()
+        proy.actualizar_bd()
+        proy.actualizarCsv()
         mostrar_gantt()
     
     def calcularCamino(self):

@@ -40,7 +40,7 @@ def mostrar_gantt():
     #Agregar color por trabajo critico o no
     diccionario_color = {'Y': 'mediumturquoise', 'N': 'midnightblue'}
     plt.figure(figsize=(10,5))  
-    plt.title('Diagrama de Gantt para el proyecto', size = 16)
+    plt.title('Diagrama de Gantt', size = 16)
 
     for i in range(data.shape[0]):
         color = diccionario_color[data.Critico[i]]

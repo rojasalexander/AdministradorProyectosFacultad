@@ -83,7 +83,7 @@ class Proyecto:
 
         else:
             for siguiente in siguientes:
-                if siguiente.fechaInicioTardio == "" or date.fromisoformat(siguiente.fechaInicioTardio) < date.fromisoformat(actividad.fechaFinTardio):
+                if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) < date.fromisoformat(actividad.fechaFinTardio):
                     siguiente.fechaInicioTardio = actividad.fechaFinTardio
                     siguiente.fechaFinTardio = date.isoformat(date.fromisoformat(siguiente.fechaInicioTardio) + timedelta(days = siguiente.duracion))
                     self.calculo_Tardio(siguiente)
@@ -96,7 +96,7 @@ class Proyecto:
         else:
             precs = [act for act in self.actividades if act.identificador in actividad.precedentes]
             for precedente in precs:
-                if precedente.fechaFinTemprano == "" or date.fromisoformat(precedente.fechaFinTemprano) > date.fromisoformat(actividad.fechaInicioTemprano) :
+                if precedente.fechaFinTemprano == "" or precedente.fechaFinTemprano == None or date.fromisoformat(precedente.fechaFinTemprano) > date.fromisoformat(actividad.fechaInicioTemprano) :
                     precedente.fechaFinTemprano = actividad.fechaInicioTemprano
                     precedente.fechaInicioTemprano = date.isoformat(date.fromisoformat(precedente.fechaFinTemprano) - timedelta(precedente.duracion))
                     self.calculo_Temprano(precedente)

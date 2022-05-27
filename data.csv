@@ -1,9 +1,8 @@
 Index,Tarea,Inicio,Fin,Duracion,Critico
-0,Actividad1,2022-05-26,2022-06-07,12,Y
-1,Actividad2,2022-06-07,2022-06-30,23,Y
-2,Actividad3,2022-06-30,2022-08-01,32,Y
-3,Actividad4,2022-08-01,2022-08-24,23,Y
-4,Actividad5,2022-08-24,2022-09-07,14,Y
-5,Actividad6,2022-09-07,2022-09-09,2,Y
-6,Actividad7,2022-09-04,2022-09-07,3,N
-7,Actividad8,2022-09-09,2022-10-11,32,Y
+0,Comprar materiales,2022-06-01,2022-06-02,1,Y
+1,Construir el cimiento,2022-06-02,2022-06-09,7,Y
+2,Construir los pilares,2022-06-09,2022-06-15,6,Y
+3,Construir las paredes,2022-06-15,2022-06-24,9,Y
+4,Construir las ventanas,2022-07-04,2022-07-08,4,N
+5,Construir el techo,2022-06-24,2022-07-08,14,Y
+6,Pintar la casa,2022-07-08,2022-07-20,12,Y

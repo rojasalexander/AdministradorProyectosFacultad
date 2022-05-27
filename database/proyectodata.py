@@ -1,5 +1,6 @@
 import sqlite3
 import sys
+from turtle import update
 sys.path.append('packages')
 sys.path.append('database')
 from proyecto import Proyecto
@@ -30,7 +31,6 @@ def get_proyectos():
     """Devuelve un array de tuplas con todos los proyectos"""
     cur.execute("SELECT * FROM proyectos")
     aux = cur.fetchall()
-    print(aux)
     if (len(aux) != 0):
         return list(map(
             lambda proyecto: 
@@ -105,13 +105,7 @@ def modify_proyecto(id, proy: Proyecto):
             }
         )
 
-def update_fecha_fin(id, fechaFin):
-    with connection:
-        cur.execute("""UPDATE proyectos SET fechaFin = :fechaFin
-        WHERE :identificador = identificador""", {
-            "identificador": id,
-            "fechaFin": fechaFin
-        })
+
 
 def proy_max():
     if (not(len(get_proyectos()) == 999)):
@@ -120,7 +114,8 @@ def proy_max():
 
 def get_actividades_relaciones(proyecto_id):
     return [get_actividades(proyecto_id), get_relaciones(proyecto_id)]
-    
-    
+
+
+
 connection.commit()
 

@@ -73,12 +73,12 @@ class Gui_access(QDialog):
         self.seleccionarbtn.clicked.connect(self.selectFecha)
         self.cancelarbtn_4.clicked.connect(self.cancelarCalendario)
 
+        self.tableWidget.verticalHeader().setVisible(False)
         self.loadData()
         
     
     def loadData(self):
         self.proyectos = get_proyectos()
-        print(self.proyectos)
         self.tableWidget.setRowCount(len(self.proyectos))
         for i in range(len(self.proyectos)):
             self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.proyectos[i].nombre))
@@ -347,20 +347,17 @@ class ventanaActividades(QDialog):
     
     def verGrafo(self):
         proy = get_proyecto_by_id(self.id_proyecto)
-        print(proy)
         proy.actualizar_bd()
         proy.mostrar_grafo()
 
     def verDiagrama(self):
         proy = get_proyecto_by_id(self.id_proyecto)
-        print(proy)
         proy.actualizar_bd()
         proy.actualizarCsv()
         mostrar_gantt()
     
     def calcularCamino(self):
         proy = get_proyecto_by_id(self.id_proyecto)
-        print(proy)
         proy.actualizar_bd()
         proy.actualizarCsv()
         self.loadData()
@@ -379,7 +376,7 @@ widget.move(400, 80) #ponemos en la parte central de la pantalla
 #widget.setFixedWidth(380)    #se le asigna un tamaño fijo al widget
 widget.show()
 
-actividadIcon = QPixmap('icons/checklist.png')
+actividadIcon = QPixmap('icons/clipboard.png')
 editIcon = QPixmap('icons/edit.png')
 deleteIcon = QPixmap('icons/trash.png')
 

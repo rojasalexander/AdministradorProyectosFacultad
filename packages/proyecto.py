@@ -79,6 +79,7 @@ class Proyecto:
             self.final.fechaFinTemprano = self.final.fechaFinTardio
             self.final.fechaInicioTemprano = date.isoformat(date.fromisoformat(self.final.fechaFinTemprano) - timedelta(days = self.final.duracion)) 
             self.fechaFin = self.final.fechaFinTemprano
+            self.calcularFechaFin()
 
         else:
             for siguiente in siguientes:
@@ -90,7 +91,6 @@ class Proyecto:
             
         
     def calculo_Temprano(self, actividad):
-        print("ACTIVIDAD:", actividad)
         if not actividad.precedentes:
             pass
         else:
@@ -113,11 +113,7 @@ class Proyecto:
         for a in range(len(rels)):
             c = [e.nombre for e in self.actividades if e.identificador == rels[a][0]]
             d = [f.nombre for f in self.actividades if f.identificador == rels[a][1]]
-            relsnombres.append((c[0], d[0]))
-
-        print(rels)
-        print(relsnombres)
-        
+            relsnombres.append((c[0], d[0]))    
         
         G = nx.DiGraph()
         G.add_edges_from(relsnombres)
@@ -138,11 +134,14 @@ class Proyecto:
         matrix = []
         for actividad in self.actividades:
             matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
-            print(actividad.fechaFinTemprano, actividad.fechaFinTardio)
             modify_actividad(actividad.identificador, actividad, self.identificador)
         
         arr = np.asarray(matrix)
         pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Tarea', 'Inicio', 'Fin', 'Duracion', 'Critico'])
+
+    def calcularFechaFin(self):
+        update_fecha_fin(self.identificador, self.fechaFin)
+        
 
         
 

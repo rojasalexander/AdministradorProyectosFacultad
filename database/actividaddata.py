@@ -164,5 +164,12 @@ def act_max(proyecto_id):
         return True
     return False
 
+def update_fecha_fin(id, fechaFin):
+    with connection:
+        cur.execute("""UPDATE proyectos SET fechaFin = :fechaFin
+        WHERE :identificador = identificador""", {
+            "identificador": id,
+            "fechaFin": fechaFin
+        })    
 
 connection.commit()

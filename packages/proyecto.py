@@ -6,8 +6,6 @@ from database.proyectodata import *
 from datetime import *
 import networkx as nx
 import matplotlib as mp
-import pandas as pd
-import numpy as np
 
 class Proyecto:
     def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin=0, identificador = 0) -> None:
@@ -74,15 +72,17 @@ class Proyecto:
 
     def calculo_Tardio(self, actividad):
         siguientes = [act for act in self.actividades if actividad.identificador in act.precedentes]
+
         if not siguientes:
             self.final = actividad
             self.final.fechaFinTemprano = self.final.fechaFinTardio
             self.final.fechaInicioTemprano = date.isoformat(date.fromisoformat(self.final.fechaFinTemprano) - timedelta(days = self.final.duracion)) 
-            self.fechaFin = self.final.fechaFinTemprano
+            self.fechaFin = self.final.fichaFinTemprano
 
         else:
+
             for siguiente in siguientes:
-                if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) <= date.fromisoformat(actividad.fechaFinTardio):
+                if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) < date.fromisoformat(actividad.fechaFinTardio):
                     siguiente.fechaInicioTardio = actividad.fechaFinTardio
                     siguiente.fechaFinTardio = date.isoformat(date.fromisoformat(siguiente.fechaInicioTardio) + timedelta(days = siguiente.duracion))
                     self.calculo_Tardio(siguiente)
@@ -90,7 +90,6 @@ class Proyecto:
             
         
     def calculo_Temprano(self, actividad):
-        print("ACTIVIDAD:", actividad)
         if not actividad.precedentes:
             pass
         else:
@@ -111,8 +110,8 @@ class Proyecto:
         rels = [[a.actividadPrecedente,a.actividadSiguiente] for a in self.relaciones]
         relsnombres = []
         for a in range(len(rels)):
-            c = [e.nombre for e in self.actividades if e.identificador == rels[a][0]]
-            d = [f.nombre for f in self.actividades if f.identificador == rels[a][1]]
+            c = [self.actividades.index(e) for e in self.actividades if e.identificador == rels[a][0]]
+            d = [self.actividades.index(f) for f in self.actividades if f.identificador == rels[a][1]]
             relsnombres.append((c[0], d[0]))
 
         print(rels)
@@ -130,21 +129,8 @@ class Proyecto:
 
         mp.pyplot.show()
 
-    def actualizarCsv(self):
-        self.calculo_Tardio(self.nodo_inicio())
-        self.calculo_Temprano(self.final)
-        self.actividades_criticas()
 
-        matrix = []
-        for actividad in self.actividades:
-            matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
-            print(actividad.fechaFinTemprano, actividad.fechaFinTardio)
-            modify_actividad(actividad.identificador, actividad, self.identificador)
-        
-        arr = np.asarray(matrix)
-        pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Tarea', 'Inicio', 'Fin', 'Duracion', 'Critico'])
 
-        
 
 ###################     Funciones externas referidas a proyecto
 

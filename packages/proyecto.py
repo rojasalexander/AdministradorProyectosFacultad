@@ -128,7 +128,7 @@ class Proyecto:
         nx.draw_networkx_labels(G,pos)
 
         mp.pyplot.show()
-        
+
 
 
 

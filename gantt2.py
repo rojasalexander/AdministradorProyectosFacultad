@@ -44,11 +44,10 @@ plt.title('Diagrama de Gantt', size = 16)
 
 for i in range(data.shape[0]):
     color = diccionario_color[data.Critico[i]]
-    print(data.Tarea[i],data.Desde_Inicio[i],data.Duracion[i])
     plt.barh(y=data.Tarea[i],left=data.Desde_Inicio[i], width= data.Duracion[i], color = color, label= data.Critico[i])
     plt.barh(y=data.Tarea[i],left=0, width=data.Desde_Inicio[i], color = '#f0f0f0')
 plt.gca().invert_yaxis() #invertir eje y
-plt.xticks(ticks=x_etiqueta[::3], labels=x_labels[::3]) #etiquetas para el eje x
+plt.xticks(ticks=x_etiqueta[::6], labels=x_labels[::6]) #etiquetas para el eje x
 plt.grid(axis='x')
 
 
@@ -61,7 +60,7 @@ for handle,label in zip(handles,labels):
         exist_list.append(label)
         handle_lista.append(handle)
         label_lista.append(label)
-        
+
 plt.gcf().autofmt_xdate(rotation=30)
 plt.legend(handle_lista, label_lista, fontsize ='medium', title='Critico', title_fontsize='large')
 

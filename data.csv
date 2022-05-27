@@ -1,8 +1,4 @@
 Index,Tarea,Inicio,Fin,Duracion,Critico
-0,Comprar materiales,2022-06-01,2022-06-02,1,Y
-1,Construir el cimiento,2022-06-02,2022-06-09,7,Y
-2,Construir los pilares,2022-06-09,2022-06-15,6,Y
-3,Construir las paredes,2022-06-15,2022-06-24,9,Y
-4,Construir las ventanas,2022-07-04,2022-07-08,4,N
-5,Construir el techo,2022-06-24,2022-07-08,14,Y
-6,Pintar la casa,2022-07-08,2022-07-20,12,Y
+0,Comprar los materiales,,,1,N
+1,Construir cimiento,,,7,N
+2,Construir los pilares,,,6,N

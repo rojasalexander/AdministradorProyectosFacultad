@@ -4,6 +4,8 @@ from database.actividaddata import *
 from database.relaciondata import *
 from database.proyectodata import *
 from datetime import *
+import pandas as pd
+import numpy as np
 import networkx as nx
 import matplotlib as mp
 
@@ -111,8 +113,8 @@ class Proyecto:
         rels = [[a.actividadPrecedente,a.actividadSiguiente] for a in self.relaciones]
         relsnombres = []
         for a in range(len(rels)):
-            c = [self.actividades.index(e) for e in self.actividades if e.identificador == rels[a][0]]
-            d = [self.actividades.index(f) for f in self.actividades if f.identificador == rels[a][1]]
+            c = [self.actividades.index(e)+1 for e in self.actividades if e.identificador == rels[a][0]]
+            d = [self.actividades.index(f)+1 for f in self.actividades if f.identificador == rels[a][1]]
             relsnombres.append((c[0], d[0]))
 
         print(rels)
@@ -138,6 +140,20 @@ class Proyecto:
         
         arr = np.asarray(matrix)
         pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Tarea', 'Inicio', 'Fin', 'Duracion', 'Critico'])
+
+    def actualizarCsv(self):
+        self.calculo_Tardio(self.nodo_inicio())
+        self.calculo_Temprano(self.final)
+        self.actividades_criticas()
+
+        matrix = []
+        for actividad in self.actividades:
+            matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
+            modify_actividad(actividad.identificador, actividad, self.identificador)
+        
+        arr = np.asarray(matrix)
+        pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Tarea', 'Inicio', 'Fin', 'Duracion', 'Critico'])
+
 
     def calcularFechaFin(self):
         update_fecha_fin(self.identificador, self.fechaFin)

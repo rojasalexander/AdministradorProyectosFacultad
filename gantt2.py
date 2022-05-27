@@ -47,7 +47,7 @@ for i in range(data.shape[0]):
     plt.barh(y=data.Tarea[i],left=data.Desde_Inicio[i], width= data.Duracion[i], color = color, label= data.Critico[i])
     plt.barh(y=data.Tarea[i],left=0, width=data.Desde_Inicio[i], color = '#f0f0f0')
 plt.gca().invert_yaxis() #invertir eje y
-plt.xticks(ticks=x_etiqueta[::6], labels=x_labels[::6]) #etiquetas para el eje x
+plt.xticks(ticks=x_etiqueta[::8], labels=x_labels[::8]) #etiquetas para el eje x
 plt.grid(axis='x')
 
 

@@ -6,8 +6,6 @@ from database.proyectodata import *
 from datetime import *
 import networkx as nx
 import matplotlib as mp
-import pandas as pd
-import numpy as np
 
 class Proyecto:
     def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin=0, identificador = 0) -> None:
@@ -74,6 +72,7 @@ class Proyecto:
 
     def calculo_Tardio(self, actividad):
         siguientes = [act for act in self.actividades if actividad.identificador in act.precedentes]
+
         if not siguientes:
             self.final = actividad
             self.final.fechaFinTemprano = self.final.fechaFinTardio
@@ -82,8 +81,9 @@ class Proyecto:
             self.calcularFechaFin()
 
         else:
+
             for siguiente in siguientes:
-                if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) <= date.fromisoformat(actividad.fechaFinTardio):
+                if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) < date.fromisoformat(actividad.fechaFinTardio):
                     siguiente.fechaInicioTardio = actividad.fechaFinTardio
                     siguiente.fechaFinTardio = date.isoformat(date.fromisoformat(siguiente.fechaInicioTardio) + timedelta(days = siguiente.duracion))
                     self.calculo_Tardio(siguiente)
@@ -111,9 +111,13 @@ class Proyecto:
         rels = [[a.actividadPrecedente,a.actividadSiguiente] for a in self.relaciones]
         relsnombres = []
         for a in range(len(rels)):
-            c = [e.nombre for e in self.actividades if e.identificador == rels[a][0]]
-            d = [f.nombre for f in self.actividades if f.identificador == rels[a][1]]
-            relsnombres.append((c[0], d[0]))    
+            c = [self.actividades.index(e) for e in self.actividades if e.identificador == rels[a][0]]
+            d = [self.actividades.index(f) for f in self.actividades if f.identificador == rels[a][1]]
+            relsnombres.append((c[0], d[0]))
+
+        print(rels)
+        print(relsnombres)
+        
         
         G = nx.DiGraph()
         G.add_edges_from(relsnombres)
@@ -126,10 +130,6 @@ class Proyecto:
 
         mp.pyplot.show()
 
-    def actualizarCsv(self):
-        self.calculo_Tardio(self.nodo_inicio())
-        self.calculo_Temprano(self.final)
-        self.actividades_criticas()
 
         matrix = []
         for actividad in self.actividades:

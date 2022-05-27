@@ -56,6 +56,7 @@ handle_lista, label_lista = [], []
 for handle,label in zip(handles,labels):
     handle_lista.append(handle)
     label_lista.append(label) #agregar color y etiqueta a una lista
+plt.gcf().autofmt_xdate(rotation=30)
 plt.legend(handle_lista, label_lista, fontsize ='medium', title='Critico', title_fontsize='large')
 
 plt.show()

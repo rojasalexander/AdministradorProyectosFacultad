@@ -8,17 +8,25 @@ import networkx as nx
 import matplotlib as mp
 
 class Proyecto:
-    def __init__(self, nombre: str, descripcion: str, fechaInicio, identificador = 0) -> None:
+    def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin=0, identificador = 0) -> None:
         self.identificador = identificador
         self.nombre = nombre
         self.descripcion = descripcion
         self.fechaInicio = fechaInicio
+        self.fechaFin = fechaFin
         
         self.actividades = []
         self.relaciones = []
 
         self.final = 0
 
+    def imprimir_proyecto(self):
+        print(f"""Nombre: {self.nombre}
+        Descripcion: {self.descripcion}
+        Fecha de inicio: {self.fechaInicio}
+        Fecha fin: {self.fechaFin}
+        Id: {self.identificador}
+            """)
 
     def crear_actividad(self):
         #identificador = len(self.actividades) + 1
@@ -74,7 +82,7 @@ class Proyecto:
         else:
 
             for siguiente in siguientes:
-                if siguiente.fechaInicioTardio == "" or date.fromisoformat(siguiente.fechaInicioTardio) < date.fromisoformat(actividad.fechaFinTardio):
+                if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) < date.fromisoformat(actividad.fechaFinTardio):
                     siguiente.fechaInicioTardio = actividad.fechaFinTardio
                     siguiente.fechaFinTardio = date.isoformat(date.fromisoformat(siguiente.fechaInicioTardio) + timedelta(days = siguiente.duracion))
                     self.calculo_Tardio(siguiente)
@@ -87,7 +95,7 @@ class Proyecto:
         else:
             precs = [act for act in self.actividades if act.identificador in actividad.precedentes]
             for precedente in precs:
-                if precedente.fechaFinTemprano == "" or date.fromisoformat(precedente.fechaFinTemprano) > date.fromisoformat(actividad.fechaInicioTemprano) :
+                if precedente.fechaFinTemprano == "" or precedente.fechaFinTemprano == None or date.fromisoformat(precedente.fechaFinTemprano) > date.fromisoformat(actividad.fechaInicioTemprano) :
                     precedente.fechaFinTemprano = actividad.fechaInicioTemprano
                     precedente.fechaInicioTemprano = date.isoformat(date.fromisoformat(precedente.fechaFinTemprano) - timedelta(precedente.duracion))
                     self.calculo_Temprano(precedente)
@@ -113,14 +121,14 @@ class Proyecto:
         G = nx.DiGraph()
         G.add_edges_from(relsnombres)
 
-        pos = nx.kamada_kawai_layout(G)
+        pos = nx.spring_layout(G)
 
         nx.draw_networkx_nodes(G,pos, node_size = 500)
         nx.draw_networkx_edges(G,pos, edgelist = G.edges(), edge_color= "black", arrowsize=15)
         nx.draw_networkx_labels(G,pos)
 
         mp.pyplot.show()
-        
+
 
 
 
@@ -136,8 +144,3 @@ def crear_proyecto():
     return Proyecto(nombre, descripcion, fechaInicio)
 
    
-
-
-
-
-

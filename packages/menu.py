@@ -3,12 +3,20 @@ from database.proyectodata import get_proyectos
 from proyecto import *
 import sys
 sys.path.append('database')
-from database.actividaddata import *
-from database.relaciondata import *
-from database.proyectodata import *
+from actividaddata import *
+from relaciondata import *
+from proyectodata import *
 from datetime import *
 import pandas as pd
 import numpy as np
+
+def prueba():
+    a = get_proyecto_by_id(29)
+    if (a != "404"):
+        a.imprimir_proyecto()
+    else:
+        print("funciona porfis")
+
 
 def menu_principal():
 
@@ -30,8 +38,8 @@ def menu_principal():
             print("\nCargar Proyectos:")
             proys = get_proyectos()
             print("Identificador".ljust(15), "Nombre".ljust(20), "Descripción".ljust(40), "Fecha de Inicio".ljust(20))
-            for a,b,c,d in proys:
-                print(f"{a}".ljust(15), f"{b}".ljust(20), f"{d}".ljust(40), f"{c}".ljust(20))
+            for proy in proys:
+                print(f"{proy.identificador}".ljust(15), f"{proy.nombre}".ljust(20), f"{proy.descripcion}".ljust(40), f"{proy.fechaInicio}".ljust(20))
             print("-" * 100)
             user = int(input("Ingrese el identificador del proyecto a cargar:\t"))
             proy = get_proyecto_by_id(user)

@@ -148,6 +148,7 @@ def modify_actividad(id, act: Actividad, proyecto_id):
             }
         )
 
+
 def delete_all_actividades(proyecto_id):
     with connection:
         cur.execute("""DELETE from actividades 

@@ -16,16 +16,16 @@ from gantt2 import *
 class WelcomeScreen(QMainWindow):
     def __init__(self):
         super(WelcomeScreen, self).__init__()
-        self.showMaximized()
-        loadUi('ui/ingrese2.ui', self)
+        #self.showMaximized()
+        loadUi('ui/fabri.ui', self)
         self.ingre.clicked.connect(self.window_access)
     
     def gui_login(self):
         self.window_access()
     
     def window_access(self):
-        self.name1 = self.lineEdit.text()
-        ventana2 = Gui_access(self.name1)
+        self.name = self.nameLine.text()
+        ventana2 = Gui_access(self.name)
         #widget = QStackedWidget()
         
         widget.addWidget(ventana2)  #para el cambio de ventanas
@@ -37,7 +37,7 @@ class WelcomeScreen(QMainWindow):
 class Gui_access(QDialog):
     def __init__(self, nombreUser):
         super(Gui_access, self).__init__()
-        loadUi('ui/vistaproyectos.ui', self)
+        loadUi('ui/vistaproyectosMAIA.ui', self)
 
         self.nombreUser = nombreUser
         self.proyectos = []
@@ -47,9 +47,9 @@ class Gui_access(QDialog):
         self.editarp.hide()
         self.eliminar.hide()
         self.calendarioW.hide()
-        widget.move(100, 50) 
-        widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
-        widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
+        widget.move(300, 100) 
+        # widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
+        # widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
         self.name.setText(nombreUser)
         
         self.botoMAS.clicked.connect(self.aggPopUp)
@@ -83,27 +83,31 @@ class Gui_access(QDialog):
         self.tableWidget.setRowCount(len(self.proyectos))
         for i in range(len(self.proyectos)):
             self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.proyectos[i].nombre))
+            self.tableWidget.item(i, 0).setForeground(QBrush(QColor(213, 213, 213)))
             self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(self.proyectos[i].descripcion))
+            self.tableWidget.item(i, 1).setForeground(QBrush(QColor(213, 213, 213)))
             self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(self.proyectos[i].fechaInicio))
+            self.tableWidget.item(i, 2).setForeground(QBrush(QColor(213, 213, 213)))
             self.tableWidget.setItem(i, 3, QtWidgets.QTableWidgetItem(self.proyectos[i].fechaFin))
+            self.tableWidget.item(i, 3).setForeground(QBrush(QColor(213, 213, 213)))
             
             btnActi = QPushButton(self.tableWidget)
             btnActi.setIcon(QIcon(actividadIcon))
-            btnActi.setIconSize(QSize(25,25))
+            btnActi.setIconSize(QSize(35,35))
             btnActi.setStyleSheet("*{border-radius: 50%;}")
             btnActi.clicked.connect(lambda state, x=i: self.ventanaActi(x))
             self.tableWidget.setCellWidget(i, 4, btnActi)
 
             btn = QPushButton(self.tableWidget)
             btn.setIcon(QIcon(editIcon))
-            btn.setIconSize(QSize(25,25))
+            btn.setIconSize(QSize(35,35))
             btn.setStyleSheet("*{border-radius: 50%;}")
             btn.clicked.connect(lambda state, x=i: self.editarPopup(x))
             self.tableWidget.setCellWidget(i, 5, btn)
 
             btn2 = QPushButton(self.tableWidget)
             btn2.setIcon(QIcon(deleteIcon))
-            btn2.setIconSize(QSize(25,25))
+            btn2.setIconSize(QSize(35,35))
             btn2.setStyleSheet("*{border-radius: 50%;}")
             btn2.clicked.connect(lambda state, x=i: self.deletePopup(x))
             self.tableWidget.setCellWidget(i, 6, btn2)
@@ -183,7 +187,7 @@ class Gui_access(QDialog):
 class ventanaActividades(QDialog):
     def __init__(self, nombreUser, id_proyecto, nom_proyecto):
         super(ventanaActividades, self).__init__()
-        loadUi('ui/abrirAlex.ui', self)
+        loadUi('ui/abrirMAIA.ui', self)
         self.nombreUser = nombreUser
         self.proy_name.setText(nom_proyecto)
         self.id_proyecto = id_proyecto
@@ -195,9 +199,9 @@ class ventanaActividades(QDialog):
         self.relacionar_w.hide()
         self.desrelacionar_w.hide()
         
-        widget.move(100, 50)
-        widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
-        widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
+        widget.move(300, 100)
+        #widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
+        #widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
 
         self.agregarActiBtn.clicked.connect(self.crearPopup)
         self.crear_actbtn.clicked.connect(self.crear)
@@ -215,6 +219,8 @@ class ventanaActividades(QDialog):
         self.desrelacionar_btn.clicked.connect(self.desrelacionar)
         self.grafobtn.clicked.connect(self.verGrafo)
         self.actualizarbtn_2.clicked.connect(self.calcularCamino)
+        self.diagramabtn.clicked.connect(self.verDiagrama)
+        
 
         header = self.tableWidget.horizontalHeader()       
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
@@ -228,20 +234,20 @@ class ventanaActividades(QDialog):
         self.tableWidget.setRowCount(len(self.actividades))
         for i in range(len(self.actividades)):
             self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.actividades[i].nombre))
-            self.tableWidget.item(i, 0).setForeground(QBrush(QColor(255, 255, 255)))
+            self.tableWidget.item(i, 0).setForeground(QBrush(QColor(213, 213, 213)))
             self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(str(self.actividades[i].duracion)))
-            self.tableWidget.item(i, 0).setForeground(QBrush(QColor(255, 255, 255)))
+            self.tableWidget.item(i, 1).setForeground(QBrush(QColor(213, 213, 213)))
 
             btn = QPushButton(self.tableWidget)
             btn.setIcon(QIcon(editIcon))
-            btn.setIconSize(QSize(25,25))
+            btn.setIconSize(QSize(35,35))
             btn.setStyleSheet("*{border-radius: 50%;}")
             btn.clicked.connect(lambda state, x=i: self.editarPopup(x))
             self.tableWidget.setCellWidget(i, 5, btn)
 
             btn2 = QPushButton(self.tableWidget)
             btn2.setIcon(QIcon(deleteIcon))
-            btn2.setIconSize(QSize(25,25))
+            btn2.setIconSize(QSize(35,35))
             btn2.setStyleSheet("*{border-radius: 50%;}")
             btn2.clicked.connect(lambda state, x=i: self.deletePopup(x))
             self.tableWidget.setCellWidget(i, 6, btn2)
@@ -340,13 +346,16 @@ class ventanaActividades(QDialog):
         proy.actualizar_bd()
         proy.mostrar_grafo()
 
-    def calcularCamino(self):
+    def verDiagrama(self):
         proy = get_proyecto_by_id(self.id_proyecto)
         print(proy)
         # proy.actualizar_bd()
         # proy.actualizarCsv()
         mostrar_gantt()
-
+    
+    def calcularCamino(self):
+        print()
+    
     def volver(self):
         ventana = Gui_access(self.nombreUser)
         widget.addWidget(ventana)  #para el cambio de ventanas
@@ -357,8 +366,8 @@ welcome = WelcomeScreen() #crear un objeto de la clase que creamos
 widget = QtWidgets.QStackedWidget() #se crea un widget que va a contener todos los widgets, nos permite mover entre ellos
 widget.addWidget(welcome) #agregar un widget al widget, se agrega la ventana
 widget.move(400, 80) #ponemos en la parte central de la pantalla
-widget.setFixedHeight(420)    #se le asigna un tamaño fijo al widget
-widget.setFixedWidth(380)    #se le asigna un tamaño fijo al widget
+#widget.setFixedHeight(420)    #se le asigna un tamaño fijo al widget
+#widget.setFixedWidth(380)    #se le asigna un tamaño fijo al widget
 widget.show()
 
 actividadIcon = QPixmap('icons/acti-icon.png')

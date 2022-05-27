@@ -10,3 +10,6 @@ Este programa es un organizador de proyectos, ejecute el archivo bienvenida.py p
 - pip install pandas
 - pip install pysci
 - pip install networkx
+
+# Correr el programa
+- python bienvenida.py

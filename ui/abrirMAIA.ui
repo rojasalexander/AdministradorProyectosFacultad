@@ -117,7 +117,7 @@ border-radius: 15px;
         </property>
         <property name="iconSize">
          <size>
-          <width>30</width>
+          <width>35</width>
           <height>30</height>
          </size>
         </property>
@@ -247,7 +247,7 @@ border-radius: 15px;
 }</string>
         </property>
         <property name="text">
-         <string>Actualizar datos</string>
+         <string>Calculo</string>
         </property>
         <property name="icon">
          <iconset>
@@ -336,9 +336,9 @@ border-radius: 15px;
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>10</y>
-           <width>441</width>
-           <height>101</height>
+           <y>30</y>
+           <width>421</width>
+           <height>51</height>
           </rect>
          </property>
          <property name="autoFillBackground">
@@ -361,9 +361,9 @@ border-radius:20;</string>
          <property name="geometry">
           <rect>
            <x>450</x>
-           <y>10</y>
+           <y>30</y>
            <width>601</width>
-           <height>91</height>
+           <height>51</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -376,6 +376,8 @@ border-radius:20;</string>
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
+        <zorder>proy_name</zorder>
+        <zorder>pro</zorder>
        </widget>
       </item>
       <item>

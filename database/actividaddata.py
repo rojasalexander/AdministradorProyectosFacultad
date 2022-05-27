@@ -133,6 +133,8 @@ def modify_actividad(id, act: Actividad, proyecto_id):
         duracion = :duracion,
         fechaInicioTemprano = :fechaInicioTemprano,
         fechaInicioTardio = :fechaInicioTardio,
+        fechaFinTemprano = :fechaFinTemprano,
+        fechaFinTardio = :fechaFinTardio,
         critico = :critico
         WHERE :identificador = identificador AND :proyecto_id = proyecto_id""",
             {

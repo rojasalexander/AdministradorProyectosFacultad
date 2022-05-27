@@ -236,6 +236,12 @@ class ventanaActividades(QDialog):
             self.tableWidget.item(i, 0).setForeground(QBrush(QColor(213, 213, 213)))
             self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(str(self.actividades[i].duracion)))
             self.tableWidget.item(i, 1).setForeground(QBrush(QColor(213, 213, 213)))
+            self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(self.actividades[i].fechaInicioTemprano))
+            self.tableWidget.item(i, 2).setForeground(QBrush(QColor(213, 213, 213)))
+            self.tableWidget.setItem(i, 3, QtWidgets.QTableWidgetItem(str(self.actividades[i].fechaFinTardio)))
+            self.tableWidget.item(i, 3).setForeground(QBrush(QColor(213, 213, 213)))
+            self.tableWidget.setItem(i, 4, QtWidgets.QTableWidgetItem(str(self.actividades[i].critico)))
+            self.tableWidget.item(i, 4).setForeground(QBrush(QColor(213, 213, 213)))
 
             btn = QPushButton(self.tableWidget)
             btn.setIcon(QIcon(editIcon))
@@ -353,7 +359,11 @@ class ventanaActividades(QDialog):
         mostrar_gantt()
     
     def calcularCamino(self):
-        print()
+        proy = get_proyecto_by_id(self.id_proyecto)
+        print(proy)
+        proy.actualizar_bd()
+        proy.actualizarCsv()
+        self.loadData()
     
     def volver(self):
         ventana = Gui_access(self.nombreUser)

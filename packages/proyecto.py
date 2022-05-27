@@ -74,16 +74,15 @@ class Proyecto:
 
     def calculo_Tardio(self, actividad):
         siguientes = [act for act in self.actividades if actividad.identificador in act.precedentes]
-
         if not siguientes:
             self.final = actividad
             self.final.fechaFinTemprano = self.final.fechaFinTardio
             self.final.fechaInicioTemprano = date.isoformat(date.fromisoformat(self.final.fechaFinTemprano) - timedelta(days = self.final.duracion)) 
-            self.fechaFin = self.final.fichaFinTemprano
+            self.fechaFin = self.final.fechaFinTemprano
 
         else:
             for siguiente in siguientes:
-                if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) < date.fromisoformat(actividad.fechaFinTardio):
+                if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) <= date.fromisoformat(actividad.fechaFinTardio):
                     siguiente.fechaInicioTardio = actividad.fechaFinTardio
                     siguiente.fechaFinTardio = date.isoformat(date.fromisoformat(siguiente.fechaInicioTardio) + timedelta(days = siguiente.duracion))
                     self.calculo_Tardio(siguiente)
@@ -91,6 +90,7 @@ class Proyecto:
             
         
     def calculo_Temprano(self, actividad):
+        print("ACTIVIDAD:", actividad)
         if not actividad.precedentes:
             pass
         else:
@@ -131,7 +131,6 @@ class Proyecto:
         mp.pyplot.show()
 
     def actualizarCsv(self):
-        print("BOENAS")
         self.calculo_Tardio(self.nodo_inicio())
         self.calculo_Temprano(self.final)
         self.actividades_criticas()
@@ -139,9 +138,12 @@ class Proyecto:
         matrix = []
         for actividad in self.actividades:
             matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
+            print(actividad.fechaFinTemprano, actividad.fechaFinTardio)
+            modify_actividad(actividad.identificador, actividad, self.identificador)
         
         arr = np.asarray(matrix)
-        pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Tarea', 'Inicio', 'Fin', 'Duracion', 'Critico'])  
+        pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Tarea', 'Inicio', 'Fin', 'Duracion', 'Critico'])
+
         
 
 ###################     Funciones externas referidas a proyecto

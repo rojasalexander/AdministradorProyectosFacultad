@@ -13,12 +13,21 @@
     <height>700</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>1280</width>
+    <height>700</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="fondo" native="true">
-   <property name="enabled">
-    <bool>true</bool>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(47, 49, 54);</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,9">
+   <property name="spacing">
+    <number>0</number>
    </property>
    <property name="geometry">
     <rect>
@@ -28,14 +37,14 @@
      <height>700</height>
     </rect>
    </property>
-   <property name="mouseTracking">
-    <bool>true</bool>
+   <property name="topMargin">
+    <number>0</number>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
+   <property name="rightMargin">
+    <number>0</number>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-color:qlineargradient(spread:pad, x1:0.147, y1:0.193182, x2:0.975, y2:0.925682, stop:0 rgba(76, 157, 255, 255), stop:0.997468 rgba(255, 85, 255, 255))</string>
+   <property name="bottomMargin">
+    <number>0</number>
    </property>
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -472,21 +481,21 @@ border-bottom-left-radius: 20px;
 border-bottom-right-radius:20px;
 border-top-left-radius: 20px;
 border-top-right-radius: 20px;</string>
-    </property>
-    <widget class="QLabel" name="label_8">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>391</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(0, 0, 0);
+         </property>
+         <widget class="QLabel" name="label_8">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>20</y>
+            <width>391</width>
+            <height>61</height>
+           </rect>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(0, 0, 0);
 font: 28pt &quot;Verdana&quot;;
 background-color: rgba(0,0,0,0);
 border-radius:20;</string>

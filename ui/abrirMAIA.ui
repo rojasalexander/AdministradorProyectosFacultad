@@ -80,7 +80,7 @@ border-radius: 15px;
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../Downloads/previous.png</normaloff>../../../../Downloads/previous.png</iconset>
+          <normaloff>previous.png</normaloff>previous.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -113,7 +113,7 @@ border-radius: 15px;
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../Downloads/share (1).png</normaloff>../../../../Downloads/share (1).png</iconset>
+          <normaloff>share (1).png</normaloff>share (1).png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -146,7 +146,7 @@ border-radius: 15px;
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../Downloads/share (5).png</normaloff>../../../../Downloads/share (5).png</iconset>
+          <normaloff>share (5).png</normaloff>share (5).png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -179,7 +179,7 @@ border-radius: 15px;
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../Downloads/broken-heart.png</normaloff>../../../../Downloads/broken-heart.png</iconset>
+          <normaloff>lovelorn.png</normaloff>lovelorn.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -212,7 +212,7 @@ border-radius: 15px;
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../Downloads/share (2).png</normaloff>../../../../Downloads/share (2).png</iconset>
+          <normaloff>edit-icon.png</normaloff>edit-icon.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -245,7 +245,7 @@ border-radius: 15px;
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../Downloads/workflow.png</normaloff>../../../../Downloads/workflow.png</iconset>
+          <normaloff>workflow.png</normaloff>workflow.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -281,7 +281,7 @@ border-radius: 15px;
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../Downloads/data.png</normaloff>../../../../Downloads/data.png</iconset>
+          <normaloff>data.png</normaloff>data.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -336,9 +336,9 @@ border-radius: 15px;
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>0</y>
-           <width>481</width>
-           <height>81</height>
+           <y>10</y>
+           <width>441</width>
+           <height>101</height>
           </rect>
          </property>
          <property name="autoFillBackground">
@@ -351,7 +351,7 @@ background-color: rgba(0,0,0,0);
 border-radius:20;</string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Actividades de:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:28pt; font-weight:600;&quot;&gt;Actividades de:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -360,10 +360,10 @@ border-radius:20;</string>
         <widget class="QLabel" name="proy_name">
          <property name="geometry">
           <rect>
-           <x>490</x>
+           <x>450</x>
            <y>10</y>
            <width>601</width>
-           <height>71</height>
+           <height>91</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -373,7 +373,7 @@ background-color: rgba(0,0,0,0);
 border-radius:20;</string>
          </property>
          <property name="text">
-          <string/>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </widget>

@@ -30,14 +30,13 @@ class WelcomeScreen(QMainWindow):
         
         widget.addWidget(ventana2)  #para el cambio de ventanas
         widget.setCurrentIndex(widget.currentIndex() + 1)
-        #widget.setFixedHeight(400)    #se le asigna un tamaño fijo al widget
-        #widget.setFixedWidth(420)    #se le asigna un tamaño fijo al widget
+
         
 
 class Gui_access(QDialog):
     def __init__(self, nombreUser):
         super(Gui_access, self).__init__()
-        loadUi('ui/vistaproyectosMAIA.ui', self)
+        loadUi('ui/vistaproyectosmai.ui', self)
 
         self.nombreUser = nombreUser
         self.proyectos = []

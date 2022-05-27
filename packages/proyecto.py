@@ -50,13 +50,11 @@ class Proyecto:
     def actualizar_bd(self):
         
         self.actividades = []
-        for (a,b,c,d,e,f) in get_actividades(self.identificador):
-            act = Actividad(b,c,a,e,f)
+        for act in get_actividades(self.identificador):
             self.actividades.append(act)
 
         self.relaciones = []
-        for (a,b,c,d) in get_relaciones(self.identificador):
-            rel = Relacion(b,c,a)
+        for rel in get_relaciones(self.identificador):
             self.relaciones.append(rel)
 
         for actividad in self.actividades:

@@ -82,9 +82,8 @@ class Proyecto:
             self.fechaFin = self.final.fechaFinTemprano
 
         else:
-
             for siguiente in siguientes:
-                if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) < date.fromisoformat(actividad.fechaFinTardio):
+                if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) <= date.fromisoformat(actividad.fechaFinTardio):
                     siguiente.fechaInicioTardio = actividad.fechaFinTardio
                     siguiente.fechaFinTardio = date.isoformat(date.fromisoformat(siguiente.fechaInicioTardio) + timedelta(days = siguiente.duracion))
                     self.calculo_Tardio(siguiente)
@@ -92,21 +91,21 @@ class Proyecto:
             
         
     def calculo_Temprano(self, actividad):
-        print("ACTIVIDAD:", actividad)
         if not actividad.precedentes:
             pass
         else:
             precs = [act for act in self.actividades if act.identificador in actividad.precedentes]
             for precedente in precs:
-                if precedente.fechaFinTemprano == "" or precedente.fechaFinTemprano == None or date.fromisoformat(precedente.fechaFinTemprano) > date.fromisoformat(actividad.fechaInicioTemprano) :
+                if precedente.fechaFinTemprano == "" or precedente.fechaFinTemprano == None or date.fromisoformat(precedente.fechaFinTemprano) >= date.fromisoformat(actividad.fechaInicioTemprano) :
                     precedente.fechaFinTemprano = actividad.fechaInicioTemprano
                     precedente.fechaInicioTemprano = date.isoformat(date.fromisoformat(precedente.fechaFinTemprano) - timedelta(precedente.duracion))
                     self.calculo_Temprano(precedente)
 
     def actividades_criticas(self):
         for actividad in self.actividades:
-            if date.fromisoformat(actividad.fechaInicioTemprano) == date.fromisoformat(actividad.fechaInicioTardio):
-                actividad.critico = True
+            if actividad.fechaInicioTemprano != '':
+                if date.fromisoformat(actividad.fechaInicioTemprano) == date.fromisoformat(actividad.fechaInicioTardio):
+                    actividad.critico = True
 
     def mostrar_grafo(self):
         
@@ -116,9 +115,6 @@ class Proyecto:
             c = [self.actividades.index(e)+1 for e in self.actividades if e.identificador == rels[a][0]]
             d = [self.actividades.index(f)+1 for f in self.actividades if f.identificador == rels[a][1]]
             relsnombres.append((c[0], d[0]))
-
-        print(rels)
-        print(relsnombres)
         
         
         G = nx.DiGraph()
@@ -149,7 +145,6 @@ class Proyecto:
         matrix = []
         for actividad in self.actividades:
             matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
-            print(actividad.fechaFinTemprano, actividad.fechaFinTardio)
             modify_actividad(actividad.identificador, actividad, self.identificador)
         
         arr = np.asarray(matrix)

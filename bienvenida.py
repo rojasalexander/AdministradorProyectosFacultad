@@ -73,12 +73,12 @@ class Gui_access(QDialog):
         self.seleccionarbtn.clicked.connect(self.selectFecha)
         self.cancelarbtn_4.clicked.connect(self.cancelarCalendario)
 
+        self.tableWidget.verticalHeader().setVisible(False)
         self.loadData()
         
     
     def loadData(self):
         self.proyectos = get_proyectos()
-        print(self.proyectos)
         self.tableWidget.setRowCount(len(self.proyectos))
         for i in range(len(self.proyectos)):
             self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.proyectos[i].nombre))
@@ -300,16 +300,12 @@ class ventanaActividades(QDialog):
 
     def relacionarPopup(self):
         self.relacionar_w.show()
-        # self.anterior_box.activated[str].connect(self.onChangeAnterior)
-        # self.siguiente_box.activated[str].connect(self.onChangeSiguiente)
         self.anterior_box.clear()
         self.siguiente_box.clear()
         for actividad in self.actividades:
             self.anterior_box.addItem(actividad.nombre)
             self.siguiente_box.addItem(actividad.nombre)
         
-        #self.siguiente_box.setCurrentIndex(1)
-
 
     def relacionar(self):
         self.relacionar_w.hide()
@@ -337,7 +333,7 @@ class ventanaActividades(QDialog):
             nomSiguiente = siguiente.nombre
             self.relacion_box.addItem(f"{nomAnterior} -> {nomSiguiente}")
         
-    def desrelacionar(self):
+    def desrelacionar(self): #esta funcion desrelaciona dos actividades con tal algoritmo
         relaciones = get_relaciones(self.id_proyecto)
         index = self.relacion_box.currentIndex()
         id = relaciones[index].identificador
@@ -347,20 +343,17 @@ class ventanaActividades(QDialog):
     
     def verGrafo(self):
         proy = get_proyecto_by_id(self.id_proyecto)
-        print(proy)
         proy.actualizar_bd()
         proy.mostrar_grafo()
 
     def verDiagrama(self):
         proy = get_proyecto_by_id(self.id_proyecto)
-        print(proy)
         proy.actualizar_bd()
         proy.actualizarCsv()
         mostrar_gantt()
     
     def calcularCamino(self):
         proy = get_proyecto_by_id(self.id_proyecto)
-        print(proy)
         proy.actualizar_bd()
         proy.actualizarCsv()
         self.loadData()

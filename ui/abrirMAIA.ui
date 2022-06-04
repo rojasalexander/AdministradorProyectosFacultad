@@ -453,7 +453,7 @@ font: 12pt &quot;Verdana&quot;;
          </column>
          <column>
           <property name="text">
-           <string>Duracion</string>
+           <string>Duración</string>
           </property>
           <property name="font">
            <font>
@@ -492,7 +492,7 @@ font: 12pt &quot;Verdana&quot;;
          </column>
          <column>
           <property name="text">
-           <string>Critico</string>
+           <string>Crítico</string>
           </property>
           <property name="font">
            <font>

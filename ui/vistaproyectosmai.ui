@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
+    <width>1289</width>
     <height>725</height>
    </rect>
   </property>
@@ -996,6 +996,34 @@ border-radius:13px;</string>
              </property>
             </widget>
            </widget>
+           <widget class="QPushButton" name="botoFERIADO">
+            <property name="geometry">
+             <rect>
+              <x>900</x>
+              <y>620</y>
+              <width>161</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgba(0,0, 0, 0);
+font: 14pt &quot;Verdana&quot;;
+color: rgb(188, 188, 188);</string>
+            </property>
+            <property name="text">
+             <string>Feriados</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>vacaciones.png</normaloff>vacaciones.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+           </widget>
            <zorder>tableWidget</zorder>
            <zorder>label</zorder>
            <zorder>name</zorder>
@@ -1005,6 +1033,7 @@ border-radius:13px;</string>
            <zorder>calendarioW</zorder>
            <zorder>crp</zorder>
            <zorder>editarp</zorder>
+           <zorder>botoFERIADO</zorder>
           </widget>
          </item>
         </layout>

@@ -1,4 +1,5 @@
 Index,Tarea,Inicio,Fin,Duracion,Critico
-0,presentar,2022-05-27,2022-05-28,1,Y
-1,Desarrollo,2022-05-28,2022-06-09,12,Y
-2,presentacion final,2022-06-09,2022-06-10,1,Y
+0,agregar buscador,2022-06-06,2022-06-08,2,Y
+1,agregar feriados,2022-06-08,2022-06-09,1,Y
+2,cambiar grafo,2022-06-09,2022-06-12,3,Y
+3,actualizacion de calculo,,,1,N

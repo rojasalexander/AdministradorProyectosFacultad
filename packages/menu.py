@@ -119,7 +119,3 @@ def menu_proyecto(proy: Proyecto):
         
         elif(x == '4'):
             proy.mostrar_grafo()
-
-        
-
-create_feriado("2022-06-07")

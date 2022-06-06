@@ -14,7 +14,7 @@ import matplotlib as mp
 from pyvis import *
 
 class Proyecto:
-    def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin=0, identificador = 0) -> None:
+    def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin=0, identificador = 0, noLaborales = [5, 6]) -> None:
         self.identificador = identificador
         self.nombre = nombre
         self.descripcion = descripcion
@@ -27,7 +27,7 @@ class Proyecto:
         self.final = 0
         
         # provisional
-        self.no_laborales = [5,6]
+        self.noLaborales = noLaborales
         self.feriados = []
         self.dias_laborales = []
 
@@ -38,6 +38,7 @@ class Proyecto:
         Fecha de inicio: {self.fechaInicio}
         Fecha fin: {self.fechaFin}
         Id: {self.identificador}
+        Laborales: {self.noLaborales}
             """)
 
     def crear_actividad(self):
@@ -77,7 +78,7 @@ class Proyecto:
 
         for i in range(0,365):
             dia = date.fromisoformat(self.fechaInicio) + timedelta(days = i)
-            if(date.weekday(dia) not in self.no_laborales and 
+            if(date.weekday(dia) not in self.noLaborales and 
                 sin_anho(dia) not in self.feriados):
 
                 self.dias_laborales.append(date.isoformat(dia))

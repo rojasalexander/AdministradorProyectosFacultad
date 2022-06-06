@@ -124,3 +124,12 @@ def get_actividades_relaciones(proyecto_id):
     
 connection.commit()
 
+#Busca el proyecto que tenga como nombre el parametro dado
+def buscar_proyectos(word):
+    """Pasar una palabra cualquiera"""
+    proyectos = get_proyectos()
+    result = []
+    for proyecto in proyectos:
+        if (word in proyecto.nombre):
+            result.append(proyecto)
+    return result

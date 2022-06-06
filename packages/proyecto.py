@@ -1,3 +1,4 @@
+from pyvis.network import Network
 from actividad import *
 from relacion import *
 from database.actividaddata import *
@@ -6,6 +7,7 @@ from database.proyectodata import *
 from datetime import *
 import networkx as nx
 import matplotlib as mp
+from pyvis import *
 
 class Proyecto:
     def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin=0, identificador = 0) -> None:
@@ -19,6 +21,10 @@ class Proyecto:
         self.relaciones = []
 
         self.final = 0
+        
+        # provisional
+        self.no_laborales = [5,6]
+        self.dias_laborales = []
 
     def imprimir_proyecto(self):
         print(f"""Nombre: {self.nombre}
@@ -110,26 +116,33 @@ class Proyecto:
         rels = [[a.actividadPrecedente,a.actividadSiguiente] for a in self.relaciones]
         relsnombres = []
         for a in range(len(rels)):
-            c = [self.actividades.index(e) for e in self.actividades if e.identificador == rels[a][0]]
-            d = [self.actividades.index(f) for f in self.actividades if f.identificador == rels[a][1]]
+            c = [e.nombre for e in self.actividades if e.identificador == rels[a][0]]
+            d = [f.nombre for f in self.actividades if f.identificador == rels[a][1]]
             relsnombres.append((c[0], d[0]))
 
-        print(rels)
-        print(relsnombres)
+        # print(rels)
+        # print(relsnombres)
         
         
-        G = nx.DiGraph()
-        G.add_edges_from(relsnombres)
+        # G = nx.DiGraph()
+        # G.add_edges_from(relsnombres)
 
-        pos = nx.spring_layout(G)
+        # pos = nx.spring_layout(G)
 
-        nx.draw_networkx_nodes(G,pos, node_size = 500)
-        nx.draw_networkx_edges(G,pos, edgelist = G.edges(), edge_color= "black", arrowsize=15)
-        nx.draw_networkx_labels(G,pos)
+        # nx.draw_networkx_nodes(G,pos, node_size = 500)
+        # nx.draw_networkx_edges(G,pos, edgelist = G.edges(), edge_color= "black", arrowsize=15)
+        # nx.draw_networkx_labels(G,pos)
 
-        mp.pyplot.show()
+        # mp.pyplot.show()
 
 
+        g = Network(directed=True)
+        g.add_nodes([a.nombre for a in self.actividades])
+        g.add_edges(relsnombres)
+        g.show_buttons(filter_=True)
+        g.show("tmp.html")
+
+        
 
 
 ###################     Funciones externas referidas a proyecto
@@ -143,4 +156,7 @@ def crear_proyecto():
 
     return Proyecto(nombre, descripcion, fechaInicio)
 
-   
+def entre_fechas(fechainicio: date, fechafin: date, actual: date):
+    if(actual >= fechainicio and actual <= fechafin):
+        return True
+    return False

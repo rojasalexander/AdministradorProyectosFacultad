@@ -11,5 +11,8 @@ Este programa es un organizador de proyectos, ejecute el archivo bienvenida.py p
 - pip install pysci
 - pip install networkx
 
+# Descargar Requisitos
+- pip install -r requirements.txt
+
 # Correr el programa
 - python bienvenida.py

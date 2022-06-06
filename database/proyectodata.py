@@ -1,5 +1,7 @@
 import sqlite3
 import sys
+
+from numpy import split
 sys.path.append('packages')
 sys.path.append('database')
 from proyecto import Proyecto
@@ -22,7 +24,8 @@ with connection:
         nombre text,
         fecha text,
         descripcion text,
-        fechaFin text
+        fechaFin text,
+        noLaborales text
         )
     """)
 
@@ -31,6 +34,7 @@ def get_proyectos():
     cur.execute("SELECT * FROM proyectos")
     aux = cur.fetchall()
     print(aux)
+    print(list(aux[0][5]))
     if (len(aux) != 0):
         return list(map(
             lambda proyecto: 
@@ -38,8 +42,10 @@ def get_proyectos():
             proyecto[3], 
             proyecto[2], 
             proyecto[4],
-            identificador=proyecto[0])
-            , 
+            identificador=proyecto[0],
+            noLaborales= list(map(lambda x: int(x), list(proyecto[5])))
+            )
+            ,
             aux
             ))
     
@@ -47,17 +53,19 @@ def get_proyectos():
 
 def create_proyecto(proy: Proyecto):
     """Recibe el objeto proyecto"""
+    print("".join(str(x) for x in proy.noLaborales))
     proyecto = (
         proy.nombre, 
         proy.descripcion, 
         proy.fechaInicio, 
-        date.fromisoformat(proy.fechaInicio) + timedelta(days=365)
+        date.fromisoformat(proy.fechaInicio) + timedelta(days=365),
+        "".join(str(x) for x in proy.noLaborales)
         )
 
     if (proy_max()):
         with connection:
-            cur.execute("""INSERT INTO proyectos(nombre, descripcion, fecha, fechaFin) 
-            VALUES (?, ?, ?, ?)""", proyecto)
+            cur.execute("""INSERT INTO proyectos(nombre, descripcion, fecha, fechaFin, noLaborales) 
+            VALUES (?, ?, ?, ?, ?)""", proyecto)
     else:
         return "404"
 
@@ -77,7 +85,9 @@ def get_proyecto_by_id(id):
             aux[3], 
             aux[2], 
             aux[4],
-            identificador=aux[0])
+            identificador=aux[0],
+            noLaborales= list(map(lambda x: int(x), aux[5].split("")))
+            )
 
 def delete_proyecto(id):
     """Pasar el id del proyecto a ser eliminado"""
@@ -92,16 +102,18 @@ def delete_proyecto(id):
     
 
 def modify_proyecto(id, proy: Proyecto):
-    fechaFin = proy.fechaInicio + timedelta(days=365)
+    fechaFin = date.fromisoformat(proy.fechaInicio) + timedelta(days=365)
+    noLab = "".join(str(x) for x in proy.noLaborales)
     with connection:
-        cur.execute("""UPDATE proyectos SET nombre = :nombre, fecha = :fecha, descripcion = :descripcion, fechaFin = :fechaFin 
+        cur.execute("""UPDATE proyectos SET nombre = :nombre, fecha = :fecha, descripcion = :descripcion, fechaFin = :fechaFin, noLaborales = :noLaborales 
         WHERE :identificador = identificador""",
             {
                 "identificador": id,
                 "nombre": proy.nombre, 
                 "fecha": proy.fechaInicio,
                 "descripcion": proy.descripcion,
-                "fechaFin": fechaFin
+                "fechaFin": fechaFin,
+                "noLaborales": noLab
             }
         )
 

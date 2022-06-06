@@ -16,9 +16,9 @@ with connection:
 def create_feriado(fecha):
     fechaAux = fecha.split("-")
     fechaAux = fechaAux[1] + "-" + fechaAux[2]
-    if(in_feriados(fecha)):
+    if(in_feriados(fechaAux)):
         return "404"
-        
+
     with connection:
         cur.execute("INSERT INTO feriados(fecha) values(:fecha)", {"fecha": fechaAux})
 

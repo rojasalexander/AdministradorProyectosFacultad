@@ -41,7 +41,7 @@ def get_feriados():
 def get_feriados_date():
     with connection:
         cur.execute("SELECT * FROM feriados")
-        fechas = cur.fetchall()
+        fechas = get_feriados()
         
         return list(map(map_to_feriados, fechas))
 
@@ -51,7 +51,8 @@ def in_feriados(fecha):
     return fecha in get_feriados()
 
 
-def map_to_feriados(fecha):
+def map_to_feriados(fecha:str):
+    print(fecha)
     fechaAux = fecha.split("-")
-    return date(2001, int(fechaAux[1]), int(fechaAux[2]))
+    return date(2001, int(fechaAux[0]), int(fechaAux[1]))
     

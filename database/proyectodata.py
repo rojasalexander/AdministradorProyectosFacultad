@@ -51,7 +51,7 @@ def create_proyecto(proy: Proyecto):
         proy.nombre, 
         proy.descripcion, 
         proy.fechaInicio, 
-        proy.fechaInicio + timedelta(days=365)
+        date.fromisoformat(proy.fechaInicio) + timedelta(days=365)
         )
 
     if (proy_max()):

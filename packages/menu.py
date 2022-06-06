@@ -120,7 +120,6 @@ def menu_proyecto(proy: Proyecto):
         elif(x == '4'):
             proy.mostrar_grafo()
 
-delete_feriado("2020-12-01")
-delete_feriado("2020-12-02")
-delete_feriado("2020-12-03")
-print(get_feriados())
+        
+
+create_feriado("2022-06-07")

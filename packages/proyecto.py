@@ -1,3 +1,4 @@
+from calendar import weekday
 from pyvis.network import Network
 from actividad import *
 from feriadodata import get_feriados, get_feriados_date
@@ -29,6 +30,7 @@ class Proyecto:
         self.no_laborales = [5,6]
         self.feriados = []
         self.dias_laborales = []
+
 
     def imprimir_proyecto(self):
         print(f"""Nombre: {self.nombre}

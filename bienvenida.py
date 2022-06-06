@@ -7,7 +7,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from datetime import *
-
 #sys.path.append('database')
 from database.proyectodata import *
 from packages.proyecto import *
@@ -264,6 +263,7 @@ class ventanaFeriados(QDialog):
         # self.fechaIniLabel_2.setText('')
         
     def crear(self):
+        self.error()
         print('holamundo')
         # newProyecto = Proyecto(self.nom.text(), self.des.text(), date.fromisoformat(self.fechaInicio))
         # create_proyecto(newProyecto)
@@ -300,7 +300,15 @@ class ventanaFeriados(QDialog):
         ventana = Gui_access(self.nombreUser)
         widget.addWidget(ventana)  #para el cambio de ventanas
         widget.setCurrentIndex(widget.currentIndex() + 1)
-        
+
+    def error(self):
+        pupupError = QMessageBox()
+        pupupError.setWindowTitle("Oh no!")
+        pupupError.setText("Oh no!")
+        pupupError.setIcon(QMessageBox.Critical)
+        x = pupupError.exec_()  # this will show our messagebox
+
+  
 
 class ventanaActividades(QDialog):
     def __init__(self, nombreUser, id_proyecto, nom_proyecto):

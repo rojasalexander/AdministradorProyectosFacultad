@@ -1,4 +1,6 @@
+from pyvis.network import Network
 from actividad import *
+from feriadodata import get_feriados, get_feriados_date
 from relacion import *
 from database.actividaddata import *
 from database.relaciondata import *
@@ -8,6 +10,7 @@ import pandas as pd
 import numpy as np
 import networkx as nx
 import matplotlib as mp
+from pyvis import *
 
 class Proyecto:
     def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin=0, identificador = 0) -> None:
@@ -21,6 +24,11 @@ class Proyecto:
         self.relaciones = []
 
         self.final = 0
+        
+        # provisional
+        self.no_laborales = [5,6]
+        self.feriados = []
+        self.dias_laborales = []
 
     def imprimir_proyecto(self):
         print(f"""Nombre: {self.nombre}
@@ -60,15 +68,27 @@ class Proyecto:
             self.relaciones.append(rel)
 
         for actividad in self.actividades:
-            actividad.precedentes = [y.identificador for y in self.actividades if y.identificador in [x.actividadPrecedente for x in self.relaciones if x.actividadSiguiente == actividad.identificador]]
+            actividad.precedentes = [y.identificador for y in self.actividades if y.identificador in
+                [x.actividadPrecedente for x in self.relaciones if x.actividadSiguiente == actividad.identificador]]
+        
+        self.feriados = get_feriados_date()
+
+        for i in range(0,365):
+            dia = date.fromisoformat(self.fechaInicio) + timedelta(days = i)
+            if(date.weekday(dia) not in self.no_laborales and 
+                sin_anho(dia) not in self.feriados):
+
+                self.dias_laborales.append(date.isoformat(dia))
+            
+
         
     def nodo_inicio(self):
         for actividad in self.actividades:
             if actividad.precedentes == []:
-                actividad.fechaInicioTemprano = self.fechaInicio
+                actividad.fechaInicioTemprano = self.dias_laborales[0]
                 
-                actividad.fechaInicioTardio = self.fechaInicio
-                actividad.fechaFinTardio = date.isoformat(date.fromisoformat(actividad.fechaInicioTardio) + timedelta(days = actividad.duracion))
+                actividad.fechaInicioTardio = self.dias_laborales[0]
+                actividad.fechaFinTardio = self.dias_laborales[self.dias_laborales.index(actividad.fechaInicioTardio) + actividad.duracion]
 
                 return actividad
 
@@ -78,14 +98,14 @@ class Proyecto:
         if not siguientes:
             self.final = actividad
             self.final.fechaFinTemprano = self.final.fechaFinTardio
-            self.final.fechaInicioTemprano = date.isoformat(date.fromisoformat(self.final.fechaFinTemprano) - timedelta(days = self.final.duracion)) 
+            self.final.fechaInicioTemprano = self.dias_laborales[self.dias_laborales.index(actividad.fechaFinTemprano) - actividad.duracion]
             self.fechaFin = self.final.fechaFinTemprano
 
         else:
             for siguiente in siguientes:
                 if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) <= date.fromisoformat(actividad.fechaFinTardio):
                     siguiente.fechaInicioTardio = actividad.fechaFinTardio
-                    siguiente.fechaFinTardio = date.isoformat(date.fromisoformat(siguiente.fechaInicioTardio) + timedelta(days = siguiente.duracion))
+                    siguiente.fechaFinTardio = self.dias_laborales[self.dias_laborales.index(siguiente.fechaInicioTardio) + siguiente.duracion]
                     self.calculo_Tardio(siguiente)
 
             
@@ -98,7 +118,7 @@ class Proyecto:
             for precedente in precs:
                 if precedente.fechaFinTemprano == "" or precedente.fechaFinTemprano == None or date.fromisoformat(precedente.fechaFinTemprano) >= date.fromisoformat(actividad.fechaInicioTemprano) :
                     precedente.fechaFinTemprano = actividad.fechaInicioTemprano
-                    precedente.fechaInicioTemprano = date.isoformat(date.fromisoformat(precedente.fechaFinTemprano) - timedelta(precedente.duracion))
+                    precedente.fechaInicioTemprano =self.dias_laborales[self.dias_laborales.index(precedente.fechaFinTemprano) - precedente.duracion]
                     self.calculo_Temprano(precedente)
 
     def actividades_criticas(self):
@@ -112,30 +132,33 @@ class Proyecto:
         rels = [[a.actividadPrecedente,a.actividadSiguiente] for a in self.relaciones]
         relsnombres = []
         for a in range(len(rels)):
-            c = [self.actividades.index(e)+1 for e in self.actividades if e.identificador == rels[a][0]]
-            d = [self.actividades.index(f)+1 for f in self.actividades if f.identificador == rels[a][1]]
+            c = [e.nombre for e in self.actividades if e.identificador == rels[a][0]]
+            d = [f.nombre for f in self.actividades if f.identificador == rels[a][1]]
             relsnombres.append((c[0], d[0]))
+
+        # print(rels)
+        # print(relsnombres)
         
         
-        G = nx.DiGraph()
-        G.add_edges_from(relsnombres)
+        # G = nx.DiGraph()
+        # G.add_edges_from(relsnombres)
 
-        pos = nx.spring_layout(G)
+        # pos = nx.spring_layout(G)
 
-        nx.draw_networkx_nodes(G,pos, node_size = 500)
-        nx.draw_networkx_edges(G,pos, edgelist = G.edges(), edge_color= "black", arrowsize=15)
-        nx.draw_networkx_labels(G,pos)
+        # nx.draw_networkx_nodes(G,pos, node_size = 500)
+        # nx.draw_networkx_edges(G,pos, edgelist = G.edges(), edge_color= "black", arrowsize=15)
+        # nx.draw_networkx_labels(G,pos)
 
-        mp.pyplot.show()
+        # mp.pyplot.show()
 
 
-        matrix = []
-        for actividad in self.actividades:
-            matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
-            modify_actividad(actividad.identificador, actividad, self.identificador)
+        g = Network(directed=True)
+        g.add_nodes([a.nombre for a in self.actividades])
+        g.add_edges(relsnombres)
+        g.show_buttons(filter_=True)
+        g.show("tmp.html")
+
         
-        arr = np.asarray(matrix)
-        pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Tarea', 'Inicio', 'Fin', 'Duracion', 'Critico'])
 
     def actualizarCsv(self):
         self.calculo_Tardio(self.nodo_inicio())
@@ -168,4 +191,10 @@ def crear_proyecto():
 
     return Proyecto(nombre, descripcion, fechaInicio)
 
-   
+def entre_fechas(fechainicio: date, fechafin: date, actual: date):
+    if(actual >= fechainicio and actual <= fechafin):
+        return True
+    return False
+
+def sin_anho(fecha: date):
+    return fecha.replace(year = 2001)

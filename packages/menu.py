@@ -1,5 +1,6 @@
 # from database.proyectodata import create_proyecto, create_table
 from database.proyectodata import get_proyectos
+from feriadodata import *
 from proyecto import *
 import sys
 sys.path.append('database')
@@ -114,8 +115,11 @@ def menu_proyecto(proy: Proyecto):
                 matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
             
             arr = np.asarray(matrix)
-            pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Nombre', 'Fecha Inicio', 'Fecha Fin', 'Duracion estimada', 'Critico'])  
+            pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Tarea', 'Inicio', 'Fin', 'Duracion', 'Critico'])  
         
         elif(x == '4'):
             proy.mostrar_grafo()
 
+        
+
+create_feriado("2022-06-07")

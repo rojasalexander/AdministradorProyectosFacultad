@@ -1,0 +1,121 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@latest/styles/vis-network.css" type="text/css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@latest/dist/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "Desocupar", "label": "Desocupar", "shape": "dot"}, {"id": "Reparaciones", "label": "Reparaciones", "shape": "dot"}, {"id": "Tasaci\u00f3n de investigaci\u00f3n", "label": "Tasaci\u00f3n de investigaci\u00f3n", "shape": "dot"}, {"id": "Precio de venta", "label": "Precio de venta", "shape": "dot"}, {"id": "Anunciar y mostrar", "label": "Anunciar y mostrar", "shape": "dot"}, {"id": "Cliente y conceder opci\u00f3n", "label": "Cliente y conceder opci\u00f3n", "shape": "dot"}, {"id": "Completar financiaci\u00f3n", "label": "Completar financiaci\u00f3n", "shape": "dot"}, {"id": "Mantenimiento I", "label": "Mantenimiento I", "shape": "dot"}, {"id": "Mantenimiento II", "label": "Mantenimiento II", "shape": "dot"}, {"id": "Mantenimiento III", "label": "Mantenimiento III", "shape": "dot"}, {"id": "Firma de venta", "label": "Firma de venta", "shape": "dot"}, {"id": "Inicio", "label": "Inicio", "shape": "dot"}, {"id": "Fin", "label": "Fin", "shape": "dot"}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "Desocupar", "to": "Reparaciones"}, {"arrows": "to", "from": "Desocupar", "to": "Tasaci\u00f3n de investigaci\u00f3n"}, {"arrows": "to", "from": "Tasaci\u00f3n de investigaci\u00f3n", "to": "Precio de venta"}, {"arrows": "to", "from": "Reparaciones", "to": "Anunciar y mostrar"}, {"arrows": "to", "from": "Precio de venta", "to": "Anunciar y mostrar"}, {"arrows": "to", "from": "Anunciar y mostrar", "to": "Cliente y conceder opci\u00f3n"}, {"arrows": "to", "from": "Cliente y conceder opci\u00f3n", "to": "Completar financiaci\u00f3n"}, {"arrows": "to", "from": "Desocupar", "to": "Mantenimiento I"}, {"arrows": "to", "from": "Mantenimiento I", "to": "Mantenimiento II"}, {"arrows": "to", "from": "Anunciar y mostrar", "to": "Mantenimiento II"}, {"arrows": "to", "from": "Mantenimiento II", "to": "Mantenimiento III"}, {"arrows": "to", "from": "Completar financiaci\u00f3n", "to": "Mantenimiento III"}, {"arrows": "to", "from": "Completar financiaci\u00f3n", "to": "Firma de venta"}, {"arrows": "to", "from": "Inicio", "to": "Desocupar"}, {"arrows": "to", "from": "Mantenimiento III", "to": "Fin"}, {"arrows": "to", "from": "Firma de venta", "to": "Fin"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": true
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

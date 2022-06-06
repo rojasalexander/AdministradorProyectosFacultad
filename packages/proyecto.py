@@ -5,6 +5,8 @@ from database.actividaddata import *
 from database.relaciondata import *
 from database.proyectodata import *
 from datetime import *
+import pandas as pd
+import numpy as np
 import networkx as nx
 import matplotlib as mp
 from pyvis import *
@@ -83,12 +85,11 @@ class Proyecto:
             self.final = actividad
             self.final.fechaFinTemprano = self.final.fechaFinTardio
             self.final.fechaInicioTemprano = date.isoformat(date.fromisoformat(self.final.fechaFinTemprano) - timedelta(days = self.final.duracion)) 
-            self.fechaFin = self.final.fichaFinTemprano
+            self.fechaFin = self.final.fechaFinTemprano
 
         else:
-
             for siguiente in siguientes:
-                if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) < date.fromisoformat(actividad.fechaFinTardio):
+                if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) <= date.fromisoformat(actividad.fechaFinTardio):
                     siguiente.fechaInicioTardio = actividad.fechaFinTardio
                     siguiente.fechaFinTardio = date.isoformat(date.fromisoformat(siguiente.fechaInicioTardio) + timedelta(days = siguiente.duracion))
                     self.calculo_Tardio(siguiente)
@@ -101,15 +102,16 @@ class Proyecto:
         else:
             precs = [act for act in self.actividades if act.identificador in actividad.precedentes]
             for precedente in precs:
-                if precedente.fechaFinTemprano == "" or precedente.fechaFinTemprano == None or date.fromisoformat(precedente.fechaFinTemprano) > date.fromisoformat(actividad.fechaInicioTemprano) :
+                if precedente.fechaFinTemprano == "" or precedente.fechaFinTemprano == None or date.fromisoformat(precedente.fechaFinTemprano) >= date.fromisoformat(actividad.fechaInicioTemprano) :
                     precedente.fechaFinTemprano = actividad.fechaInicioTemprano
                     precedente.fechaInicioTemprano = date.isoformat(date.fromisoformat(precedente.fechaFinTemprano) - timedelta(precedente.duracion))
                     self.calculo_Temprano(precedente)
 
     def actividades_criticas(self):
         for actividad in self.actividades:
-            if date.fromisoformat(actividad.fechaInicioTemprano) == date.fromisoformat(actividad.fechaInicioTardio):
-                actividad.critico = True
+            if actividad.fechaInicioTemprano != '':
+                if date.fromisoformat(actividad.fechaInicioTemprano) == date.fromisoformat(actividad.fechaInicioTardio):
+                    actividad.critico = True
 
     def mostrar_grafo(self):
         
@@ -144,6 +146,25 @@ class Proyecto:
 
         
 
+    def actualizarCsv(self):
+        self.calculo_Tardio(self.nodo_inicio())
+        self.calculo_Temprano(self.final)
+        self.actividades_criticas()
+
+        matrix = []
+        for actividad in self.actividades:
+            matrix.append([actividad.nombre, actividad.fechaInicioTemprano, actividad.fechaFinTemprano, actividad.duracion, "Y" if actividad.critico else "N"])
+            modify_actividad(actividad.identificador, actividad, self.identificador)
+        
+        arr = np.asarray(matrix)
+        pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Tarea', 'Inicio', 'Fin', 'Duracion', 'Critico'])
+
+
+    def calcularFechaFin(self):
+        update_fecha_fin(self.identificador, self.fechaFin)
+        
+
+        
 
 ###################     Funciones externas referidas a proyecto
 

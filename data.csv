@@ -1,9 +1,4 @@
 Index,Tarea,Inicio,Fin,Duracion,Critico
-0,Actividad1,2022-05-26,2022-06-07,12,Y
-1,Actividad2,2022-06-07,2022-06-30,23,Y
-2,Actividad3,2022-06-30,2022-08-01,32,Y
-3,Actividad4,2022-08-01,2022-08-24,23,Y
-4,Actividad5,2022-08-24,2022-09-07,14,Y
-5,Actividad6,2022-09-07,2022-09-09,2,Y
-6,Actividad7,2022-09-04,2022-09-07,3,N
-7,Actividad8,2022-09-09,2022-10-11,32,Y
+0,presentar,2022-05-27,2022-05-28,1,Y
+1,Desarrollo,2022-05-28,2022-06-09,12,Y
+2,presentacion final,2022-06-09,2022-06-10,1,Y

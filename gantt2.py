@@ -34,8 +34,6 @@ def mostrar_gantt():
     x_etiqueta = [i for i in range(p_duracion+1)] #etiquetas para el eje x
     x_labels= [(p_inicio + dt.timedelta(days=i)).strftime('%d-%b') for i in x_etiqueta] 
 
-
-
     #grafico
     #Agregar color por trabajo critico o no
     diccionario_color = {'Y': 'mediumturquoise', 'N': 'midnightblue'}
@@ -44,12 +42,11 @@ def mostrar_gantt():
 
     for i in range(data.shape[0]):
         color = diccionario_color[data.Critico[i]]
-        print(data.Tarea[i],data.Desde_Inicio[i],data.Duracion[i])
         plt.barh(y=data.Tarea[i],left=data.Desde_Inicio[i], width= data.Duracion[i], color = color, label= data.Critico[i])
         plt.barh(y=data.Tarea[i],left=0, width=data.Desde_Inicio[i], color = '#f0f0f0')
     plt.gca().invert_yaxis() #invertir eje y
-    plt.xticks(ticks=x_etiqueta[::3], labels=x_labels[::3]) #etiquetas para el eje x
-    plt.grid(axis='x')
+    plt.xticks(ticks=x_etiqueta[::int(len(x_etiqueta)/12)], labels=x_labels[::int(len(x_etiqueta)/12)]) #etiquetas para el eje x, /12 para que quede de manera prederteminada
+    plt.grid(axis='x')                            
 
 
     #agregar referencia 
@@ -61,7 +58,7 @@ def mostrar_gantt():
             exist_list.append(label)
             handle_lista.append(handle)
             label_lista.append(label)
-            
+
     plt.gcf().autofmt_xdate(rotation=30)
     plt.legend(handle_lista, label_lista, fontsize ='medium', title='Critico', title_fontsize='large')
 

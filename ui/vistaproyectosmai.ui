@@ -205,7 +205,7 @@ font: 12pt &quot;Verdana&quot;;</string>
             </column>
             <column>
              <property name="text">
-              <string>Descripcion</string>
+              <string>Descripción</string>
              </property>
              <property name="font">
               <font>

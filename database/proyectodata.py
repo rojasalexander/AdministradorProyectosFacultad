@@ -8,7 +8,6 @@ from relaciondata import *
 from datetime import *
 
 
-
 #Establecemos la conexion con la base de datos de proyectos
 connection = sqlite3.connect("database.db")
 
@@ -105,6 +104,14 @@ def modify_proyecto(id, proy: Proyecto):
                 "fechaFin": fechaFin
             }
         )
+
+def update_fecha_fin(id, fechaFin):
+    with connection:
+        cur.execute("""UPDATE proyectos SET fechaFin = :fechaFin
+        WHERE :identificador = identificador""", {
+            "identificador": id,
+            "fechaFin": fechaFin
+        })
 
 def proy_max():
     if (not(len(get_proyectos()) == 999)):

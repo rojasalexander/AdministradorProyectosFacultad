@@ -549,32 +549,6 @@ border-radius:13px;</string>
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
-            <widget class="QRadioButton" name="radioButton_15">
-             <property name="geometry">
-              <rect>
-               <x>140</x>
-               <y>510</y>
-               <width>31</width>
-               <height>17</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>M</string>
-             </property>
-            </widget>
-            <widget class="QRadioButton" name="radioButton_16">
-             <property name="geometry">
-              <rect>
-               <x>260</x>
-               <y>510</y>
-               <width>31</width>
-               <height>17</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>V</string>
-             </property>
-            </widget>
             <widget class="QLabel" name="label_24">
              <property name="geometry">
               <rect>
@@ -600,69 +574,95 @@ font: 75 16pt &quot;Verdana&quot;;</string>
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
              </property>
             </widget>
-            <widget class="QRadioButton" name="radioButton_17">
+            <widget class="QCheckBox" name="miercolesBox">
              <property name="geometry">
               <rect>
-               <x>80</x>
+               <x>130</x>
                <y>510</y>
-               <width>31</width>
-               <height>17</height>
+               <width>41</width>
+               <height>20</height>
               </rect>
              </property>
              <property name="text">
               <string>M</string>
              </property>
             </widget>
-            <widget class="QRadioButton" name="radioButton_18">
+            <widget class="QCheckBox" name="martesBox">
              <property name="geometry">
               <rect>
-               <x>200</x>
+               <x>80</x>
                <y>510</y>
-               <width>31</width>
-               <height>17</height>
+               <width>41</width>
+               <height>20</height>
               </rect>
              </property>
              <property name="text">
-              <string>J</string>
+              <string>M</string>
              </property>
             </widget>
-            <widget class="QRadioButton" name="radioButton_19">
+            <widget class="QCheckBox" name="viernesBox">
              <property name="geometry">
               <rect>
-               <x>360</x>
+               <x>220</x>
                <y>510</y>
-               <width>31</width>
-               <height>17</height>
+               <width>41</width>
+               <height>20</height>
               </rect>
              </property>
              <property name="text">
-              <string>D</string>
+              <string>V</string>
              </property>
             </widget>
-            <widget class="QRadioButton" name="radioButton_20">
+            <widget class="QCheckBox" name="lunesBox">
              <property name="geometry">
               <rect>
                <x>30</x>
                <y>510</y>
-               <width>31</width>
-               <height>17</height>
+               <width>41</width>
+               <height>20</height>
               </rect>
              </property>
              <property name="text">
               <string>L</string>
              </property>
             </widget>
-            <widget class="QRadioButton" name="radioButton_21">
+            <widget class="QCheckBox" name="juevesBox">
              <property name="geometry">
               <rect>
-               <x>310</x>
+               <x>180</x>
                <y>510</y>
                <width>31</width>
-               <height>17</height>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>J</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="sabadoBox">
+             <property name="geometry">
+              <rect>
+               <x>270</x>
+               <y>510</y>
+               <width>31</width>
+               <height>20</height>
               </rect>
              </property>
              <property name="text">
               <string>S</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="domigoBox">
+             <property name="geometry">
+              <rect>
+               <x>320</x>
+               <y>510</y>
+               <width>31</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>D</string>
              </property>
             </widget>
            </widget>
@@ -915,95 +915,95 @@ font: 75 16pt &quot;Verdana&quot;;</string>
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
              </property>
             </widget>
-            <widget class="QRadioButton" name="radioButton">
+            <widget class="QCheckBox" name="lunesBox_3">
              <property name="geometry">
               <rect>
                <x>30</x>
                <y>510</y>
-               <width>31</width>
-               <height>17</height>
+               <width>41</width>
+               <height>20</height>
               </rect>
              </property>
              <property name="text">
               <string>L</string>
              </property>
             </widget>
-            <widget class="QRadioButton" name="radioButton_2">
+            <widget class="QCheckBox" name="martesBox_3">
              <property name="geometry">
               <rect>
                <x>80</x>
                <y>510</y>
-               <width>31</width>
-               <height>17</height>
+               <width>41</width>
+               <height>20</height>
               </rect>
              </property>
              <property name="text">
               <string>M</string>
              </property>
             </widget>
-            <widget class="QRadioButton" name="radioButton_3">
+            <widget class="QCheckBox" name="miercolesBox_3">
              <property name="geometry">
               <rect>
-               <x>140</x>
+               <x>130</x>
                <y>510</y>
-               <width>31</width>
-               <height>17</height>
+               <width>41</width>
+               <height>20</height>
               </rect>
              </property>
              <property name="text">
               <string>M</string>
              </property>
             </widget>
-            <widget class="QRadioButton" name="radioButton_4">
+            <widget class="QCheckBox" name="viernesBox_3">
              <property name="geometry">
               <rect>
-               <x>200</x>
+               <x>220</x>
                <y>510</y>
-               <width>31</width>
-               <height>17</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>J</string>
-             </property>
-            </widget>
-            <widget class="QRadioButton" name="radioButton_5">
-             <property name="geometry">
-              <rect>
-               <x>260</x>
-               <y>510</y>
-               <width>31</width>
-               <height>17</height>
+               <width>41</width>
+               <height>20</height>
               </rect>
              </property>
              <property name="text">
               <string>V</string>
              </property>
             </widget>
-            <widget class="QRadioButton" name="radioButton_6">
+            <widget class="QCheckBox" name="domigoBox_3">
              <property name="geometry">
               <rect>
-               <x>310</x>
+               <x>320</x>
                <y>510</y>
                <width>31</width>
-               <height>17</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>S</string>
-             </property>
-            </widget>
-            <widget class="QRadioButton" name="radioButton_7">
-             <property name="geometry">
-              <rect>
-               <x>360</x>
-               <y>510</y>
-               <width>31</width>
-               <height>17</height>
+               <height>20</height>
               </rect>
              </property>
              <property name="text">
               <string>D</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="juevesBox_3">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>510</y>
+               <width>31</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>J</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="sabadoBox_3">
+             <property name="geometry">
+              <rect>
+               <x>270</x>
+               <y>510</y>
+               <width>31</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>S</string>
              </property>
             </widget>
            </widget>
@@ -1305,10 +1305,10 @@ border-radius:10px;</string>
            <zorder>eliminar</zorder>
            <zorder>botoMAS</zorder>
            <zorder>calendarioW</zorder>
-           <zorder>editarp</zorder>
            <zorder>botoFERIADO</zorder>
            <zorder>pushButton_4</zorder>
            <zorder>crp</zorder>
+           <zorder>editarp</zorder>
           </widget>
          </item>
         </layout>

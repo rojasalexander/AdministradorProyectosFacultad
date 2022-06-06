@@ -9,6 +9,7 @@ from PyQt5.QtCore import *
 from datetime import *
 #sys.path.append('database')
 from database.proyectodata import *
+from database.feriadodata import *
 from packages.proyecto import *
 from gantt2 import *
 
@@ -24,17 +25,15 @@ class WelcomeScreen(QMainWindow):
     
     def window_access(self):
         self.name = self.nameLine.text()
-        ventana2 = Gui_access(self.name)
+        ventana2 = ventanaProyectos(self.name)
         #widget = QStackedWidget()
         
         widget.addWidget(ventana2)  #para el cambio de ventanas
-        widget.setCurrentIndex(widget.currentIndex() + 1)
+        widget.setCurrentIndex(widget.currentIndex() + 1)    
 
-        
-
-class Gui_access(QDialog):
+class ventanaProyectos(QDialog):
     def __init__(self, nombreUser):
-        super(Gui_access, self).__init__()
+        super(ventanaProyectos, self).__init__()
         loadUi('ui/vistaproyectosmai.ui', self)
 
         self.nombreUser = nombreUser
@@ -187,7 +186,6 @@ class Gui_access(QDialog):
         widget.addWidget(ventana4)  #para el cambio de ventanas
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
-        
 class ventanaFeriados(QDialog):
     def __init__(self, nombreUser):
         super(ventanaFeriados, self).__init__()
@@ -199,16 +197,9 @@ class ventanaFeriados(QDialog):
         self.calendarioW.hide()
         self.eliminar.hide()
         widget.move(300, 100) 
-        # widget.setFixedHeight(700)    #se le asigna un tamaño fijo al widget
-        # widget.setFixedWidth(1280)    #se le asigna un tamaño fijo al widget
         
         self.botoMAS.clicked.connect(self.aggPopUp)
         self.botoMAS_2.clicked.connect(self.volver)
-
-        # header = self.tableWidget.horizontalHeader()       
-        # header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
-        # header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
-        
 
         self.eliminarbtn.clicked.connect(self.delete)
         self.cancelarbtn_2.clicked.connect(self.cancelar)
@@ -216,59 +207,32 @@ class ventanaFeriados(QDialog):
         self.cancelarbtn_4.clicked.connect(self.cancelar)
 
         self.tableWidget.verticalHeader().setVisible(False)
-        #self.loadData()
+        self.loadData()
         
     
     def loadData(self):
-        self.proyectos = get_proyectos()
-        self.tableWidget.setRowCount(len(self.proyectos))
-        for i in range(len(self.proyectos)):
-            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.proyectos[i].nombre))
+        self.feriados = get_feriados()
+        self.tableWidget.setRowCount(len(self.feriados))
+        for i in range(len(self.feriados)):
+            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.feriados[i]))
             self.tableWidget.item(i, 0).setForeground(QBrush(QColor(213, 213, 213)))
-            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(self.proyectos[i].descripcion))
-            self.tableWidget.item(i, 1).setForeground(QBrush(QColor(213, 213, 213)))
-            self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(self.proyectos[i].fechaInicio))
-            self.tableWidget.item(i, 2).setForeground(QBrush(QColor(213, 213, 213)))
-            self.tableWidget.setItem(i, 3, QtWidgets.QTableWidgetItem(self.proyectos[i].fechaFin))
-            self.tableWidget.item(i, 3).setForeground(QBrush(QColor(213, 213, 213)))
-            
-            btnActi = QPushButton(self.tableWidget)
-            btnActi.setIcon(QIcon(actividadIcon))
-            btnActi.setIconSize(QSize(25,25))
-            btnActi.setStyleSheet("*{border-radius: 50%;}")
-            btnActi.clicked.connect(lambda state, x=i: self.ventanaActi(x))
-            self.tableWidget.setCellWidget(i, 4, btnActi)
-
-            btn = QPushButton(self.tableWidget)
-            btn.setIcon(QIcon(editIcon))
-            btn.setIconSize(QSize(25,25))
-            btn.setStyleSheet("*{border-radius: 50%;}")
-            btn.clicked.connect(lambda state, x=i: self.editarPopup(x))
-            self.tableWidget.setCellWidget(i, 5, btn)
 
             btn2 = QPushButton(self.tableWidget)
             btn2.setIcon(QIcon(deleteIcon))
             btn2.setIconSize(QSize(25,25))
             btn2.setStyleSheet("*{border-radius: 50%;}")
             btn2.clicked.connect(lambda state, x=i: self.deletePopup(x))
-            self.tableWidget.setCellWidget(i, 6, btn2)
+            self.tableWidget.setCellWidget(i, 1, btn2)
     
     def aggPopUp(self):
         self.calendarioW.show()
-        # self.nom.setText('')
-        # self.des.setText('')
-
-        # self.fechaInicio = str(date.today())
-        # self.fechaIniLabel.setText(self.fechaInicio)
-        # self.fechaIniLabel_2.setText('')
         
     def crear(self):
-        self.error()
-        print('holamundo')
-        # newProyecto = Proyecto(self.nom.text(), self.des.text(), date.fromisoformat(self.fechaInicio))
-        # create_proyecto(newProyecto)
-        # self.loadData()
-        # self.crp.hide()
+        fecha = self.calendario.selectedDate()
+        fecha = date.isoformat(fecha.toPyDate())
+        create_feriado(fecha)
+        self.loadData()
+        self.calendarioW.hide()
 
     def cancelar(self):
         self.calendarioW.hide()
@@ -276,19 +240,17 @@ class ventanaFeriados(QDialog):
 
     def deletePopup(self, indice):
         self.eliminar.show()
-        # self.currentProyecto = self.proyectos[indice]
-        # self.nom_proy.setText(self.currentProyecto.nombre)
+        self.nom_fecha.setText(self.feriados[indice])
+        self.currentFeriado = self.feriados[indice]
 
     def delete(self):
-        print('chau mundo')
-        # id = self.currentProyecto.identificador
-        # delete_proyecto(id)
-        # self.eliminar.hide()
-        # self.loadData()
+        delete_feriado(self.currentFeriado)
+        self.eliminar.hide()
+        self.loadData()
 
     def selectFecha(self):
         fecha = self.calendario.selectedDate()
-        self.fechaInicio = date.isoformat(fecha.toPyDate())
+        self.calendario = date.isoformat(fecha.toPyDate())
         
         if(self.fechaIniLabel.text() != ''):
             self.fechaIniLabel.setText(self.fechaInicio)
@@ -297,18 +259,9 @@ class ventanaFeriados(QDialog):
         self.calendarioW.hide()
 
     def volver(self):
-        ventana = Gui_access(self.nombreUser)
+        ventana = ventanaProyectos(self.nombreUser)
         widget.addWidget(ventana)  #para el cambio de ventanas
         widget.setCurrentIndex(widget.currentIndex() + 1)
-
-    def error(self):
-        pupupError = QMessageBox()
-        pupupError.setWindowTitle("Oh no!")
-        pupupError.setText("Oh no!")
-        pupupError.setIcon(QMessageBox.Critical)
-        x = pupupError.exec_()  # this will show our messagebox
-
-  
 
 class ventanaActividades(QDialog):
     def __init__(self, nombreUser, id_proyecto, nom_proyecto):
@@ -486,10 +439,17 @@ class ventanaActividades(QDialog):
         self.loadData()
     
     def volver(self):
-        ventana = Gui_access(self.nombreUser)
+        ventana = ventanaProyectos(self.nombreUser)
         widget.addWidget(ventana)  #para el cambio de ventanas
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
+
+def error(mensaje):
+    pupupError = QMessageBox()
+    pupupError.setWindowTitle("Error")
+    pupupError.setText(mensaje)
+    pupupError.setIcon(QMessageBox.Critical)
+    x = pupupError.exec_()  # this will show our messagebox
 app = QApplication(sys.argv) #inicializar la aplicacion
 welcome = WelcomeScreen() #crear un objeto de la clase que creamos
 widget = QtWidgets.QStackedWidget() #se crea un widget que va a contener todos los widgets, nos permite mover entre ellos
@@ -499,9 +459,9 @@ widget.move(400, 80) #ponemos en la parte central de la pantalla
 #widget.setFixedWidth(380)    #se le asigna un tamaño fijo al widget
 widget.show()
 
-actividadIcon = QPixmap('icons/checklist.png')
-editIcon = QPixmap('icons/edit.png')
-deleteIcon = QPixmap('icons/trash.png')
+actividadIcon = QPixmap('ui/checklist.png')
+editIcon = QPixmap('ui/edit.png')
+deleteIcon = QPixmap('ui/trash.png')
 
 try:
     sys.exit(app.exec_())

@@ -261,7 +261,7 @@ border-radius:20;</string>
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
              </property>
             </widget>
-            <widget class="QLabel" name="nom_proy">
+            <widget class="QLabel" name="nom_fecha">
              <property name="geometry">
               <rect>
                <x>10</x>
@@ -468,10 +468,10 @@ color: rgb(188, 188, 188);</string>
            </widget>
            <zorder>tableWidget</zorder>
            <zorder>label</zorder>
-           <zorder>eliminar</zorder>
            <zorder>botoMAS</zorder>
            <zorder>calendarioW</zorder>
            <zorder>botoMAS_2</zorder>
+           <zorder>eliminar</zorder>
           </widget>
          </item>
         </layout>

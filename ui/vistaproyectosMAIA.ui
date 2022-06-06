@@ -263,9 +263,9 @@ border-radius:20;</string>
     <property name="geometry">
      <rect>
       <x>390</x>
-      <y>110</y>
+      <y>30</y>
       <width>421</width>
-      <height>551</height>
+      <height>631</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -329,7 +329,7 @@ font: 75 16pt &quot;Verdana&quot;;</string>
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>480</y>
+       <y>570</y>
        <width>111</width>
        <height>31</height>
       </rect>
@@ -428,7 +428,7 @@ border-radius:10px;</string>
      <property name="geometry">
       <rect>
        <x>210</x>
-       <y>480</y>
+       <y>570</y>
        <width>111</width>
        <height>31</height>
       </rect>
@@ -455,7 +455,7 @@ border-radius:13px;</string>
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>../icons/valentines-day.png</normaloff>../icons/valentines-day.png</iconset>
+       <normaloff>../../../.designer/backup/valentines-day.png</normaloff>../../../.designer/backup/valentines-day.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -480,6 +480,122 @@ border-radius:13px;</string>
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
+    <widget class="QRadioButton" name="radioButton">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>500</y>
+       <width>51</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>L</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButton_2">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>500</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>M</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButton_3">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>500</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>M</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButton_4">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>500</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>S</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButton_5">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>500</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>J</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButton_6">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>500</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>V</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButton_7">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>500</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>D</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_13">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>440</y>
+       <width>281</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);
+background-color: rgba(0,0,0,0);
+border-radius:20;
+font: 75 16pt &quot;Verdana&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Dias no laborales&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="editarp" native="true">
     <property name="enabled">
@@ -488,9 +604,9 @@ border-radius:13px;</string>
     <property name="geometry">
      <rect>
       <x>390</x>
-      <y>110</y>
+      <y>30</y>
       <width>421</width>
-      <height>551</height>
+      <height>631</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -554,7 +670,7 @@ font: 75 16pt &quot;Verdana&quot;;</string>
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>490</y>
+       <y>550</y>
        <width>111</width>
        <height>31</height>
       </rect>
@@ -653,7 +769,7 @@ border-radius:10px;</string>
      <property name="geometry">
       <rect>
        <x>210</x>
-       <y>490</y>
+       <y>550</y>
        <width>111</width>
        <height>31</height>
       </rect>
@@ -674,13 +790,6 @@ border-radius:13px;</string>
        <width>81</width>
        <height>61</height>
       </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset>
-       <normaloff>../icons/valentines-day.png</normaloff>../icons/valentines-day.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -703,6 +812,122 @@ border-radius:13px;</string>
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_14">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>440</y>
+       <width>281</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);
+background-color: rgba(0,0,0,0);
+border-radius:20;
+font: 75 16pt &quot;Verdana&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Dias no laborales&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>500</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>L</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_2">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>500</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>M</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_3">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>500</y>
+       <width>31</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>J</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_4">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>500</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>M</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_5">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>500</y>
+       <width>31</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>S</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_6">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>500</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>V</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_7">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>500</y>
+       <width>31</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>D</string>
      </property>
     </widget>
    </widget>
@@ -820,7 +1045,7 @@ color: rgb(188, 188, 188);</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../icons/share (1).png</normaloff>../icons/share (1).png</iconset>
+      <normaloff>../../../.designer/icons/share (1).png</normaloff>../../../.designer/icons/share (1).png</iconset>
     </property>
     <property name="iconSize">
      <size>

@@ -36,6 +36,13 @@ def get_feriados():
         cur.execute("SELECT * FROM feriados")
         fechas = cur.fetchall()
         
+        return list(map(lambda fecha: fecha[0], fechas))
+
+def get_feriados_date():
+    with connection:
+        cur.execute("SELECT * FROM feriados")
+        fechas = cur.fetchall()
+        
         return list(map(map_to_feriados, fechas))
 
 connection.commit()

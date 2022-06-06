@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import *
 
 #Establecemos la conexion con la base de datos de proyectos
 connection = sqlite3.connect("database.db")
@@ -35,9 +36,15 @@ def get_feriados():
         cur.execute("SELECT * FROM feriados")
         fechas = cur.fetchall()
         
-        return list(map(lambda fecha: fecha[0], fechas))
+        return list(map(map_to_feriados, fechas))
 
 connection.commit()
 
 def in_feriados(fecha):
     return fecha in get_feriados()
+
+
+def map_to_feriados(fecha):
+    fechaAux = fecha.split("-")
+    return date(2001, int(fechaAux[1]), int(fechaAux[2]))
+    

@@ -1,5 +1,6 @@
 # from database.proyectodata import create_proyecto, create_table
 from database.proyectodata import get_proyectos
+from feriadodata import *
 from proyecto import *
 import sys
 sys.path.append('database')
@@ -119,3 +120,7 @@ def menu_proyecto(proy: Proyecto):
         elif(x == '4'):
             proy.mostrar_grafo()
 
+delete_feriado("2020-12-01")
+delete_feriado("2020-12-02")
+delete_feriado("2020-12-03")
+print(get_feriados())

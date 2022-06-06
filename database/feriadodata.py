@@ -15,7 +15,7 @@ with connection:
 
 def create_feriado(fecha):
     with connection:
-        cur.execute("INSERT INTO feriados(fecha) values(?)", fecha)
+        cur.execute("INSERT INTO feriados(fecha) values(:fecha)", {"fecha": fecha})
 
 def delete_feriado(fecha):
     with connection:
@@ -28,6 +28,8 @@ def delete_feriado(fecha):
 def get_feriados():
     with connection:
         cur.execute("SELECT * FROM feriados")
-        return cur.fetchall()
+        fechas = cur.fetchall()
+        
+        return list(map(lambda fecha: fecha[0], fechas))
 
 connection.commit()

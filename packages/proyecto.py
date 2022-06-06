@@ -66,7 +66,10 @@ class Proyecto:
             self.relaciones.append(rel)
 
         for actividad in self.actividades:
-            actividad.precedentes = [y.identificador for y in self.actividades if y.identificador in [x.actividadPrecedente for x in self.relaciones if x.actividadSiguiente == actividad.identificador]]
+            actividad.precedentes = [y.identificador for y in self.actividades if y.identificador in
+                [x.actividadPrecedente for x in self.relaciones if x.actividadSiguiente == actividad.identificador]]
+        
+        
         
     def nodo_inicio(self):
         for actividad in self.actividades:

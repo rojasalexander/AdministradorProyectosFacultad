@@ -14,8 +14,13 @@ with connection:
     """)
 
 def create_feriado(fecha):
+    fechaAux = fecha.split("-")
+    fechaAux = fechaAux[1] + "-" + fechaAux[2]
+    if(in_feriados(fecha)):
+        return "404"
+        
     with connection:
-        cur.execute("INSERT INTO feriados(fecha) values(:fecha)", {"fecha": fecha})
+        cur.execute("INSERT INTO feriados(fecha) values(:fecha)", {"fecha": fechaAux})
 
 def delete_feriado(fecha):
     with connection:
@@ -33,3 +38,6 @@ def get_feriados():
         return list(map(lambda fecha: fecha[0], fechas))
 
 connection.commit()
+
+def in_feriados(fecha):
+    return fecha in get_feriados()

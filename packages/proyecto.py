@@ -113,7 +113,7 @@ class Proyecto:
                 if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) <= date.fromisoformat(actividad.fechaFinTardio):
                     siguiente.fechaInicioTardio = actividad.fechaFinTardio
                     siguiente.fechaFinTardio = self.dias_laborales[self.dias_laborales.index(siguiente.fechaInicioTardio) + siguiente.duracion]
-                    self.calculo_Tardio(siguiente)
+                self.calculo_Tardio(siguiente)
 
             
         
@@ -125,8 +125,8 @@ class Proyecto:
             for precedente in precs:
                 if precedente.fechaFinTemprano == "" or precedente.fechaFinTemprano == None or date.fromisoformat(precedente.fechaFinTemprano) >= date.fromisoformat(actividad.fechaInicioTemprano) :
                     precedente.fechaFinTemprano = actividad.fechaInicioTemprano
-                    precedente.fechaInicioTemprano =self.dias_laborales[self.dias_laborales.index(precedente.fechaFinTemprano) - precedente.duracion]
-                    self.calculo_Temprano(precedente)
+                    precedente.fechaInicioTemprano = self.dias_laborales[self.dias_laborales.index(precedente.fechaFinTemprano) - precedente.duracion]
+                self.calculo_Temprano(precedente)
 
     def actividades_criticas(self):
         for actividad in self.actividades:

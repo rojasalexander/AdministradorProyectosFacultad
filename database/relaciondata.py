@@ -33,6 +33,10 @@ def get_relaciones(proyecto_id):
 
 def create_relacion(rel: Relacion, proyecto_id):
     relacion = (rel.actividadPrecedente, rel.actividadSiguiente, proyecto_id)
+    #controlar la cantidad de relaciones
+    if(not max_relaciones(proyecto_id)):
+        return "404"
+
     with connection:
         cur.execute("""INSERT INTO relaciones(
             actividadPrecedente, 
@@ -87,4 +91,21 @@ def delete_all_relaciones(proyecto_id):
             "proyecto_id": proyecto_id
         })
 
+def max_relaciones(proyecto_id):
+    """Controlar que la cantidad maxima de
+    relaciones sea 149"""
+    with connection:
+        cur.execute("SELECT COUNT(*) FROM relaciones where proyecto_id = :proyecto_id",
+        {
+            "proyecto_id": proyecto_id
+        })
+        number = cur.fetchone()[0]
+    
+    if(number == 149):
+        return False
+
+    return True
+
 connection.commit()
+
+

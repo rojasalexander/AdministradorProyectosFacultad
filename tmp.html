@@ -50,8 +50,18 @@
         
 
         // parsing and collecting nodes and edges from the python
+<<<<<<< HEAD
         nodes = new vis.DataSet([{"id": "A", "label": "A", "shape": "dot"}, {"id": "B", "label": "B", "shape": "dot"}]);
         edges = new vis.DataSet([{"arrows": "to", "from": "A", "to": "B"}]);
+=======
+<<<<<<< HEAD
+        nodes = new vis.DataSet([{"color": "#00ff1e", "id": "A", "label": "1", "shape": "dot", "title": "A"}, {"id": "B", "label": "2", "shape": "dot", "title": "B"}, {"color": "#00ff1e", "id": "C", "label": "3", "shape": "dot", "title": "C"}, {"id": "D", "label": "4", "shape": "dot", "title": "D"}, {"id": "E", "label": "5", "shape": "dot", "title": "E"}, {"color": "#00ff1e", "id": "F", "label": "6", "shape": "dot", "title": "F"}, {"id": "G", "label": "7", "shape": "dot", "title": "G"}, {"color": "#00ff1e", "id": "H", "label": "8", "shape": "dot", "title": "H"}, {"color": "#00ff1e", "id": "Inicio", "label": "9", "shape": "dot", "title": "Inicio"}, {"color": "#00ff1e", "id": "Fin", "label": "10", "shape": "dot", "title": "Fin"}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "A", "to": "B"}, {"arrows": "to", "from": "A", "to": "C"}, {"arrows": "to", "from": "B", "to": "D"}, {"arrows": "to", "from": "B", "to": "E"}, {"arrows": "to", "from": "C", "to": "F"}, {"arrows": "to", "from": "D", "to": "G"}, {"arrows": "to", "from": "E", "to": "H"}, {"arrows": "to", "from": "F", "to": "H"}, {"arrows": "to", "from": "Inicio", "to": "A"}, {"arrows": "to", "from": "H", "to": "Fin"}, {"arrows": "to", "from": "G", "to": "Fin"}]);
+=======
+        nodes = new vis.DataSet([{"id": "Desocupar", "label": "Desocupar", "shape": "dot"}, {"id": "Reparaciones", "label": "Reparaciones", "shape": "dot"}, {"id": "Tasacion e investigacion", "label": "Tasacion e investigacion", "shape": "dot"}, {"id": "Precio de venta", "label": "Precio de venta", "shape": "dot"}, {"id": "Anunciar y mostrar", "label": "Anunciar y mostrar", "shape": "dot"}, {"id": "Cliente y conceder opcion", "label": "Cliente y conceder opcion", "shape": "dot"}, {"id": "Completar financiacion", "label": "Completar financiacion", "shape": "dot"}, {"id": "Mantenimiento1", "label": "Mantenimiento1", "shape": "dot"}, {"id": "Mantenimiento2", "label": "Mantenimiento2", "shape": "dot"}, {"id": "Mantenimiento3", "label": "Mantenimiento3", "shape": "dot"}, {"id": "Firma de venta", "label": "Firma de venta", "shape": "dot"}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "Desocupar", "to": "Reparaciones"}, {"arrows": "to", "from": "Desocupar", "to": "Tasacion e investigacion"}, {"arrows": "to", "from": "Tasacion e investigacion", "to": "Precio de venta"}, {"arrows": "to", "from": "Reparaciones", "to": "Anunciar y mostrar"}, {"arrows": "to", "from": "Precio de venta", "to": "Anunciar y mostrar"}, {"arrows": "to", "from": "Anunciar y mostrar", "to": "Cliente y conceder opcion"}, {"arrows": "to", "from": "Cliente y conceder opcion", "to": "Completar financiacion"}, {"arrows": "to", "from": "Desocupar", "to": "Mantenimiento1"}, {"arrows": "to", "from": "Mantenimiento1", "to": "Mantenimiento2"}, {"arrows": "to", "from": "Anunciar y mostrar", "to": "Mantenimiento2"}, {"arrows": "to", "from": "Mantenimiento2", "to": "Mantenimiento3"}, {"arrows": "to", "from": "Completar financiacion", "to": "Mantenimiento3"}, {"arrows": "to", "from": "Completar financiacion", "to": "Firma de venta"}]);
+>>>>>>> 039ed36fa2c417c61a8e2b956ae472a168d9796f
+>>>>>>> 5d46f989c183fb7a115473abbf92f2e8cf60fbf4
 
         // adding nodes and edges to the graph
         data = {nodes: nodes, edges: edges};

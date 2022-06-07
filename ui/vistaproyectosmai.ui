@@ -652,7 +652,7 @@ font: 75 16pt &quot;Verdana&quot;;</string>
               <string>S</string>
              </property>
             </widget>
-            <widget class="QCheckBox" name="domigoBox">
+            <widget class="QCheckBox" name="domingoBox">
              <property name="geometry">
               <rect>
                <x>320</x>
@@ -967,7 +967,7 @@ font: 75 16pt &quot;Verdana&quot;;</string>
               <string>V</string>
              </property>
             </widget>
-            <widget class="QCheckBox" name="domigoBox_3">
+            <widget class="QCheckBox" name="domingoBox_3">
              <property name="geometry">
               <rect>
                <x>320</x>

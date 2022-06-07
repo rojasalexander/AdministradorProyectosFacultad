@@ -71,13 +71,14 @@ class ventanaProyectos(QDialog):
         self.seleccionarbtn.clicked.connect(self.selectFecha)
         self.cancelarbtn_4.clicked.connect(self.cancelarCalendario)
         self.botoFERIADO.clicked.connect(self.feriado)
+        self.pushButton_4.clicked.connect(self.buscar)
 
         self.tableWidget.verticalHeader().setVisible(False)
-        self.loadData()
-        
+        self.loadData()      
     
-    def loadData(self):
-        self.proyectos = get_proyectos()
+    def loadData(self, busqueda = ''):
+        
+        self.proyectos = buscar_proyectos(busqueda)
         self.tableWidget.setRowCount(len(self.proyectos))
         for i in range(len(self.proyectos)):
             self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.proyectos[i].nombre))
@@ -114,13 +115,37 @@ class ventanaProyectos(QDialog):
         self.crp.show()
         self.nom.setText('')
         self.des.setText('')
+        self.lunesBox.setChecked(False)
+        self.martesBox.setChecked(False)
+        self.miercolesBox.setChecked(False)
+        self.juevesBox.setChecked(False)
+        self.viernesBox.setChecked(False)
+        self.sabadoBox.setChecked(False)
+        self.domingoBox.setChecked(False)
 
         self.fechaInicio = str(date.today())
         self.fechaIniLabel.setText(self.fechaInicio)
         self.fechaIniLabel_2.setText('')
         
     def crear(self):
-        newProyecto = Proyecto(self.nom.text(), self.des.text(), date.fromisoformat(self.fechaInicio))
+        diasNoLaborales = []
+        if self.lunesBox.isChecked():
+            diasNoLaborales.append(0)
+        if self.martesBox.isChecked():
+            diasNoLaborales.append(1)
+        if self.miercolesBox.isChecked():
+            diasNoLaborales.append(2)
+        if self.juevesBox.isChecked():
+            diasNoLaborales.append(3)
+        if self.viernesBox.isChecked():
+            diasNoLaborales.append(4)
+        if self.sabadoBox.isChecked():
+            diasNoLaborales.append(5)
+        if self.domingoBox.isChecked():
+            diasNoLaborales.append(6)
+        
+        print("Diasnolaborales: ", diasNoLaborales)
+        newProyecto = Proyecto(self.nom.text(), self.des.text(), self.fechaInicio, noLaborales=diasNoLaborales)
         create_proyecto(newProyecto)
         self.loadData()
         self.crp.hide()
@@ -133,9 +158,40 @@ class ventanaProyectos(QDialog):
         self.fechaInicio = self.currentProyecto.fechaInicio
         self.fechaIniLabel_2.setText(self.fechaInicio)
         self.fechaIniLabel.setText('')
+        
+        if 0 in self.currentProyecto.noLaborales:
+            self.lunesBox_3.setChecked(True)
+        if 1 in self.currentProyecto.noLaborales:
+            self.martesBox_3.setChecked(True)
+        if 2 in self.currentProyecto.noLaborales:
+            self.miercolesBox_3.setChecked(True)
+        if 3 in self.currentProyecto.noLaborales:
+            self.juevesBox_3.setChecked(True)
+        if 4 in self.currentProyecto.noLaborales:
+            self.viernesBox_3.setChecked(True)
+        if 5 in self.currentProyecto.noLaborales:
+            self.sabadoBox_3.setChecked(True)
+        if 6 in self.currentProyecto.noLaborales:
+            self.domingoBox_3.setChecked(True)
 
     def editar(self):
-        newProyecto = Proyecto(self.nom_2.text(), self.des_2.text(), date.fromisoformat(self.fechaInicio))
+        diasNoLaborales = []
+        if self.lunesBox.isChecked():
+            diasNoLaborales.append(0)
+        if self.martesBox.isChecked():
+            diasNoLaborales.append(1)
+        if self.miercolesBox.isChecked():
+            diasNoLaborales.append(2)
+        if self.juevesBox.isChecked():
+            diasNoLaborales.append(3)
+        if self.viernesBox.isChecked():
+            diasNoLaborales.append(4)
+        if self.sabadoBox.isChecked():
+            diasNoLaborales.append(5)
+        if self.domingoBox.isChecked():
+            diasNoLaborales.append(6)
+
+        newProyecto = Proyecto(self.nom_2.text(), self.des_2.text(), self.fechaInicio, noLaborales=diasNoLaborales)
         modify_proyecto(self.currentProyecto.identificador, newProyecto)
         self.loadData()
         self.editarp.hide()
@@ -185,6 +241,10 @@ class ventanaProyectos(QDialog):
         ventana4 = ventanaFeriados(self.nombreUser)
         widget.addWidget(ventana4)  #para el cambio de ventanas
         widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def buscar(self):
+        self.loadData(self.lineEdit.text())
+        self.lineEdit.setText('')
 
 class ventanaFeriados(QDialog):
     def __init__(self, nombreUser):
@@ -450,6 +510,7 @@ def error(mensaje):
     pupupError.setText(mensaje)
     pupupError.setIcon(QMessageBox.Critical)
     x = pupupError.exec_()  # this will show our messagebox
+
 app = QApplication(sys.argv) #inicializar la aplicacion
 welcome = WelcomeScreen() #crear un objeto de la clase que creamos
 widget = QtWidgets.QStackedWidget() #se crea un widget que va a contener todos los widgets, nos permite mover entre ellos

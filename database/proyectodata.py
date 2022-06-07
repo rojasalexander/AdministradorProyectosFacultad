@@ -34,7 +34,6 @@ def get_proyectos():
     cur.execute("SELECT * FROM proyectos")
     aux = cur.fetchall()
     print(aux)
-    print(list(aux[0][5]))
     if (len(aux) != 0):
         return list(map(
             lambda proyecto: 
@@ -142,6 +141,7 @@ def buscar_proyectos(word):
     proyectos = get_proyectos()
     result = []
     for proyecto in proyectos:
-        if (word in proyecto.nombre):
+        if (word.lower() in proyecto.nombre.lower()):
             result.append(proyecto)
+    
     return result

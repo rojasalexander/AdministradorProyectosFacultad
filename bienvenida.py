@@ -29,7 +29,7 @@ class ventanaProyectos(QDialog):
     def __init__(self, nombreUser):
         super(ventanaProyectos, self).__init__()
         loadUi('ui/vistaproyectosmai.ui', self) #carga la interfaz
-
+        widget.showMaximized() #maximizamos la ventana
         #inicializacion de variables
         self.nombreUser = nombreUser
         self.proyectos = []

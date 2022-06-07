@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
+    <width>1289</width>
     <height>725</height>
    </rect>
   </property>
@@ -135,7 +135,7 @@
             <property name="geometry">
              <rect>
               <x>30</x>
-              <y>30</y>
+              <y>50</y>
               <width>441</width>
               <height>81</height>
              </rect>
@@ -150,7 +150,7 @@ background-color: rgba(0,0,0,0);
 border-radius:20;</string>
             </property>
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:28pt; font-weight:600;&quot;&gt;Proyectos&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:48pt; font-weight:600;&quot;&gt;Proyectos&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -160,9 +160,9 @@ border-radius:20;</string>
             <property name="geometry">
              <rect>
               <x>30</x>
-              <y>120</y>
+              <y>160</y>
               <width>1211</width>
-              <height>491</height>
+              <height>441</height>
              </rect>
             </property>
             <property name="styleSheet">
@@ -285,8 +285,8 @@ font: 12pt &quot;Verdana&quot;;</string>
            <widget class="QLabel" name="name">
             <property name="geometry">
              <rect>
-              <x>940</x>
-              <y>50</y>
+              <x>810</x>
+              <y>10</y>
               <width>291</width>
               <height>61</height>
              </rect>
@@ -303,9 +303,9 @@ border-radius:20;</string>
            <widget class="QLabel" name="label_2">
             <property name="geometry">
              <rect>
-              <x>660</x>
-              <y>50</y>
-              <width>281</width>
+              <x>590</x>
+              <y>10</y>
+              <width>211</width>
               <height>61</height>
              </rect>
             </property>
@@ -331,10 +331,10 @@ border-radius:20;</string>
             </property>
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>110</y>
+              <x>400</x>
+              <y>20</y>
               <width>421</width>
-              <height>551</height>
+              <height>641</height>
              </rect>
             </property>
             <property name="styleSheet">
@@ -398,7 +398,7 @@ font: 75 16pt &quot;Verdana&quot;;</string>
              <property name="geometry">
               <rect>
                <x>90</x>
-               <y>480</y>
+               <y>570</y>
                <width>111</width>
                <height>31</height>
               </rect>
@@ -497,7 +497,7 @@ border-radius:10px;</string>
              <property name="geometry">
               <rect>
                <x>210</x>
-               <y>480</y>
+               <y>570</y>
                <width>111</width>
                <height>31</height>
               </rect>
@@ -513,11 +513,26 @@ border-radius:13px;</string>
             <widget class="QPushButton" name="calendarbtn_2">
              <property name="geometry">
               <rect>
-               <x>170</x>
-               <y>380</y>
-               <width>71</width>
-               <height>61</height>
+               <x>160</x>
+               <y>370</y>
+               <width>81</width>
+               <height>71</height>
               </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: center;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(204, 204, 204, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
              </property>
              <property name="text">
               <string/>
@@ -549,6 +564,122 @@ border-radius:13px;</string>
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
+            <widget class="QLabel" name="label_24">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>450</y>
+               <width>281</width>
+               <height>61</height>
+              </rect>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 0, 0);
+background-color: rgba(0,0,0,0);
+border-radius:20;
+font: 75 16pt &quot;Verdana&quot;;</string>
+             </property>
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Dias no laborales&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="miercolesBox">
+             <property name="geometry">
+              <rect>
+               <x>130</x>
+               <y>510</y>
+               <width>41</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>M</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="martesBox">
+             <property name="geometry">
+              <rect>
+               <x>80</x>
+               <y>510</y>
+               <width>41</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>M</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="viernesBox">
+             <property name="geometry">
+              <rect>
+               <x>220</x>
+               <y>510</y>
+               <width>41</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>V</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="lunesBox">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>510</y>
+               <width>41</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>L</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="juevesBox">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>510</y>
+               <width>31</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>J</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="sabadoBox">
+             <property name="geometry">
+              <rect>
+               <x>270</x>
+               <y>510</y>
+               <width>31</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>S</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="domingoBox">
+             <property name="geometry">
+              <rect>
+               <x>320</x>
+               <y>510</y>
+               <width>31</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>D</string>
+             </property>
+            </widget>
            </widget>
            <widget class="QWidget" name="editarp" native="true">
             <property name="enabled">
@@ -556,10 +687,10 @@ border-radius:13px;</string>
             </property>
             <property name="geometry">
              <rect>
-              <x>390</x>
-              <y>110</y>
+              <x>400</x>
+              <y>20</y>
               <width>421</width>
-              <height>551</height>
+              <height>641</height>
              </rect>
             </property>
             <property name="styleSheet">
@@ -623,7 +754,7 @@ font: 75 16pt &quot;Verdana&quot;;</string>
              <property name="geometry">
               <rect>
                <x>90</x>
-               <y>490</y>
+               <y>570</y>
                <width>111</width>
                <height>31</height>
               </rect>
@@ -722,7 +853,7 @@ border-radius:10px;</string>
              <property name="geometry">
               <rect>
                <x>210</x>
-               <y>490</y>
+               <y>570</y>
                <width>111</width>
                <height>31</height>
               </rect>
@@ -738,11 +869,26 @@ border-radius:13px;</string>
             <widget class="QPushButton" name="calendarbtn">
              <property name="geometry">
               <rect>
-               <x>160</x>
-               <y>380</y>
+               <x>170</x>
+               <y>360</y>
                <width>81</width>
-               <height>61</height>
+               <height>71</height>
               </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: center;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(204, 204, 204, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
              </property>
              <property name="text">
               <string/>
@@ -772,6 +918,122 @@ border-radius:13px;</string>
              </property>
              <property name="text">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_18">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>450</y>
+               <width>281</width>
+               <height>61</height>
+              </rect>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(0, 0, 0);
+background-color: rgba(0,0,0,0);
+border-radius:20;
+font: 75 16pt &quot;Verdana&quot;;</string>
+             </property>
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Dias no laborales&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="lunesBox_3">
+             <property name="geometry">
+              <rect>
+               <x>30</x>
+               <y>510</y>
+               <width>41</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>L</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="martesBox_3">
+             <property name="geometry">
+              <rect>
+               <x>80</x>
+               <y>510</y>
+               <width>41</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>M</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="miercolesBox_3">
+             <property name="geometry">
+              <rect>
+               <x>130</x>
+               <y>510</y>
+               <width>41</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>M</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="viernesBox_3">
+             <property name="geometry">
+              <rect>
+               <x>220</x>
+               <y>510</y>
+               <width>41</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>V</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="domingoBox_3">
+             <property name="geometry">
+              <rect>
+               <x>320</x>
+               <y>510</y>
+               <width>31</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>D</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="juevesBox_3">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>510</y>
+               <width>31</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>J</string>
+             </property>
+            </widget>
+            <widget class="QCheckBox" name="sabadoBox_3">
+             <property name="geometry">
+              <rect>
+               <x>270</x>
+               <y>510</y>
+               <width>31</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>S</string>
              </property>
             </widget>
            </widget>
@@ -875,14 +1137,24 @@ border-radius:13px;</string>
              <rect>
               <x>1064</x>
               <y>620</y>
-              <width>161</width>
+              <width>141</width>
               <height>51</height>
              </rect>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgba(0,0, 0, 0);
-font: 14pt &quot;Verdana&quot;;
-color: rgb(188, 188, 188);</string>
+             <string notr="true">QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: left;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(10, 10, 10, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
             </property>
             <property name="text">
              <string>Agregar</string>
@@ -905,7 +1177,7 @@ color: rgb(188, 188, 188);</string>
             <property name="geometry">
              <rect>
               <x>830</x>
-              <y>170</y>
+              <y>200</y>
               <width>421</width>
               <height>361</height>
              </rect>
@@ -996,6 +1268,96 @@ border-radius:13px;</string>
              </property>
             </widget>
            </widget>
+           <widget class="QPushButton" name="botoFERIADO">
+            <property name="geometry">
+             <rect>
+              <x>900</x>
+              <y>620</y>
+              <width>151</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: left;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(10, 10, 10, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Feriados</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>vacaciones.png</normaloff>vacaciones.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="pushButton_4">
+            <property name="geometry">
+             <rect>
+              <x>1150</x>
+              <y>70</y>
+              <width>51</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: left;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(10, 10, 10, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>buscar (2).png</normaloff>buscar (2).png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="lineEdit">
+            <property name="geometry">
+             <rect>
+              <x>600</x>
+              <y>80</y>
+              <width>531</width>
+              <height>41</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-radius:10px;
+font: 18pt &quot;Verdana&quot;; color :rgb(255, 255, 255);
+background-color: rgba(87, 165, 159, 80);
+border-radius:10px;</string>
+            </property>
+           </widget>
+           <zorder>lineEdit</zorder>
            <zorder>tableWidget</zorder>
            <zorder>label</zorder>
            <zorder>name</zorder>
@@ -1003,8 +1365,10 @@ border-radius:13px;</string>
            <zorder>eliminar</zorder>
            <zorder>botoMAS</zorder>
            <zorder>calendarioW</zorder>
-           <zorder>crp</zorder>
+           <zorder>botoFERIADO</zorder>
+           <zorder>pushButton_4</zorder>
            <zorder>editarp</zorder>
+           <zorder>crp</zorder>
           </widget>
          </item>
         </layout>

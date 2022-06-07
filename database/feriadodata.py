@@ -15,7 +15,7 @@ with connection:
     """)
 
 def create_feriado(fecha):
-    fechaAux = fecha.split("-")
+    fechaAux = fecha.split("-") 
     fechaAux = fechaAux[1] + "-" + fechaAux[2]
     if(in_feriados(fechaAux)):
         return "404"

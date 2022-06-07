@@ -1,3 +1,4 @@
+from calendar import weekday
 from pyvis.network import Network
 
 
@@ -20,7 +21,8 @@ class Proyecto:
         self.nombre = nombre
         self.descripcion = descripcion
         self.fechaInicio = fechaInicio
-        self.fechaFin = fechaFin
+        self.fechaFin = date.fromisoformat(fechaInicio) + timedelta(days = 365) if fechaFin == 0 else fechaFin
+        
         
         self.actividades = []   # Lista vacia para rellenar en el proceso
         self.relaciones = []
@@ -69,7 +71,11 @@ class Proyecto:
         """Trae los cambios desde la base de datos al programa"""
 
         self.actividades = []
-        for act in get_actividades(self.identificador):     # Rellena la lista de actividades de un proyecto.   
+        for act in get_actividades(self.identificador):     # Rellena la lista de actividades de un proyecto.
+            act.fechaInicioTemprano = ''
+            act.fechaFinTemprano = ''
+            act.fechaInicioTardio = ''
+            act.fechaFinTardio = ''
             self.actividades.append(act)
 
         self.relaciones = []
@@ -85,14 +91,23 @@ class Proyecto:
         
         self.feriados = get_feriados_date()     # Recupera los feriados de la base de datos
 
-        for i in range(0,365):                  # Para cada día desde hoy hasta un año posterior
+        for i in range(0,364):                  # Para cada día desde hoy hasta un año posterior
             dia = date.fromisoformat(self.fechaInicio) + timedelta(days = i)  # Dias del año en date
             if(date.weekday(dia) not in self.noLaborales and   # Si ese día no es un dia no laboral o un feriado
                 sin_anho(dia) not in self.feriados):
 
                 self.dias_laborales.append(date.isoformat(dia))    # Se añaden a dias_laborales
+        try:
+            self.calculo_Tardio(self.nodo_inicio())
+            nodos_finales = [{"actividad" : act, "fechafin" : act.fechaFinTardio} for act in self.actividades if not act.siguientes]
             
-
+            nodos_finales = sorted(nodos_finales, reverse = True, key = lambda d: d['fechafin'])
+            for nodo in nodos_finales:
+                self.final = nodo["actividad"]
+                self.calculo_Temprano(self.final)
+            self.actividades_criticas()
+        except:
+            pass
         
     def nodo_inicio(self):
         """Calcular con qué nodo empieza el camino"""
@@ -129,7 +144,7 @@ class Proyecto:
         else:
             precs = [act for act in self.actividades if act.identificador in actividad.precedentes]
             for precedente in precs:
-                if precedente.fechaFinTemprano == "" or precedente.fechaFinTemprano == None or date.fromisoformat(precedente.fechaFinTemprano) >= date.fromisoformat(actividad.fechaInicioTemprano) :
+                if precedente.fechaFinTemprano == "" or precedente.fechaFinTemprano == None or date.fromisoformat(precedente.fechaFinTemprano) >= date.fromisoformat(actividad.fechaInicioTemprano):
                     precedente.fechaFinTemprano = actividad.fechaInicioTemprano
                     precedente.fechaInicioTemprano = self.dias_laborales[self.dias_laborales.index(precedente.fechaFinTemprano) - precedente.duracion]
                 self.calculo_Temprano(precedente)
@@ -160,9 +175,9 @@ class Proyecto:
         print(colores)
         for i in range(len(nombres)):
             if colores[i] == "#00ff1e":
-                g.add_node(nombres[i], label = identificadores[i], title = nombres[i], color = colores[i])
+                g.add_node(nombres[i], label = str(i+1), title = nombres[i], color = colores[i])
             else:
-                g.add_node(nombres[i], label = identificadores[i], title = nombres[i])
+                g.add_node(nombres[i], label = str(i+1), title = nombres[i])
         g.add_edges(relsnombres)
         g.show("tmp.html")
 
@@ -180,12 +195,10 @@ class Proyecto:
         
         arr = np.asarray(matrix)
         pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Tarea', 'Inicio', 'Fin', 'Duracion', 'Critico'])
+        pd.DataFrame(arr).to_excel(f'{self.nombre}.xlsx', header  = ['Tarea', 'Inicio', 'Fin', 'Duracion', 'Critico'])
 
 
-    # def calcularFechaFin(self):
-    #     update_fecha_fin(self.identificador, self.fechaFin)
-        
-
+   
         
 
 ###################     Funciones externas referidas a proyecto

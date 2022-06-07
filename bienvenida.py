@@ -546,34 +546,46 @@ class ventanaActividades(QDialog):
 
     #función para desrelacionar dos actividades en la base de datos
     def desrelacionar(self):
-        relaciones = get_relaciones(self.id_proyecto) #obtenemos las relaciones de la base de datos
-        index = self.relacion_box.currentIndex() #obtenemos el indice de la relacion actual
-        id = relaciones[index].identificador #obtenemos el id de la relacion actual
-        delete_relacion(id, self.id_proyecto) #eliminamos la relacion de la base de datos
-        self.loadData() #actualizamos la tabla
-        self.desrelacionar_w.hide() #ocultamos el popup
+        try: 
+            relaciones = get_relaciones(self.id_proyecto) #obtenemos las relaciones de la base de datos
+            index = self.relacion_box.currentIndex() #obtenemos el indice de la relacion actual
+            id = relaciones[index].identificador #obtenemos el id de la relacion actual
+            delete_relacion(id, self.id_proyecto) #eliminamos la relacion de la base de datos
+            self.loadData() #actualizamos la tabla
+            self.desrelacionar_w.hide() #ocultamos el popup
+        except:
+            error("Error al desrelacionar") #mostramos un error
     
     #funcion para mostrar el grafo de actividades
     def verGrafo(self):
-        proy = get_proyecto_by_id(self.id_proyecto) #obtenemos el proyecto actual
-        proy.actualizar_bd() #actualizamos la base de datos
-        proy.mostrar_grafo() #mostramos el grafo
+        try:
+            proy = get_proyecto_by_id(self.id_proyecto) #obtenemos el proyecto actual
+            proy.actualizar_bd() #actualizamos la base de datos
+            proy.mostrar_grafo() #mostramos el grafo
+        except:
+            error("Error al mostrar el grafo")
 
     #funcion para mostrar el diagrama de Gantt
     def verDiagrama(self):
-        proy = get_proyecto_by_id(self.id_proyecto) #obtenemos el proyecto actual
-        proy.actualizar_bd() #actualizamos la base de datos
-        proy.actualizarCsv() #actualizamos el excel
-        mostrar_gantt() #mostramos el diagrama de Gantt
-    
+        try:
+            proy = get_proyecto_by_id(self.id_proyecto) #obtenemos el proyecto actual
+            proy.actualizar_bd() #actualizamos la base de datos
+            proy.actualizarCsv() #actualizamos el excel
+            mostrar_gantt() #mostramos el diagrama de Gantt
+        except:
+            error("Error al mostrar el diagrama de Gantt")
+
     #funcion para calcular el camino de las actividades
     def calcularCamino(self):
-        proy = get_proyecto_by_id(self.id_proyecto) #obtenemos el proyecto actual
-        proy.actualizar_bd() #actualizamos la base de datos
-        proy.actualizarCsv() #actualizamos el excel
-        modify_proyecto(self.id_proyecto, proy) #actualizamos el proyecto en la base de datos
-        self.loadData() #actualizamos la tabla
-    
+        try: 
+            proy = get_proyecto_by_id(self.id_proyecto) #obtenemos el proyecto actual
+            proy.actualizar_bd() #actualizamos la base de datos
+            proy.actualizarCsv() #actualizamos el excel
+            modify_proyecto(self.id_proyecto, proy) #actualizamos el proyecto en la base de datos
+            self.loadData() #actualizamos la tabla
+        except:
+            error("Error al calcular el camino")
+            
     #funcion para volver a la ventana de proyectos
     def volver(self):
         ventana = ventanaProyectos(self.nombreUser) #creamos una nueva clase ventana

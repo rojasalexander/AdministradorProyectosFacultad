@@ -159,7 +159,18 @@ class Proyecto:
 
 
         g = Network(directed=True)
-        g.add_nodes([a.nombre for a in self.actividades])
+        nombres = [a.nombre for a in self.actividades]
+        identificadores = [a.identificador for a in self.actividades]
+        identificadores = list(map(str,identificadores))
+        colores = ["#00ff1e" if a.critico else '' for a in self.actividades ]
+
+        print(nombres)
+        print(colores)
+        for i in range(len(nombres)):
+            if colores[i] == "#00ff1e":
+                g.add_node(nombres[i], label = identificadores[i], title = nombres[i], color = colores[i])
+            else:
+                g.add_node(nombres[i], label = identificadores[i], title = nombres[i])
         g.add_edges(relsnombres)
         #g.show_buttons(filter_=True)
         g.show("tmp.html")

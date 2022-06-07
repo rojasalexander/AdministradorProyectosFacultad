@@ -43,7 +43,7 @@ class ventanaProyectos(QDialog):
         self.eliminar.hide()
         self.calendarioW.hide()
 
-        widget.move(300, 100) #mover la ventana 
+        widget.move(0, 0) #mover la ventana 
         
         #ajustamos el tamaño de las columnas de la tabla
         header = self.tableWidget.horizontalHeader()       
@@ -286,7 +286,7 @@ class ventanaFeriados(QDialog):
         self.calendarioW.hide()
         self.eliminar.hide()
 
-        widget.move(300, 100) #posicionamos la ventana 
+        widget.move(0, 0) #posicionamos la ventana 
         
         #relacionamos los botones con sus funciones correspondientes
         self.botoMAS.clicked.connect(self.aggPopUp)
@@ -384,7 +384,7 @@ class ventanaActividades(QDialog):
         self.relacionar_w.hide()
         self.desrelacionar_w.hide()
         
-        widget.move(300, 100) #movemos la ventana a la posicion deseada
+        widget.move(0, 0) #movemos la ventana a la posicion deseada
 
         #relacionamos los botones con sus funciones correspondientes
         self.agregarActiBtn.clicked.connect(self.crearPopup)
@@ -427,7 +427,7 @@ class ventanaActividades(QDialog):
             self.tableWidget.item(i, 2).setForeground(QBrush(QColor(213, 213, 213)))
             self.tableWidget.setItem(i, 3, QtWidgets.QTableWidgetItem(str(self.actividades[i].fechaFinTardio)))
             self.tableWidget.item(i, 3).setForeground(QBrush(QColor(213, 213, 213)))
-            self.tableWidget.setItem(i, 4, QtWidgets.QTableWidgetItem(str(self.actividades[i].critico)))
+            self.tableWidget.setItem(i, 4, QtWidgets.QTableWidgetItem("Si" if (self.actividades[i].critico) else "No"))
             self.tableWidget.item(i, 4).setForeground(QBrush(QColor(213, 213, 213)))
 
             #establecemos los botones de acciones de cada fila

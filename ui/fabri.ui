@@ -119,7 +119,7 @@ color: rgb(255, 255, 255);</string>
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>../icons/user (2).png</normaloff>../icons/user (2).png</iconset>
+           <normaloff>../ui/user (2).png</normaloff>../ui/user (2).png</iconset>
          </property>
          <property name="iconSize">
           <size>

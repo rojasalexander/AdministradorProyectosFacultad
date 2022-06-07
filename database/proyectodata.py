@@ -33,7 +33,7 @@ def get_proyectos():
     """Devuelve un array de tuplas con todos los proyectos"""
     cur.execute("SELECT * FROM proyectos")
     aux = cur.fetchall()
-    #print(aux)
+    print(aux)
     if (len(aux) != 0):
         return list(map(
             lambda proyecto: 
@@ -113,7 +113,7 @@ def modify_proyecto(id, proy: Proyecto):
                 "nombre": proy.nombre, 
                 "fecha": proy.fechaInicio,
                 "descripcion": proy.descripcion,
-                "fechaFin": fechaFin,
+                "fechaFin": proy.fechaFin,
                 "noLaborales": noLab
             }
         )

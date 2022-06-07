@@ -21,7 +21,8 @@ class Proyecto:
         self.nombre = nombre
         self.descripcion = descripcion
         self.fechaInicio = fechaInicio
-        self.fechaFin = fechaFin
+        self.fechaFin = date.fromisoformat(fechaInicio) + timedelta(days = 365) if fechaFin == 0 else fechaFin
+        
         
         self.actividades = []
         self.relaciones = []
@@ -181,8 +182,8 @@ class Proyecto:
         pd.DataFrame(arr).to_csv('data.csv', index_label = "Index", header  = ['Tarea', 'Inicio', 'Fin', 'Duracion', 'Critico'])
 
 
-    def calcularFechaFin(self):
-        update_fecha_fin(self.identificador, self.fechaFin)
+   
+        
         
 
         

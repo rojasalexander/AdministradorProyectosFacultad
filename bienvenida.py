@@ -81,13 +81,15 @@ class ventanaProyectos(QDialog):
         self.proyectos = buscar_proyectos(busqueda)
         self.tableWidget.setRowCount(len(self.proyectos))
         for i in range(len(self.proyectos)):
+            self.proyectos[i].imprimir_proyecto()
             self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(self.proyectos[i].nombre))
             self.tableWidget.item(i, 0).setForeground(QBrush(QColor(213, 213, 213)))
             self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(self.proyectos[i].descripcion))
             self.tableWidget.item(i, 1).setForeground(QBrush(QColor(213, 213, 213)))
             self.tableWidget.setItem(i, 2, QtWidgets.QTableWidgetItem(self.proyectos[i].fechaInicio))
             self.tableWidget.item(i, 2).setForeground(QBrush(QColor(213, 213, 213)))
-            self.tableWidget.setItem(i, 3, QtWidgets.QTableWidgetItem(self.proyectos[i].fechaFin))
+            fechaFin = (self.proyectos[i].fechaFin)
+            self.tableWidget.setItem(i, 3, QtWidgets.QTableWidgetItem(fechaFin))
             self.tableWidget.item(i, 3).setForeground(QBrush(QColor(213, 213, 213)))
             
             btnActi = QPushButton(self.tableWidget)
@@ -499,6 +501,7 @@ class ventanaActividades(QDialog):
         proy = get_proyecto_by_id(self.id_proyecto)
         proy.actualizar_bd()
         proy.actualizarCsv()
+        modify_proyecto(self.id_proyecto, proy)
         self.loadData()
     
     def volver(self):

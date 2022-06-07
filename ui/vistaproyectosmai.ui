@@ -513,11 +513,26 @@ border-radius:13px;</string>
             <widget class="QPushButton" name="calendarbtn_2">
              <property name="geometry">
               <rect>
-               <x>170</x>
-               <y>380</y>
-               <width>71</width>
-               <height>61</height>
+               <x>160</x>
+               <y>370</y>
+               <width>81</width>
+               <height>71</height>
               </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: center;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(204, 204, 204, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
              </property>
              <property name="text">
               <string/>
@@ -854,11 +869,26 @@ border-radius:13px;</string>
             <widget class="QPushButton" name="calendarbtn">
              <property name="geometry">
               <rect>
-               <x>160</x>
-               <y>380</y>
+               <x>170</x>
+               <y>360</y>
                <width>81</width>
-               <height>61</height>
+               <height>71</height>
               </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: center;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(204, 204, 204, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
              </property>
              <property name="text">
               <string/>
@@ -1107,14 +1137,24 @@ border-radius:13px;</string>
              <rect>
               <x>1064</x>
               <y>620</y>
-              <width>161</width>
+              <width>141</width>
               <height>51</height>
              </rect>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgba(0,0, 0, 0);
-font: 14pt &quot;Verdana&quot;;
-color: rgb(188, 188, 188);</string>
+             <string notr="true">QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: left;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(10, 10, 10, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
             </property>
             <property name="text">
              <string>Agregar</string>
@@ -1233,14 +1273,24 @@ border-radius:13px;</string>
              <rect>
               <x>900</x>
               <y>620</y>
-              <width>161</width>
+              <width>151</width>
               <height>51</height>
              </rect>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgba(0,0, 0, 0);
-font: 14pt &quot;Verdana&quot;;
-color: rgb(188, 188, 188);</string>
+             <string notr="true">QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: left;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(10, 10, 10, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
             </property>
             <property name="text">
              <string>Feriados</string>
@@ -1259,16 +1309,26 @@ color: rgb(188, 188, 188);</string>
            <widget class="QPushButton" name="pushButton_4">
             <property name="geometry">
              <rect>
-              <x>1140</x>
+              <x>1150</x>
               <y>70</y>
-              <width>75</width>
+              <width>51</width>
               <height>51</height>
              </rect>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgba(0,0, 0, 0);
-font: 14pt &quot;Verdana&quot;;
-color: rgb(188, 188, 188);</string>
+             <string notr="true">QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: left;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(10, 10, 10, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
             </property>
             <property name="icon">
              <iconset>
@@ -1307,8 +1367,8 @@ border-radius:10px;</string>
            <zorder>calendarioW</zorder>
            <zorder>botoFERIADO</zorder>
            <zorder>pushButton_4</zorder>
-           <zorder>crp</zorder>
            <zorder>editarp</zorder>
+           <zorder>crp</zorder>
           </widget>
          </item>
         </layout>

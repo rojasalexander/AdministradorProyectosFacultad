@@ -322,9 +322,19 @@ border-radius:13px;</string>
              </rect>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgba(0,0, 0, 0);
-font: 14pt &quot;Verdana&quot;;
-color: rgb(188, 188, 188);</string>
+             <string notr="true">QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: center;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(10, 10, 10, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
             </property>
             <property name="text">
              <string>Agregar</string>
@@ -443,14 +453,24 @@ border-radius:13px;</string>
              <rect>
               <x>10</x>
               <y>10</y>
-              <width>161</width>
+              <width>151</width>
               <height>51</height>
              </rect>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgba(0,0, 0, 0);
-font: 14pt &quot;Verdana&quot;;
-color: rgb(188, 188, 188);</string>
+             <string notr="true">QPushButton{
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+text-align: center;
+background-color: rgba(0, 0, 0, 0);
+}
+
+QPushButton:hover{
+background-color: rgba(10, 10, 10, 120);
+color: rgb(213, 213, 213);
+font: 75 12pt &quot;Verdana&quot;;
+border-radius: 15px;
+}</string>
             </property>
             <property name="text">
              <string>Volver</string>

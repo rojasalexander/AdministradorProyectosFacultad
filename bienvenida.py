@@ -528,18 +528,21 @@ class ventanaActividades(QDialog):
         relaciones = get_relaciones(self.id_proyecto) #obtenemos las relaciones de la base de datos
 
         #rellenamos el campo con las relaciones
-        for relacion in relaciones:
-            anterior = get_actividad_by_id(relacion.actividadPrecedente, self.id_proyecto) #obtenemos la actividad anterior
-            siguiente = get_actividad_by_id(relacion.actividadSiguiente, self.id_proyecto) #obtenemos la actividad siguiente
+        try:
+            for relacion in relaciones:
+                anterior = get_actividad_by_id(relacion.actividadPrecedente, self.id_proyecto) #obtenemos la actividad anterior
+                siguiente = get_actividad_by_id(relacion.actividadSiguiente, self.id_proyecto) #obtenemos la actividad siguiente
 
-            #obtenemos los indices de las activiades relacionadas
-            for i in range(len(self.actividades)):
-                if self.actividades[i].identificador == anterior.identificador:
-                    anteriorIndex = i+1 #indice de la actividad anterior
-                if self.actividades[i].identificador == siguiente.identificador:
-                    siguienteIndex = i+1 #indice de la actividad siguiente
+                #obtenemos los indices de las activiades relacionadas
+                for i in range(len(self.actividades)):
+                    if self.actividades[i].identificador == anterior.identificador:
+                        anteriorIndex = i+1 #indice de la actividad anterior
+                    if self.actividades[i].identificador == siguiente.identificador:
+                        siguienteIndex = i+1 #indice de la actividad siguiente
 
-            self.relacion_box.addItem(f"{anteriorIndex} -> {siguienteIndex}") #mostramos la relacion
+                self.relacion_box.addItem(f"{anteriorIndex} -> {siguienteIndex}") #mostramos la relacion
+        except:
+            error("No hay relaciones en la base de datos") #mostramos un error si no hay relaciones
 
     #función para desrelacionar dos actividades en la base de datos
     def desrelacionar(self):

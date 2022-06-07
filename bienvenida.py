@@ -144,7 +144,6 @@ class ventanaProyectos(QDialog):
         if self.domingoBox.isChecked():
             diasNoLaborales.append(6)
         
-        print("Diasnolaborales: ", diasNoLaborales)
         newProyecto = Proyecto(self.nom.text(), self.des.text(), self.fechaInicio, noLaborales=diasNoLaborales)
         create_proyecto(newProyecto)
         self.loadData()

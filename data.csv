@@ -1,9 +1,4 @@
 Index,Tarea,Inicio,Fin,Duracion,Critico
-<<<<<<< HEAD
-0,Inicio,2022-06-06,2022-06-06,0,Y
-1,Fin,2022-06-10,2022-06-10,0,Y
-2,Medio,2022-06-06,2022-06-10,3,Y
-=======
 0,Desocupar,2022-06-06,2022-06-15,7,Y
 1,Reparaciones,2022-06-15,2022-07-06,15,Y
 2,Tasacion e investigacion,2022-06-24,2022-07-05,7,N
@@ -15,6 +10,3 @@ Index,Tarea,Inicio,Fin,Duracion,Critico
 8,Mantenimiento2,,,1,N
 9,Mantenimiento3,2022-10-05,2022-10-06,1,Y
 10,Firma de venta,2022-10-05,2022-10-06,1,Y
-11,Inicio,2022-06-06,2022-06-06,0,Y
-12,Fin,2022-10-06,2022-10-06,0,Y
->>>>>>> 92d93a0a98559c31ac7d77800faf9890eeac6e6e

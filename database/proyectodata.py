@@ -85,7 +85,7 @@ def get_proyecto_by_id(id):
             aux[2], 
             aux[4],
             identificador=aux[0],
-            noLaborales= list(map(lambda x: int(x), aux[5].split("")))
+            noLaborales= list(map(lambda x: int(x), list(aux[5])))
             )
 
 def delete_proyecto(id):

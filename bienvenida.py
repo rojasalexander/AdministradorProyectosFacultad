@@ -147,6 +147,9 @@ class ventanaProyectos(QDialog):
         print("Diasnolaborales: ", diasNoLaborales)
         newProyecto = Proyecto(self.nom.text(), self.des.text(), self.fechaInicio, noLaborales=diasNoLaborales)
         create_proyecto(newProyecto)
+        proyectos = get_proyectos()
+        create_actividad(Actividad('Inicio', 0), proyectos[-1].identificador)
+        create_actividad(Actividad('Fin', 0), proyectos[-1].identificador)
         self.loadData()
         self.crp.hide()
     

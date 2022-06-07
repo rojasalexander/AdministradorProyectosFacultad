@@ -21,6 +21,7 @@ class Actividad:
         self.fechaFinTardio = fechaFinTardio
 
         self.precedentes = []
+        self.siguientes = []
 
         self.critico = critico
         # self.completado = False

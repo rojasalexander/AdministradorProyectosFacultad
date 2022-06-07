@@ -198,7 +198,7 @@ class ventanaProyectos(QDialog):
 
     def ventanaActi(self, indice):
         self.currentProyecto = self.proyectos[indice]
-        ventana3 = ventanaActividades(self.nombreUser, self.currentProyecto.identificador, self.currentProyecto.nombre)
+        ventana3 = ventanaActividades(self.nombreUser, self.currentProyecto)
         widget.addWidget(ventana3)  #para el cambio de ventanas
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
@@ -324,12 +324,13 @@ class ventanaFeriados(QDialog):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
 class ventanaActividades(QDialog):
-    def __init__(self, nombreUser, id_proyecto, nom_proyecto):
+    def __init__(self, nombreUser, proyecto: Proyecto):
         super(ventanaActividades, self).__init__()
         loadUi('ui/abrirMAIA.ui', self)
+        self.proyecto = proyecto
         self.nombreUser = nombreUser
-        self.proy_name.setText(nom_proyecto)
-        self.id_proyecto = id_proyecto
+        self.proy_name.setText(proyecto.nombre)
+        self.id_proyecto = proyecto.identificador
         self.actividades = []
         self.currentActividad = {}
         self.crear_act.hide()
@@ -434,7 +435,7 @@ class ventanaActividades(QDialog):
 
     def delete(self):
         id = self.currentActividad.identificador
-        delete_actividad(id, self.id_proyecto)
+        delete_actividad(id, self.proyecto)
         self.eliminar.hide()
         self.loadData()
 
@@ -466,12 +467,15 @@ class ventanaActividades(QDialog):
         self.relacion_box.clear()
         relaciones = get_relaciones(self.id_proyecto)
 
-        for relacion in relaciones:
-            anterior = get_actividad_by_id(relacion.actividadPrecedente, self.id_proyecto)
-            siguiente = get_actividad_by_id(relacion.actividadSiguiente, self.id_proyecto)
-            nomAnterior = anterior.nombre
-            nomSiguiente = siguiente.nombre
-            self.relacion_box.addItem(f"{nomAnterior} -> {nomSiguiente}")
+        try:
+            for relacion in relaciones:
+                anterior = get_actividad_by_id(relacion.actividadPrecedente, self.id_proyecto)
+                siguiente = get_actividad_by_id(relacion.actividadSiguiente, self.id_proyecto)
+                nomAnterior = anterior.nombre
+                nomSiguiente = siguiente.nombre
+                self.relacion_box.addItem(f"{nomAnterior} -> {nomSiguiente}")
+        except:
+            print("Error")
         
     def desrelacionar(self): #esta funcion desrelaciona dos actividades con tal algoritmo
         relaciones = get_relaciones(self.id_proyecto)

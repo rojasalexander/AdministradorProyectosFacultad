@@ -23,12 +23,6 @@
         
 
         
-        #config {
-            float: left;
-            width: 400px;
-            height: 600px;
-        }
-        
 
         
 </style>
@@ -38,8 +32,6 @@
 <body>
 <div id = "mynetwork"></div>
 
-
-<div id = "config"></div>
 
 <script type="text/javascript">
 
@@ -58,16 +50,20 @@
         
 
         // parsing and collecting nodes and edges from the python
+<<<<<<< HEAD
         nodes = new vis.DataSet([{"id": "Inicio", "label": "Inicio", "shape": "dot"}, {"id": "Fin", "label": "Fin", "shape": "dot"}, {"id": "Medio", "label": "Medio", "shape": "dot"}]);
         edges = new vis.DataSet([{"arrows": "to", "from": "Inicio", "to": "Medio"}, {"arrows": "to", "from": "Medio", "to": "Fin"}]);
+=======
+        nodes = new vis.DataSet([{"id": "Desocupar", "label": "Desocupar", "shape": "dot"}, {"id": "Reparaciones", "label": "Reparaciones", "shape": "dot"}, {"id": "Tasacion e investigacion", "label": "Tasacion e investigacion", "shape": "dot"}, {"id": "Precio de venta", "label": "Precio de venta", "shape": "dot"}, {"id": "Anunciar y mostrar", "label": "Anunciar y mostrar", "shape": "dot"}, {"id": "Cliente y conceder opcion", "label": "Cliente y conceder opcion", "shape": "dot"}, {"id": "Completar financiacion", "label": "Completar financiacion", "shape": "dot"}, {"id": "Mantenimiento1", "label": "Mantenimiento1", "shape": "dot"}, {"id": "Mantenimiento2", "label": "Mantenimiento2", "shape": "dot"}, {"id": "Mantenimiento3", "label": "Mantenimiento3", "shape": "dot"}, {"id": "Firma de venta", "label": "Firma de venta", "shape": "dot"}, {"id": "Inicio", "label": "Inicio", "shape": "dot"}, {"id": "Fin", "label": "Fin", "shape": "dot"}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "Desocupar", "to": "Reparaciones"}, {"arrows": "to", "from": "Desocupar", "to": "Tasacion e investigacion"}, {"arrows": "to", "from": "Tasacion e investigacion", "to": "Precio de venta"}, {"arrows": "to", "from": "Reparaciones", "to": "Anunciar y mostrar"}, {"arrows": "to", "from": "Precio de venta", "to": "Anunciar y mostrar"}, {"arrows": "to", "from": "Anunciar y mostrar", "to": "Cliente y conceder opcion"}, {"arrows": "to", "from": "Cliente y conceder opcion", "to": "Completar financiacion"}, {"arrows": "to", "from": "Desocupar", "to": "Mantenimiento1"}, {"arrows": "to", "from": "Mantenimiento1", "to": "Mantenimiento2"}, {"arrows": "to", "from": "Anunciar y mostrar", "to": "Mantenimiento2"}, {"arrows": "to", "from": "Mantenimiento2", "to": "Mantenimiento3"}, {"arrows": "to", "from": "Completar financiacion", "to": "Mantenimiento3"}, {"arrows": "to", "from": "Completar financiacion", "to": "Firma de venta"}, {"arrows": "to", "from": "Inicio", "to": "Desocupar"}, {"arrows": "to", "from": "Firma de venta", "to": "Fin"}]);
+>>>>>>> 92d93a0a98559c31ac7d77800faf9890eeac6e6e
 
         // adding nodes and edges to the graph
         data = {nodes: nodes, edges: edges};
 
         var options = {
     "configure": {
-        "enabled": true,
-        "filter": true
+        "enabled": false
     },
     "edges": {
         "color": {
@@ -97,10 +93,6 @@
         
         
 
-        
-        // if this network requires displaying the configure window,
-        // put it in its div
-        options.configure["container"] = document.getElementById("config");
         
 
         network = new vis.Network(container, data, options);

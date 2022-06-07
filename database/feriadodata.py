@@ -52,7 +52,6 @@ def in_feriados(fecha):
 
 
 def map_to_feriados(fecha:str):
-    print(fecha)
     fechaAux = fecha.split("-")
-    return date(2001, int(fechaAux[0]), int(fechaAux[1]))
+    return date(2020, int(fechaAux[0]), int(fechaAux[1]))
     

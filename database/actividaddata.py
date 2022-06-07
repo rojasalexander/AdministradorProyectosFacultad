@@ -2,6 +2,7 @@ import sqlite3
 import sys
 sys.path.append('packages')
 from actividad import Actividad
+from relaciondata import *
 
 
 #Establecemos la conexion con la base de datos de proyectos
@@ -112,7 +113,7 @@ el delete busca la fila que cumpla con las condiciones dadas y elimina esa fila,
 en este caso, busca el id de la actividad y el id del proyecto relacionado con 
 esa actividad para poder eliminar la actividad correcta
 """
-def delete_actividad(id, proyecto_id):
+def delete_actividad_2(id, proyecto_id):
     """Pasar el id de la actividad a ser eliminada y el id del proyecto relacionado con esa actividad"""
     with connection:
         cur.execute("""DELETE from actividades 
@@ -164,5 +165,28 @@ def act_max(proyecto_id):
         return True
     return False
 
+def delete_actividad(id, proy):
+    proy.actualizar_bd()
+    actividad = [a for a in proy.actividades if id == a.identificador]
+    print(actividad)
+    if actividad:
+        actividad = actividad[0]
+        
+        
+        for precedente in actividad.precedentes:
+            rel_id = [a.identificador for a in proy.relaciones if 
+                a.actividadPrecedente == precedente and a.actividadSiguiente == actividad.identificador]
+            delete_relacion(rel_id[0], proy.identificador)
+
+        for siguiente in actividad.siguientes:
+            
+            rel_id = [a.identificador for a in proy.relaciones if 
+                a.actividadPrecedente == actividad.identificador and a.actividadSiguiente == siguiente.identificador]
+
+            print(rel_id)
+            delete_relacion(rel_id[0], proy.identificador)
+
+        delete_actividad_2(id, proy.identificador)
+    
 
 connection.commit()

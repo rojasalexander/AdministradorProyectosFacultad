@@ -33,8 +33,8 @@ def get_proyectos():
     """Devuelve un array de tuplas con todos los proyectos"""
     cur.execute("SELECT * FROM proyectos")
     aux = cur.fetchall()
-    print(aux)
-    print(list(aux[0][5]))
+    #print(aux)
+    #print(list(aux[0][5]))
     if (len(aux) != 0):
         return list(map(
             lambda proyecto: 
@@ -53,7 +53,7 @@ def get_proyectos():
 
 def create_proyecto(proy: Proyecto):
     """Recibe el objeto proyecto"""
-    print("".join(str(x) for x in proy.noLaborales))
+    #print("".join(str(x) for x in proy.noLaborales))
     proyecto = (
         proy.nombre, 
         proy.descripcion, 
@@ -69,6 +69,8 @@ def create_proyecto(proy: Proyecto):
     else:
         return "404"
 
+    
+    
 def get_proyecto_by_id(id):
     """Pasar el id del proyecto. Retorna el proyecto"""
     cur.execute("SELECT * FROM proyectos WHERE identificador = :identificador",
@@ -86,7 +88,7 @@ def get_proyecto_by_id(id):
             aux[2], 
             aux[4],
             identificador=aux[0],
-            noLaborales= list(map(lambda x: int(x), aux[5].split("")))
+            noLaborales= list(map(lambda x: int(x), list(aux[5])))
             )
 
 def delete_proyecto(id):

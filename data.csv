@@ -1,14 +1,14 @@
 Index,Tarea,Inicio,Fin,Duracion,Critico
-0,Desocupar,2022-06-06,2022-06-16,7,Y
-1,Reparaciones,2022-06-16,2022-07-07,15,Y
-2,Tasación de investigación,2022-06-27,2022-07-06,7,N
-3,Precio de venta,2022-07-06,2022-07-07,1,N
-4,Anunciar y mostrar,2022-07-07,2022-08-18,30,Y
-5,Cliente y conceder opción,2022-08-18,2022-08-25,5,Y
-6,Completar financiación,2022-08-25,2022-10-06,30,Y
-7,Mantenimiento I,2022-10-04,2022-10-05,1,N
-8,Mantenimiento II,2022-10-05,2022-10-06,1,N
-9,Mantenimiento III,2022-10-06,2022-10-07,1,Y
-10,Firma de venta,2022-10-06,2022-10-07,1,Y
+0,Desocupar,2022-06-06,2022-06-15,7,Y
+1,Reparaciones,2022-06-15,2022-07-06,15,Y
+2,Tasacion e investigacion,2022-06-24,2022-07-05,7,N
+3,Precio de venta,2022-07-05,2022-07-06,1,N
+4,Anunciar y mostrar,2022-07-06,2022-08-17,30,Y
+5,Cliente y conceder opcion,2022-08-17,2022-08-24,5,Y
+6,Completar financiacion,2022-08-24,2022-10-05,30,Y
+7,Mantenimiento1,,,1,N
+8,Mantenimiento2,,,1,N
+9,Mantenimiento3,2022-10-05,2022-10-06,1,Y
+10,Firma de venta,2022-10-05,2022-10-06,1,Y
 11,Inicio,2022-06-06,2022-06-06,0,Y
-12,Fin,2022-10-07,2022-10-07,0,Y
+12,Fin,2022-10-06,2022-10-06,0,Y

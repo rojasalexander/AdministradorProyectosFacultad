@@ -1,16 +1,18 @@
 from pyvis.network import Network
-from actividad import *
-from feriadodata import get_feriados, get_feriados_date
-from relacion import *
-from database.actividaddata import *
-from database.relaciondata import *
-from database.proyectodata import *
+
+
+
 from datetime import *
 import pandas as pd
 import numpy as np
-import networkx as nx
+
 import matplotlib as mp
 from pyvis import *
+
+from actividaddata import *
+
+from relaciondata import *
+from feriadodata import *
 
 class Proyecto:
     def __init__(self, nombre: str, descripcion: str, fechaInicio, fechaFin=0, identificador = 0, noLaborales = [5, 6]) -> None:
@@ -29,6 +31,7 @@ class Proyecto:
         self.noLaborales = noLaborales
         self.feriados = []
         self.dias_laborales = []
+
 
     def imprimir_proyecto(self):
         print(f"""Nombre: {self.nombre}
@@ -71,6 +74,8 @@ class Proyecto:
         for actividad in self.actividades:
             actividad.precedentes = [y.identificador for y in self.actividades if y.identificador in
                 [x.actividadPrecedente for x in self.relaciones if x.actividadSiguiente == actividad.identificador]]
+        for actividad in self.actividades: 
+            actividad.siguientes = [act for act in self.actividades if actividad.identificador in act.precedentes]
         
         self.feriados = get_feriados_date()
 
@@ -94,16 +99,16 @@ class Proyecto:
                 return actividad
 
     def calculo_Tardio(self, actividad):
-        siguientes = [act for act in self.actividades if actividad.identificador in act.precedentes]
+        
 
-        if not siguientes:
+        if not actividad.siguientes:
             self.final = actividad
             self.final.fechaFinTemprano = self.final.fechaFinTardio
             self.final.fechaInicioTemprano = self.dias_laborales[self.dias_laborales.index(actividad.fechaFinTemprano) - actividad.duracion]
             self.fechaFin = self.final.fechaFinTemprano
 
         else:
-            for siguiente in siguientes:
+            for siguiente in actividad.siguientes:
                 if siguiente.fechaInicioTardio == "" or siguiente.fechaInicioTardio == '0' or date.fromisoformat(siguiente.fechaInicioTardio) <= date.fromisoformat(actividad.fechaFinTardio):
                     siguiente.fechaInicioTardio = actividad.fechaFinTardio
                     siguiente.fechaFinTardio = self.dias_laborales[self.dias_laborales.index(siguiente.fechaInicioTardio) + siguiente.duracion]
@@ -156,7 +161,7 @@ class Proyecto:
         g = Network(directed=True)
         g.add_nodes([a.nombre for a in self.actividades])
         g.add_edges(relsnombres)
-        g.show_buttons(filter_=True)
+        #g.show_buttons(filter_=True)
         g.show("tmp.html")
 
         
@@ -198,4 +203,5 @@ def entre_fechas(fechainicio: date, fechafin: date, actual: date):
     return False
 
 def sin_anho(fecha: date):
-    return fecha.replace(year = 2001)
+    #print(fecha)
+    return fecha.replace(year = 2020)

@@ -119,3 +119,5 @@ def menu_proyecto(proy: Proyecto):
         
         elif(x == '4'):
             proy.mostrar_grafo()
+
+print("cantidad de relaciones: ", max_relaciones(8))

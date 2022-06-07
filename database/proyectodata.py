@@ -52,7 +52,6 @@ def get_proyectos():
 
 def create_proyecto(proy: Proyecto):
     """Recibe el objeto proyecto"""
-    #print("".join(str(x) for x in proy.noLaborales))
     proyecto = (
         proy.nombre, 
         proy.descripcion, 

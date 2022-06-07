@@ -24,6 +24,7 @@ class Proyecto:
         self.fechaFin = date.fromisoformat(fechaInicio) + timedelta(days = 365) if fechaFin == 0 else fechaFin
         
         
+        
         self.actividades = []   # Lista vacia para rellenar en el proceso
         self.relaciones = []
 
@@ -199,6 +200,9 @@ class Proyecto:
 
 
    
+        
+        
+
         
 
 ###################     Funciones externas referidas a proyecto
